@@ -31,3 +31,6 @@ httd(dir = ".", port, launch.browser)
 # or run inside an R session
 if (interactive()) servr::httd()
 }
+\references{
+  \url{https://github.com/yihui/servr}
+}

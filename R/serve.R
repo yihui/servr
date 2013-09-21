@@ -14,6 +14,7 @@
 #'   a command line argument \code{-b} was passed to R
 #' @export
 #' @importFrom httpuv runServer
+#' @references \url{https://github.com/yihui/servr}
 #' @examples #' see https://github.com/yihui/servr for command line usage
 #' # or run inside an R session
 #' if (interactive()) servr::httd()

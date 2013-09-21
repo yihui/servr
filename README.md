@@ -3,6 +3,12 @@
 A simple HTTP server to serve files under a given directory based on the
 [**httpuv**](http://cran.r-project.org/package=httpuv) package.
 
+For now, you can install from [RForge](http://www.rforge.net/servr/):
+
+```s
+install.packages('servr', repos = 'http://www.rforge.net/')
+```
+
 This is only a little exercise of mine while I was learning **httpuv**, and
 may not be really useful. To some degree, it is like `python -m
 SimpleHTTPServer` or `python -m http.server`. This package may be used to

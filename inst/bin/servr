@@ -1,0 +1,8 @@
+#!/usr/bin/env Rscript
+
+if (!any(c('-h', '--help') %in% commandArgs(TRUE))) servr::httd()
+
+cat('Usage: servr [options]
+    -h, --help  display usage
+    -b          launch the default web browser
+    -pNNNN      set the port number to NNNN (default: -p4321)\n')

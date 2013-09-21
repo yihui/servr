@@ -35,4 +35,13 @@ Rscript -e 'servr::httd()' -p4000
 Rscript -e 'servr::httd(,4000,TRUE)'
 ```
 
-It is licensed under GPL.
+There is also a shell script under `system.file('bin', package = 'servr')`;
+if it is added to `PATH`, you can simply run
+
+```bash
+servr  # serve the current directory
+servr -b  # launch the browser
+servr -b -p4000  # change port to 4000
+```
+
+This package is licensed under GPL.

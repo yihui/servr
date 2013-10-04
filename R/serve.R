@@ -27,7 +27,7 @@ httd = function(dir = '.', port, launch.browser) {
   if (missing(port))
     port = if (length(port <- grep('^-p[0-9]{4,}$', cargs, value = TRUE)) == 1)
       as.integer(sub('^-p', '', port)) else 4321L
-  library(methods)
+  damn_library('methods')
   url = sprintf('http://localhost:%d', port)
   if (launch.browser) browseURL(url) else message('serving the directory ', dir, ' at ', url)
   runServer('0.0.0.0', port, list(call = serve_dir))

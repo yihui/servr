@@ -7,8 +7,6 @@ Author: Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>
 Description: Start a simple HTTP server in R to serve static files under a
     given directory.
-Depends:
-    methods
 Imports:
     httpuv
 License: GPL

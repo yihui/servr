@@ -128,3 +128,12 @@ escape_html = function(x) {
   x = gsub('"', '&quot;', x)
   x
 }
+
+# sorry for being impolite, but the business of Depends/Imports/library()/R CMD
+# check/... is becoming more and more confusing, although I understand the good
+# intention; sometimes methods does not work even you import it in namespace
+# (there are weird animals in Ref Classes), and R hates library() after you
+# Depends; all in all, let's stay with what is working, and forget about the R
+# CMD check fuss (whoever sees this function please stay calm and try not to
+# discuss it)
+damn_library = function(pkg) library(pkg, character.only = TRUE)

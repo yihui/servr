@@ -1,5 +1,7 @@
 # servr
 
+[![Build Status](https://travis-ci.org/yihui/servr.png)](https://travis-ci.org/yihui/servr)
+
 A simple HTTP server to serve files under a given directory based on the
 [**httpuv**](http://cran.r-project.org/package=httpuv) package.
 

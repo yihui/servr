@@ -19,6 +19,8 @@ serve:
 - [**googleVis**]() charts (to solve the Flash security problem)
 - D3 charts which need to load JSON from local files (see also the
   [**animint**](https://github.com/tdhock/animint) package)
+- [**rCharts**](http://rcharts.io) and
+  [**samatha**](https://github.com/DASpringate/samatha), etc
 
 You can either run `servr::httd()` in an interactive R session, or run from
 command line:

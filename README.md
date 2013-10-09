@@ -5,10 +5,13 @@
 A simple HTTP server to serve files under a given directory based on the
 [**httpuv**](http://cran.r-project.org/package=httpuv) package.
 
-For now, you can install from [RForge](http://www.rforge.net/servr/):
+You can install this package from
+[CRAN](http://cran.r-project.org/package=servr) (stable version) or
+[RForge](http://www.rforge.net/servr/) (development version):
 
 ```s
-install.packages('servr', repos = 'http://www.rforge.net/')
+install.packages('servr')  # stable version; use a CRAN mirror, or
+install.packages('servr', repos = 'http://rforge.net')  # devel version
 ```
 
 This is only a little exercise of mine while I was learning **httpuv**, and

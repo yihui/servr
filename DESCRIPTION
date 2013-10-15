@@ -1,14 +1,14 @@
 Package: servr
 Type: Package
 Title: A simple HTTP server in R
-Version: 0.1.1
+Version: 0.1.2
 Date: 2013-10-05
 Author: Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>
 Description: Start a simple HTTP server in R to serve static files under a
     given directory.
 Imports:
-    httpuv
+    httpuv (>= 1.2.0)
 License: GPL
 URL: https://github.com/yihui/servr
 BugReports: https://github.com/yihui/servr/issues

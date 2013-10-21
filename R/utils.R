@@ -137,3 +137,10 @@ escape_html = function(x) {
 # CMD check fuss (whoever sees this function please stay calm and try not to
 # discuss it)
 damn_library = function(pkg) library(pkg, character.only = TRUE)
+
+# use the RStudio viewer if possible
+get_browser = function() {
+  browser = if ('tools:rstudio' %in% search()) getOption('viewer')
+  if (is.null(browser) || !is.function(browser)) browser = getOption('browser')
+  browser
+}

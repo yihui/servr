@@ -1,0 +1,12 @@
+		 CHANGES IN servr VERSION 0.2
+
+NEW FEATURES
+
+- when running inside RStudio, the RStudio web browser will be used if
+  available (requires RStudio >= 0.98.439)
+
+		 CHANGES IN servr VERSION 0.1
+
+NEW FEATURES
+
+- the main function httd() to start an HTTP server for a local directory

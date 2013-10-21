@@ -29,7 +29,9 @@ httd = function(dir = '.', port, launch.browser) {
       as.integer(sub('^-p', '', port)) else 4321L
   damn_library('methods')
   url = sprintf('http://localhost:%d', port)
-  if (launch.browser) browseURL(url) else message('serving the directory ', dir, ' at ', url)
+  if (launch.browser) {
+    browseURL(url, browser = get_browser())
+  } else message('serving the directory ', dir, ' at ', url)
   runServer('0.0.0.0', port, list(call = serve_dir))
 }
 

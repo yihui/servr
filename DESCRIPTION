@@ -13,6 +13,3 @@ Imports:
 License: GPL
 URL: https://github.com/yihui/servr
 BugReports: https://github.com/yihui/servr/issues
-Collate:
-    'serve.R'
-    'utils.R'

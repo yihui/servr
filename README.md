@@ -21,7 +21,8 @@ This package is licensed under GPL.
 To some degree, this package is like `python -m SimpleHTTPServer` or `python -m
 http.server`. It may be used to serve:
 
-- [**googleVis**]() charts (to solve the Flash security problem)
+- [**googleVis**](http://cran.rstudio.com/package=googleVis) charts (to solve
+  the Flash security problem)
 - D3 charts which need to load JSON from local files (see also the
   [**animint**](https://github.com/tdhock/animint) package)
 - [**rCharts**](http://rcharts.io) and

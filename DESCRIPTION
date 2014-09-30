@@ -5,8 +5,9 @@ Version: 0.1.3
 Date: 2013-10-05
 Author: Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>
-Description: Start a simple HTTP server in R to serve static files under a
-    given directory.
+Description: Start a simple HTTP server in R to serve static files or documents
+    that can be converted to HTML files (e.g. R Markdown) under a given
+    directory.
 Imports:
     mime (>= 0.1.1),
     httpuv (>= 1.2.0)

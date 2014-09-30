@@ -4,8 +4,8 @@
 \alias{rmdv2}
 \title{Serve R Markdown based websites}
 \usage{
-jekyll(dir = ".", input = c(".", "_source"), output = c(".", "_posts"), 
-    script = "build.R", port, launch.browser)
+jekyll(dir = ".", input = c(".", "_source", "_posts"), output = c(".", "_posts", 
+    "_posts"), script = "build.R", port, launch.browser)
 
 rmdv2(dir = ".", script = "build.R", port, launch.browser)
 
@@ -14,7 +14,9 @@ rmdv1(dir = ".", script = "build.R", port, launch.browser)
 \arguments{
 \item{dir}{the root directory of the website}
 
-\item{input}{the input directories that contain R Markdown documents}
+\item{input}{the input directories that contain R Markdown documents (the
+directories must be relative instead of absolute; same for \code{output}
+directories)}
 
 \item{output}{the output directories corresponding to \code{input}; for an
 input document \file{foo.Rmd} under the directory \code{input[i]}, its

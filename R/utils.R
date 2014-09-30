@@ -57,6 +57,11 @@ get_browser = function() {
   browser = if ('tools:rstudio' %in% search()) getOption('viewer') else {
     if (is_rstudio()) getFromNamespace('viewer', 'rstudio')
   }
-  if (is.null(browser) || !is.function(browser)) browser = getOption('browser')
+  # rstudio::viewer() does not seem to work when a separate R session is
+  # launched from RStudio, so we need to try() and if it fails, fall back to the
+  # default web browser
+  if (is.null(browser) || !is.function(browser) ||
+        inherits(try(browser('http://www.rstudio.com'), silent = TRUE), 'try-error'))
+    browser = getOption('browser')
   browser
 }

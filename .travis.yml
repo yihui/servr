@@ -3,7 +3,7 @@ language: python
 
 # environment variables
 env:
-  - R_LIBS_USER=~/R R_MY_PKG="$(basename $TRAVIS_REPO_SLUG)"
+  - R_PKG="$(basename $TRAVIS_REPO_SLUG)"
 
 # install dependencies
 install:
@@ -11,10 +11,19 @@ install:
   - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
   - sudo apt-get update
   - sudo apt-get install r-base-dev r-cran-rcpp
-  - "[ ! -d ~/R ] && mkdir ~/R"
-  - Rscript -e "install.packages('$R_MY_PKG', dep = TRUE, repos = 'http://cran.rstudio.org')"
+  - "wget -q -O - http://yihui.name/xran/r-config | bash"
+  - Rscript -e "install.packages(c('httpuv', 'mime'))"
 
 # run tests
 script:
-  - cd ..; rm -f *.tar.gz; R CMD build $R_MY_PKG
-  - R CMD check $R_MY_PKG*.tar.gz --no-manual
+  - cd ..; rm -f *.tar.gz; R CMD build $R_PKG
+  - R CMD check ${R_PKG}_*.tar.gz --no-manual
+  - cd $R_PKG
+
+# deploy to XRAN
+after_success:
+  - set -e
+  - "(wget -q -O - http://yihui.name/xran/r-xran | bash)"
+
+after_failure:
+  - cd ..; for i in `ls *.Rcheck/00*`; do cat $i; done

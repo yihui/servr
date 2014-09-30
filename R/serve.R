@@ -82,7 +82,9 @@ serve_dir = function(req) {
 #' WebSockets so that R can notify the HTML pages to refresh themselves if any R
 #' Markdown documents have been re-compiled.
 #' @param dir the root directory of the website
-#' @param input the input directories that contain R Markdown documents
+#' @param input the input directories that contain R Markdown documents (the
+#'   directories must be relative instead of absolute; same for \code{output}
+#'   directories)
 #' @param output the output directories corresponding to \code{input}; for an
 #'   input document \file{foo.Rmd} under the directory \code{input[i]}, its
 #'   output document \file{foo.md} (or \file{foo.html}) is generated under

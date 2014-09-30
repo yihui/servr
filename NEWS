@@ -5,6 +5,9 @@ NEW FEATURES
 - when running inside RStudio, the RStudio web browser will be used if
   available (requires RStudio >= 0.98.439)
 
+- added three server functions jekyll(), rmdv1(), and rmdv2() to serve Jekyll
+  websites, R Markdown v1, and R Markdown v2 documents, respectively
+
 		 CHANGES IN servr VERSION 0.1
 
 NEW FEATURES

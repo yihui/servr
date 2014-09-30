@@ -117,7 +117,7 @@ serve_dir = function(req) {
 #' @importFrom httpuv startServer service stopServer
 #' @export
 jekyll = function(
-  dir = '.', input = c('.', '_source'), output = c('.', '_posts'),
+  dir = '.', input = c('.', '_source', '_posts'), output = c('.', '_posts', '_posts'),
   script = 'build.R', port, launch.browser
 ) {
   dynamic_site(

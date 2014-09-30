@@ -1,2 +1,8 @@
 export(httd)
+export(jekyll)
+export(rmdv1)
+export(rmdv2)
 importFrom(httpuv,runServer)
+importFrom(httpuv,service)
+importFrom(httpuv,startServer)
+importFrom(httpuv,stopServer)

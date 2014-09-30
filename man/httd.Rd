@@ -14,7 +14,9 @@ as the port number}
 
 \item{launch.browser}{whether to launch the default web browser; by default,
 it is \code{TRUE} if the R session is \code{\link{interactive}()}, or when
-a command line argument \code{-b} was passed to R}
+a command line argument \code{-b} was passed to R (see
+\code{\link{commandArgs}()}); N.B. the RStudio viewer is used as the web
+browser if available}
 }
 \description{
 If there is an \file{index.html} under this directory, it will be displayed;

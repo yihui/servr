@@ -5,7 +5,7 @@
 \title{Serve R Markdown based websites}
 \usage{
 jekyll(dir = ".", input = c(".", "_source", "_posts"), output = c(".", "_posts", 
-    "_posts"), script = "build.R", port, launch.browser)
+    "_posts"), script = "build.R", baseurl, port, launch.browser)
 
 rmdv2(dir = ".", script = "build.R", port, launch.browser)
 
@@ -30,6 +30,9 @@ arg2} where \code{build.R} is the script specified by this argument,
 inside the R script, you can use \code{\link{commandArgs}(TRUE)} to capture
 \code{c(arg1, arg2)}, e.g. \code{knitr::knit(commandArgs(TRUE)[1],
 commandArgs(TRUE)[2])}}
+
+\item{baseurl}{the base URL for Jekyll (will be read from \file{_config.yml}
+if missing)}
 
 \item{port}{the TCP port number; by default it is \code{4321}, unless a
 command line argument of the form \code{-pNNNN} (N is a digit from 0 to 9)

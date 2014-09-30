@@ -96,6 +96,8 @@ serve_dir = function(req) {
 #'   inside the R script, you can use \code{\link{commandArgs}(TRUE)} to capture
 #'   \code{c(arg1, arg2)}, e.g. \code{knitr::knit(commandArgs(TRUE)[1],
 #'   commandArgs(TRUE)[2])}
+#' @param baseurl the base URL for Jekyll (will be read from \file{_config.yml}
+#'   if missing)
 #' @inheritParams httd
 #' @rdname dynamic_site
 #' @note Apparently \code{jekyll()} and \code{rmdv1()} require the \pkg{knitr}
@@ -118,8 +120,14 @@ serve_dir = function(req) {
 #' @export
 jekyll = function(
   dir = '.', input = c('.', '_source', '_posts'), output = c('.', '_posts', '_posts'),
-  script = 'build.R', port, launch.browser
+  script = 'build.R', baseurl, port, launch.browser
 ) {
+  if (missing(baseurl) && file.exists(config <- file.path(dir, '_config.yml'))) {
+    x = iconv(readLines(config, encoding = 'UTF-8'), 'UTF-8')
+    p = '^baseurl:\\s*([^#[:space:]]+).*$'
+    x = grep(p, x, value = TRUE)
+    if (length(x) == 1) baseurl = gsub('"', '', sub(p, '\\1', x))
+  } else baseurl = ''
   dynamic_site(
     dir, port, launch.browser,
     build = function() {
@@ -131,7 +139,8 @@ jekyll = function(
       if (update) jekyll_build()
       update
     },
-    site.dir = '_site'
+    site.dir = '_site',
+    baseurl
   )
 }
 
@@ -170,7 +179,8 @@ dynamic_rmd = function(dir, script, port, launch.browser, method) {
 # the HTML pages whether they need to refresh themselves, which is determined by
 # the value returned from the build() function
 dynamic_site = function(
-  dir = '.', port, launch.browser, build = function() FALSE, site.dir = dir
+  dir = '.', port, launch.browser, build = function() FALSE,
+  site.dir = dir, baseurl = ''
 ) {
   owd = setwd(dir); on.exit(setwd(owd))
   build()
@@ -182,6 +192,11 @@ dynamic_site = function(
   server = startServer('0.0.0.0', res$port, list(
     call = function(req) {
       owd = setwd(site.dir); on.exit(setwd(owd))
+      if (baseurl != '') {
+        path = req$PATH_INFO
+        if (substr(path, 1, nchar(baseurl)) == baseurl)
+          req$PATH_INFO = substr(path, nchar(baseurl) + 1, nchar(path))
+      }
       res = serve_dir(req)
       if (res$headers[['Content-Type']] != 'text/html') return(res)
       # post-process HTML content: inject the websocket code

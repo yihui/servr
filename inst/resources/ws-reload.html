@@ -1,0 +1,15 @@
+<script type="text/javascript">
+// automatically refresh the page when necessary (R will send a message to ws)
+(function() {
+  var ws = new WebSocket("ws://" + location.host);
+  ws.onmessage = function(evt) {
+    location.reload();
+  }
+  // keep on sending messages to the server, and the server will send the
+  // message back when necessary
+  setInterval(function() {
+    if (ws.readyState === ws.OPEN)
+      ws.send(1);
+  }, 1000);
+})();
+</script>

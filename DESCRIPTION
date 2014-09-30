@@ -1,7 +1,7 @@
 Package: servr
 Type: Package
 Title: A simple HTTP server in R
-Version: 0.1.4
+Version: 0.1.5
 Date: 2013-10-05
 Author: Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>

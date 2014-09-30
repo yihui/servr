@@ -22,17 +22,29 @@ httd = function(dir = '.', port, launch.browser) {
   if (dir != '.') {
     owd = setwd(dir); on.exit(setwd(owd))
   }
+  res = config(dir, port, launch.browser)
+  res$browse()
+  runServer('0.0.0.0', res$port, list(call = serve_dir))
+}
+
+# some configurations for the server
+config = function(dir, port, launch.browser) {
   cargs = commandArgs(TRUE)
-  if (missing(launch.browser)) launch.browser = interactive() || '-b' %in% cargs
+  if (missing(launch.browser))
+    launch.browser = interactive() || '-b' %in% cargs || is_rstudio()
   if (missing(port))
     port = if (length(port <- grep('^-p[0-9]{4,}$', cargs, value = TRUE)) == 1)
       as.integer(sub('^-p', '', port)) else 4321L
   damn_library('methods')
   url = sprintf('http://localhost:%d', port)
-  if (launch.browser) {
-    browseURL(url, browser = get_browser())
-  } else message('serving the directory ', dir, ' at ', url)
-  runServer('0.0.0.0', port, list(call = serve_dir))
+  list(
+    port = port,
+    browse = function() {
+      if (launch.browser) {
+        browseURL(url, browser = get_browser())
+      } else message('serving the directory ', dir, ' at ', url)
+    }
+  )
 }
 
 serve_dir = function(req) {

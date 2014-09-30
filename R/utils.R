@@ -50,9 +50,13 @@ escape_html = function(x) {
 # discuss it)
 damn_library = function(pkg) library(pkg, character.only = TRUE)
 
+is_rstudio = function() Sys.getenv('RSTUDIO') == '1'
+
 # use the RStudio viewer if possible
 get_browser = function() {
-  browser = if ('tools:rstudio' %in% search()) getOption('viewer')
+  browser = if ('tools:rstudio' %in% search()) getOption('viewer') else {
+    if (is_rstudio()) getFromNamespace('viewer', 'rstudio')
+  }
   if (is.null(browser) || !is.function(browser)) browser = getOption('browser')
   browser
 }

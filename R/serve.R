@@ -170,7 +170,7 @@ dynamic_rmd = function(dir, script, port, launch.browser, method) {
       dirs = grep('^[.].', list.dirs(), value = TRUE, invert = TRUE)
       knit_maybe(dirs, dirs, script, method = method)
     },
-    site.dir = dir
+    site.dir = '.'
   )
 }
 

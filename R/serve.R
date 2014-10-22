@@ -307,6 +307,6 @@ build_rmdv1 = function(...) {
 }
 
 rscript = function(code, input) {
-  if (system2('Rscript', code, stdout = NULL) != 0)
+  if (system2(file.path(R.home('bin'), 'Rscript'), code, stdout = NULL) != 0)
     stop('Failed to compile ', input, call. = FALSE)
 }

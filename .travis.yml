@@ -1,20 +1,16 @@
-# it is not really python, but there is no R support on Travis CI yet
-language: python
+language: c
 
-# environment variables
 env:
   - R_PKG="$(basename $TRAVIS_REPO_SLUG)"
 
-# install dependencies
 install:
   - sudo apt-add-repository -y "deb http://cran.rstudio.com/bin/linux/ubuntu `lsb_release -cs`/"
   - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
   - sudo apt-get update
-  - sudo apt-get install r-base-dev r-cran-rcpp
+  - sudo apt-get install r-base-dev r-cran-rcpp r-cran-devtools
   - "wget -q -O - http://yihui.name/xran/r-config | bash"
-  - Rscript -e "install.packages(c('httpuv', 'mime'))"
+  - Rscript -e "devtools::install_deps(dep = TRUE)"
 
-# run tests
 script:
   - cd ..; rm -f *.tar.gz; R CMD build $R_PKG
   - R CMD check ${R_PKG}_*.tar.gz --no-manual

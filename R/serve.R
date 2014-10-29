@@ -49,7 +49,8 @@ config = function(dir, port, launch.browser) {
   )
 }
 
-serve_dir = function(req) {
+serve_dir = function(req, dir = '.') function(req) {
+  owd = setwd(dir); on.exit(setwd(owd))
   path = paste('.', req$PATH_INFO, sep = '')  # the requested file
   body = if (file_test('-d', path)) {
     type = 'text/html'

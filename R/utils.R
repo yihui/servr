@@ -1,3 +1,5 @@
+servrEnv = new.env(parent = emptyenv())
+
 # turn file.info() to an HTML table
 fileinfo_table = function(info) {
   info = info[order(info$isdir, decreasing = TRUE), ]
@@ -65,3 +67,49 @@ get_browser = function() {
     browser = getOption('browser')
   browser
 }
+
+in_dir = function(dir, expr) {
+  owd = setwd(dir); on.exit(setwd(owd))
+  expr
+}
+
+servrEnv$daemon_list = NULL
+
+# a hint on how to stop the daemonized server
+daemon_hint = function(server) {
+  if (!interactive()) return(invisible(server))
+  servrEnv$daemon_list = c(servrEnv$daemon_list, server)
+  message('To stop the server, run servr::daemon_stop("', server, '")',
+          ' or restart your R session')
+}
+
+#' Utilities for daemonized servers
+#'
+#' The server functions in this package will return server handles if daemonized
+#' servers were used (e.g., \code{servr::httd(daemon = TRUE)}). You can pass the
+#' handles to \code{daemon_stop()} to stop the daemonized servers. Because
+#' stopping a daemonized server more than once using
+#' \code{httpuv::\link{stopDaemonizedServer}()} will crash the R session, this
+#' function will check if a server has been stopped before really attempting to
+#' stop it, so it is safer than the \code{stopDaemonizedServer()} in
+#' \pkg{httpuv}.
+#' @param which the server handles returned by server functions; by default, all
+#'   existing handles in the current R session obtained from
+#'   \code{daemon_list()}, i.e., all daemon servers will be stopped by default
+#' @return  The function \code{daemon_list()} returns a list of existing server
+#'   handles, and \code{daemon_stop()} returns an invisible \code{NULL}.
+#' @export
+daemon_stop = function(which = daemon_list()) {
+  list = daemon_list()
+  for (d in which) {
+    if (!(d %in% list)) {
+      warning('The server ', d, ' has been stopped!')
+      next
+    }
+    stopDaemonizedServer(d)
+    servrEnv$daemon_list = setdiff(servrEnv$daemon_list, d)
+  }
+}
+#' @rdname daemon_stop
+#' @export
+daemon_list = function() servrEnv$daemon_list

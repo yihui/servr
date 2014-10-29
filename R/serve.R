@@ -15,18 +15,24 @@
 #'   \code{\link{commandArgs}()}); N.B. the RStudio viewer is used as the web
 #'   browser if available
 #' @export
-#' @importFrom httpuv runServer
+#' @importFrom httpuv runServer startDaemonizedServer
 #' @references \url{https://github.com/yihui/servr}
 #' @examples #' see https://github.com/yihui/servr for command line usage
 #' # or run inside an R session
 #' if (interactive()) servr::httd()
-httd = function(dir = '.', port, launch.browser) {
+httd = function(dir = '.', port, launch.browser, daemon = FALSE) {
+  dir = normalizePath(dir, mustWork = TRUE)
   if (dir != '.') {
     owd = setwd(dir); on.exit(setwd(owd))
   }
   res = config(dir, port, launch.browser)
   res$browse()
-  runServer('0.0.0.0', res$port, list(call = serve_dir))
+  app = list(call = serve_dir(req, dir))
+  if (daemon) {
+    daemon_hint(startDaemonizedServer('0.0.0.0', res$port, app))
+  } else {
+    runServer('0.0.0.0', res$port, app)
+  }
 }
 
 # some configurations for the server

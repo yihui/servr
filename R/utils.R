@@ -99,6 +99,7 @@ daemon_hint = function(server) {
 #' @return  The function \code{daemon_list()} returns a list of existing server
 #'   handles, and \code{daemon_stop()} returns an invisible \code{NULL}.
 #' @export
+#' @importFrom httpuv stopDaemonizedServer
 daemon_stop = function(which = daemon_list()) {
   list = daemon_list()
   for (d in which) {

@@ -89,6 +89,16 @@ new_timeout = function(interval) {
   }
 }
 
+# use the output from the system utility mimetype if available
+guess_type = function(path) {
+  mimetype = function(...) {
+    system2('mimetype', c('-b', shQuote(path)), ...)
+  }
+  if (Sys.which('mimetype') == '' || mimetype(stdout = NULL) != 0)
+    return(mime::guess_type(path))
+  mimetype(stdout = TRUE)
+}
+
 servrEnv$daemon_list = NULL
 
 # a hint on how to stop the daemonized server

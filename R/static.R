@@ -95,7 +95,7 @@ serve_dir = function(dir = '.') function(req) {
     if (!file.exists(path))
       return(list(status = 404L, headers = list('Content-Type' = 'text/plain'),
                   body = paste('Not found:', path, '\r\n')))
-    type = mime::guess_type(path)
+    type = guess_type(path)
     readBin(path, 'raw', file.info(path)[, 'size'])
   }
   if (is.character(body) && length(body) > 1) body = paste(body, collapse='\r\n')

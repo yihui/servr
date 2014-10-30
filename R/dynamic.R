@@ -132,7 +132,7 @@ dynamic_site = function(
 
   js  = readLines(system.file('resources', 'ws-reload.html', package = 'servr'))
   res = server_config(dir, ...)
-  timeout = new_timeout(req$interval)
+  timeout = new_timeout(res$interval)
   res$browse()
 
   app = list(

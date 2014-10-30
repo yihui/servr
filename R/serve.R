@@ -32,8 +32,8 @@
 #'   package, and \code{rmdv2()} requires \pkg{rmarkdown}. You have to install
 #'   them before calling the server functions here.
 #'
-#'   All R Markdown documents are compiled in separate R sessions. If you have
-#'   any R Markdown documents that should not be compiled as standalone
+#'   All R Markdown documents are compiled in separate R sessions by default. If
+#'   you have any R Markdown documents that should not be compiled as standalone
 #'   documents (e.g. child documents), you can use different filename
 #'   extensions, such as \file{.Rmarkdown}.
 #' @references R Markdown v1: \url{http://cran.rstudio.com/package=markdown}. R
@@ -79,6 +79,23 @@ jekyll = function(
 #'   \code{\link[rmarkdown]{render}()} in the \pkg{rmarkdown} package (a.k.a R
 #'   Markdown v2).
 #' @rdname dynamic_site
+#' @param in_session whether to render the R Markdown documents in the current R
+#'   session (\code{TRUE}) or in a separate new R session (\code{FALSE}); if the
+#'   former, the argument \code{script} can be a function with two arguments,
+#'   the filenames of the source document and the output document, respectively;
+#'   an internal function (basically \code{rmarkdown::render()} or
+#'   \code{knitr::knit2html()}) will be used if the \code{script} argument is
+#'   not a function and \code{in_session = TRUE}
+#' @note For the sake of reproducibility, you are recommended to compile each
+#'   source document in a separate R session (i.e., use the default
+#'   \code{in_session = FALSE}) to make sure they can compile on their own,
+#'   otherwise the current workspace may affect the evaluation of the code
+#'   chunks in these source documents. Sometimes it might be useful to compile a
+#'   document in the current R session. For example, if reading data is
+#'   time-consuming and it is not convenient to cache it (using the \pkg{knitr}
+#'   chunk option \code{cache = TRUE}), you may read the data once, temporarily
+#'   turn off the evaluation of that code chunk, and keep on working on the rest
+#'   of code chunks so that data will not be read over and over again.
 #' @export
 rmdv2 = function(dir = '.', script = 'build.R', in_session = FALSE, ...) {
   dynamic_rmd(dir, script, ..., method = 'rmdv2', in_session = in_session)

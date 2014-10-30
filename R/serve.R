@@ -156,8 +156,7 @@ dynamic_site = function(
 #' Determin if R Markdown files need to be re-built
 #' @param input the input dirs
 #' @param output the output dirs
-#' @param script the R script to build the R Markdown files
-#' @param outext the file extension of output files (e.g. .md, .html)
+#' @param script the R script, or an R function to build the R Markdown files
 #' @param method if no \code{script} was provided, fall back to internal methods
 #'   to build R Markdown files, so I need to know if you are Jekyll, R Markdown
 #'   v2, or something else
@@ -177,8 +176,12 @@ knit_maybe = function(input, output, script, method = 'jekyll', in_session = FAL
     # compile each posts in a separate R session
     for (i in seq_len(nrow(r))) {
       # run script if exists, passing input and output filenames to Rscript
-      if (file.exists(script)) {
+      if (!in_session && file.exists(script)) {
         rscript(shQuote(c(script, r[i, 1], r[i, 2])), r[i, 1])
+        next
+      }
+      if (in_session && is.function(script)) {
+        script(r[i, 1], r[i, 2])
         next
       }
       # otherwise run default code

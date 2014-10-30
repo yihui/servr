@@ -80,23 +80,23 @@ jekyll = function(
 #'   Markdown v2).
 #' @rdname dynamic_site
 #' @export
-rmdv2 = function(dir = '.', script = 'build.R', port, launch.browser) {
-  dynamic_rmd(dir, script, port, launch.browser, method = 'rmdv2')
+rmdv2 = function(dir = '.', script = 'build.R', in_session = FALSE, ...) {
+  dynamic_rmd(dir, script, ..., method = 'rmdv2', in_session = in_session)
 }
 
 #' @rdname dynamic_site
 #' @export
-rmdv1 = function(dir = '.', script = 'build.R', port, launch.browser) {
-  dynamic_rmd(dir, script, port, launch.browser, method = 'rmdv1')
+rmdv1 = function(dir = '.', script = 'build.R', in_session = FALSE, ...) {
+  dynamic_rmd(dir, script, ..., method = 'rmdv1', in_session = in_session)
 }
 
-dynamic_rmd = function(dir, script, port, launch.browser, method) {
+dynamic_rmd = function(dir, script, ..., method, in_session = FALSE) {
   dynamic_site(
-    dir, port, launch.browser,
+    dir, ...
     build = function() {
       # exclude .hidden dirs
       dirs = grep('^[.].', list.dirs(), value = TRUE, invert = TRUE)
-      knit_maybe(dirs, dirs, script, method = method)
+      knit_maybe(dirs, dirs, script, method = method, in_session)
     },
     site.dir = '.'
   )
@@ -163,7 +163,7 @@ dynamic_site = function(
 #'   to build R Markdown files, so I need to know if you are Jekyll, R Markdown
 #'   v2, or something else
 #' @noRd
-knit_maybe = function(input, output, script, method = 'jekyll') {
+knit_maybe = function(input, output, script, method = 'jekyll', in_session = FALSE) {
   outext = switch(method, jekyll = '.md', '.html')
   # check if R Markdown files need to be recompiled
   res = mapply(
@@ -184,7 +184,7 @@ knit_maybe = function(input, output, script, method = 'jekyll') {
       }
       # otherwise run default code
       build = getFromNamespace(paste('build', method, sep = '_'), 'servr')
-      build(r[i, 1], r[i, 2])
+      build(r[i, 1], r[i, 2], in_session)
     }
   })
   update
@@ -203,7 +203,7 @@ obsolete_out = function(input, output, pattern = '[.]Rmd$', outext = '.md') {
   if (any(idx)) cbind(src[idx], out[idx])
 }
 
-build_jekyll = function(input, output) {
+build_jekyll = function(input, output, ...) {
   code = c(
     sprintf(
       c("knitr::opts_chunk$set(fig.path = 'figure/%s/', ",
@@ -219,11 +219,15 @@ build_jekyll = function(input, output) {
   rscript(c(rbind('-e', shQuote(code))), input)
 }
 
-build_rmd = function(input, output, template) {
+build_rmd = function(input, output, template, in_session) {
   owd = setwd(dirname(input)); on.exit(setwd(owd))
   input = basename(input)
   code = sprintf(template, input)
-  rscript(c(rbind('-e', shQuote(code))), file.path(owd, input))
+  if (in_session) {
+    eval(parse(text = code), envir = globalenv())
+  } else {
+    rscript(c(rbind('-e', shQuote(code))), file.path(owd, input))
+  }
 }
 
 build_rmdv2 = function(...) {

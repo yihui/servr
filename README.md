@@ -69,3 +69,18 @@ the HTML files are displayed in the RStudio viewer pane, and you can put the
 source document and its output side by side.
 
 ![Jekyll with servr and knitr](http://i.imgur.com/gKVGhiP.png)
+
+## Serve package vignettes
+
+The function `vign()` can be used to serve R Markdown/HTML package vignettes.
+The HTML output files are generated and displayed in the web browser so you can
+preview the vignettes, and they will be cleaned up after they are loaded in the
+web browser to make sure your source package is clean.
+
+## Daemonized server
+
+All server functions be used in the daemonized mode, i.e., they can be
+non-blocking in the R session, which allows you to continue working in the R
+console after the server is launched. This mode can be set via the argument
+\code{daemon = TRUE} in most server functions. See `?server_config` for more
+information.

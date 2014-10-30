@@ -1,13 +1,13 @@
 Package: servr
 Type: Package
-Title: A simple HTTP server in R
+Title: A Simple HTTP Server to Serve Static Files or Dynamic Documents
 Version: 0.1.6
 Date: 2013-10-05
 Author: Yihui Xie
 Maintainer: Yihui Xie <xie@yihui.name>
-Description: Start a simple HTTP server in R to serve static files or documents
-    that can be converted to HTML files (e.g. R Markdown) under a given
-    directory.
+Description: Start an HTTP server in R to serve static files, or dynamic
+    documents that can be converted to HTML files (e.g., R Markdown) under a
+    given directory.
 Imports:
     mime (>= 0.1.1),
     httpuv (>= 1.2.0)

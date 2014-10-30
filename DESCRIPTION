@@ -8,10 +8,13 @@ Maintainer: Yihui Xie <xie@yihui.name>
 Description: Start an HTTP server in R to serve static files, or dynamic
     documents that can be converted to HTML files (e.g., R Markdown) under a
     given directory.
+Depends:
+    R (>= 3.0.0)
 Imports:
     mime (>= 0.1.1),
     httpuv (>= 1.2.0)
 Suggests:
+    tools,
     knitr (>= 1.7),
     rmarkdown
 License: GPL

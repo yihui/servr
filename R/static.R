@@ -19,7 +19,7 @@ httd = function(dir = '.', ...) {
   }
   res = server_config(dir, ...)
   res$browse()
-  app = list(call = serve_dir(req, dir))
+  app = list(call = serve_dir(dir))
   res$start_server(app)
 }
 
@@ -80,7 +80,7 @@ server_config = function(dir, host = '127.0.0.1', port, browser, daemon, interva
   )
 }
 
-serve_dir = function(req, dir = '.') function(req) {
+serve_dir = function(dir = '.') function(req) {
   owd = setwd(dir); on.exit(setwd(owd))
   path = paste('.', req$PATH_INFO, sep = '')  # the requested file
   body = if (file_test('-d', path)) {

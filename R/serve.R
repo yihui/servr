@@ -127,7 +127,7 @@ dynamic_site = function(
           req$PATH_INFO = substr(path, nchar(baseurl) + 1, nchar(path))
       }
       req = pre_process(req)
-      res = serve_dir(req)
+      res = serve_dir()(req)
       req = post_process(req)
       if (res$headers[['Content-Type']] != 'text/html') return(res)
       # post-process HTML content: inject the websocket code

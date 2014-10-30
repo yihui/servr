@@ -233,8 +233,3 @@ build_rmdv2 = function(...) {
 build_rmdv1 = function(...) {
   build_rmd(..., template = "knitr::knit2html('%s', encoding = 'UTF-8', quiet = TRUE)")
 }
-
-rscript = function(code, input) {
-  if (system2(file.path(R.home('bin'), 'Rscript'), code, stdout = NULL) != 0)
-    stop('Failed to compile ', input, call. = FALSE)
-}

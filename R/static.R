@@ -4,7 +4,7 @@
 #' otherwise the list of files is displayed, with links on their names. After we
 #' run this function, we can go to \url{http://localhost:port} to browse the web
 #' pages either created from R or read from HTML files.
-#' @param dir the directory to serve
+#' @inheritParams server_config
 #' @param ... server configurations passed to \code{\link{server_config}()}
 #' @export
 #' @importFrom httpuv runServer startDaemonizedServer

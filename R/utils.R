@@ -78,6 +78,16 @@ in_dir = function(dir, expr) {
   expr
 }
 
+new_timeout = function(interval) {
+  old = Sys.time()
+  function() {
+    now = Sys.time()
+    if (as.numeric(now - old) < interval) return(FALSE)
+    old <<- now
+    TRUE
+  }
+}
+
 servrEnv$daemon_list = NULL
 
 # a hint on how to stop the daemonized server

@@ -40,10 +40,14 @@ httd = function(dir = '.', ...) {
 #'   block the current R session) or a blocking server; by default, it is
 #'   \code{TRUE} if a command line argument \code{-d} was passed to R (through
 #'   \command{Rscript}); normally it should be \code{FALSE} by default
+#' @param interval the time interval used to check if an HTML page needs to be
+#'   rebuilt (by default, it is checked every second); at the moment, the
+#'   smallest possible \code{interval} is set to be 1, and this may change in
+#'   the future
 #' @inheritParams startServer
 #' @return A list of configuration information of the form \code{list(host,
 #'   port, start_server = function(app) {}, ...)}.
-server_config = function(dir, host = '127.0.0.1', port, browser, daemon) {
+server_config = function(dir, host = '127.0.0.1', port, browser, daemon, interval = 1) {
   cargs = commandArgs(TRUE)
   if (missing(browser)) browser = interactive() || '-b' %in% cargs || is_rstudio()
   if (missing(port))
@@ -55,6 +59,7 @@ server_config = function(dir, host = '127.0.0.1', port, browser, daemon) {
   list(
     host = host,
     port = port,
+    interval = interval,
     start_server = function(app) {
       # a daemonized server; stop it using servr::daemon_stop()
       if (daemon) return(daemon_hint(startDaemonizedServer(host, port, app)))

@@ -132,6 +132,7 @@ dynamic_site = function(
 
   js  = readLines(system.file('resources', 'ws-reload.html', package = 'servr'))
   res = server_config(dir, ...)
+  timeout = new_timeout(req$interval)
   res$browse()
 
   app = list(
@@ -161,6 +162,7 @@ dynamic_site = function(
       # the client keeps on sending messages to ws, and ws needs to decide when
       # to update output from source files
       ws$onMessage(function(binary, message) {
+        if (!timeout()) return()
         owd = setwd(dir); on.exit(setwd(owd))
         # notify the client that the output has been updated
         if (build()) ws$send(message)

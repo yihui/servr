@@ -2,7 +2,7 @@
 \alias{server_config}
 \title{Server configurations}
 \usage{
-server_config(dir, host = "127.0.0.1", port, browser, daemon)
+server_config(dir, host = "127.0.0.1", port, browser, daemon, interval = 1)
 }
 \arguments{
 \item{dir}{the root directory to serve}
@@ -22,6 +22,11 @@ browser if available}
 block the current R session) or a blocking server; by default, it is
 \code{TRUE} if a command line argument \code{-d} was passed to R (through
 \command{Rscript}); normally it should be \code{FALSE} by default}
+
+\item{interval}{the time interval used to check if an HTML page needs to be
+rebuilt (by default, it is checked every second); at the moment, the
+smallest possible \code{interval} is set to be 1, and this may change in
+the future}
 }
 \value{
 A list of configuration information of the form \code{list(host,

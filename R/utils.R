@@ -79,9 +79,10 @@ in_dir = function(dir, expr) {
 }
 
 new_timeout = function(interval) {
-  old = Sys.time()
+  old = NULL
   function() {
     now = Sys.time()
+    if (is.null(old)) old <<- now
     if (as.numeric(now - old) < interval) return(FALSE)
     old <<- now
     TRUE

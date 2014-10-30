@@ -44,7 +44,7 @@ httd = function(dir = '.', ...) {
 #'   rebuilt (by default, it is checked every second); at the moment, the
 #'   smallest possible \code{interval} is set to be 1, and this may change in
 #'   the future
-#' @inheritParams startServer
+#' @inheritParams httpuv::startServer
 #' @return A list of configuration information of the form \code{list(host,
 #'   port, start_server = function(app) {}, ...)}.
 server_config = function(dir, host = '127.0.0.1', port, browser, daemon, interval = 1) {

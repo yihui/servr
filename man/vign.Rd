@@ -1,0 +1,35 @@
+\name{vign}
+\alias{vign}
+\title{Serve R Markdown/HTML package vignettes}
+\usage{
+vign(dir = "vignettes", ...)
+}
+\arguments{
+\item{dir}{the root directory to serve}
+
+\item{...}{server configurations passed to \code{\link{server_config}()}}
+}
+\description{
+Serve package vignettes under the \file{vignettes/} directory. Because the
+HTML output files should not be included in the source package, this function
+renders R Markdown/HTML vignettes, displays them in the web browser, and
+deletes the HTML output files. You will see the HTML output when you click
+the links on the \file{.Rmd} or \file{.Rhtml} files (unlike the static HTTP
+server, the compiled output instead of the source document is displayed).
+}
+\details{
+When developing R packages, you may want to preview your vignettes once in a
+while. You can certainly click the button in RStudio to do it, but that
+requires you to install the package and rebuild the vignettes. With this
+function, you may start a daemonzied server (\code{vign(daemon = TRUE)}), and
+your vignette will be rebuilt automatically when you update the source
+document. Moreover, because the compilation takes place in the current R
+session, you can take advantage of \code{devtools::load_all()} (which has a
+keyboard shortcut in the RStudio IDE) to reload your package and see the
+updated vignette in the web browser.
+}
+\note{
+You are supposed to call this function from the root directory of your
+  package. If that is not the case, you should provide the correct path to
+  the \file{vignettes/} directory of your package to the \code{dir} argument.
+}

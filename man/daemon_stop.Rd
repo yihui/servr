@@ -1,0 +1,28 @@
+\name{daemon_stop}
+\alias{daemon_list}
+\alias{daemon_stop}
+\title{Utilities for daemonized servers}
+\usage{
+daemon_stop(which = daemon_list())
+
+daemon_list()
+}
+\arguments{
+\item{which}{the server handles returned by server functions; by default, all
+existing handles in the current R session obtained from
+\code{daemon_list()}, i.e., all daemon servers will be stopped by default}
+}
+\value{
+The function \code{daemon_list()} returns a list of existing server
+  handles, and \code{daemon_stop()} returns an invisible \code{NULL}.
+}
+\description{
+The server functions in this package will return server handles if daemonized
+servers were used (e.g., \code{servr::httd(daemon = TRUE)}). You can pass the
+handles to \code{daemon_stop()} to stop the daemonized servers. Because
+stopping a daemonized server more than once using
+\code{httpuv::\link{stopDaemonizedServer}()} will crash the R session, this
+function will check if a server has been stopped before really attempting to
+stop it, so it is safer than the \code{stopDaemonizedServer()} in
+\pkg{httpuv}.
+}

@@ -5,11 +5,11 @@
 \title{Serve R Markdown based websites}
 \usage{
 jekyll(dir = ".", input = c(".", "_source", "_posts"), output = c(".", "_posts", 
-    "_posts"), script = "build.R", baseurl, port, launch.browser)
+    "_posts"), script = "build.R", baseurl, ...)
 
-rmdv2(dir = ".", script = "build.R", port, launch.browser)
+rmdv2(dir = ".", script = "build.R", in_session = FALSE, ...)
 
-rmdv1(dir = ".", script = "build.R", port, launch.browser)
+rmdv1(dir = ".", script = "build.R", in_session = FALSE, ...)
 }
 \arguments{
 \item{dir}{the root directory of the website}
@@ -34,16 +34,15 @@ commandArgs(TRUE)[2])}}
 \item{baseurl}{the base URL for Jekyll (will be read from \file{_config.yml}
 if missing)}
 
-\item{port}{the TCP port number; by default it is \code{4321}, unless a
-command line argument of the form \code{-pNNNN} (N is a digit from 0 to 9)
-was passed in when R was launched, in which case \code{NNNN} will be used
-as the port number}
+\item{...}{server configurations passed to \code{\link{server_config}()}}
 
-\item{launch.browser}{whether to launch the default web browser; by default,
-it is \code{TRUE} if the R session is \code{\link{interactive}()}, or when
-a command line argument \code{-b} was passed to R (see
-\code{\link{commandArgs}()}); N.B. the RStudio viewer is used as the web
-browser if available}
+\item{in_session}{whether to render the R Markdown documents in the current R
+session (\code{TRUE}) or in a separate new R session (\code{FALSE}); if the
+former, the argument \code{script} can be a function with two arguments,
+the filenames of the source document and the output document, respectively;
+an internal function (basically \code{rmarkdown::render()} or
+\code{knitr::knit2html()}) will be used if the \code{script} argument is
+not a function and \code{in_session = TRUE}}
 }
 \description{
 R Markdown documents (with the filename extension \file{.Rmd}) are
@@ -69,10 +68,21 @@ Apparently \code{jekyll()} and \code{rmdv1()} require the \pkg{knitr}
   package, and \code{rmdv2()} requires \pkg{rmarkdown}. You have to install
   them before calling the server functions here.
 
-  All R Markdown documents are compiled in separate R sessions. If you have
-  any R Markdown documents that should not be compiled as standalone
+  All R Markdown documents are compiled in separate R sessions by default. If
+  you have any R Markdown documents that should not be compiled as standalone
   documents (e.g. child documents), you can use different filename
   extensions, such as \file{.Rmarkdown}.
+
+For the sake of reproducibility, you are recommended to compile each
+  source document in a separate R session (i.e., use the default
+  \code{in_session = FALSE}) to make sure they can compile on their own,
+  otherwise the current workspace may affect the evaluation of the code
+  chunks in these source documents. Sometimes it might be useful to compile a
+  document in the current R session. For example, if reading data is
+  time-consuming and it is not convenient to cache it (using the \pkg{knitr}
+  chunk option \code{cache = TRUE}), you may read the data once, temporarily
+  turn off the evaluation of that code chunk, and keep on working on the rest
+  of code chunks so that data will not be read over and over again.
 }
 \examples{
 if (interactive()) servr::rmdv1()  # serve the current dir with R Markdown v1

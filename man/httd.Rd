@@ -2,21 +2,12 @@
 \alias{httd}
 \title{Serve the static files under a directory}
 \usage{
-httd(dir = ".", port, launch.browser)
+httd(dir = ".", ...)
 }
 \arguments{
-\item{dir}{the directory to serve}
+\item{dir}{the root directory to serve}
 
-\item{port}{the TCP port number; by default it is \code{4321}, unless a
-command line argument of the form \code{-pNNNN} (N is a digit from 0 to 9)
-was passed in when R was launched, in which case \code{NNNN} will be used
-as the port number}
-
-\item{launch.browser}{whether to launch the default web browser; by default,
-it is \code{TRUE} if the R session is \code{\link{interactive}()}, or when
-a command line argument \code{-b} was passed to R (see
-\code{\link{commandArgs}()}); N.B. the RStudio viewer is used as the web
-browser if available}
+\item{...}{server configurations passed to \code{\link{server_config}()}}
 }
 \description{
 If there is an \file{index.html} under this directory, it will be displayed;

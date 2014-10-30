@@ -3,10 +3,10 @@
 [![Build Status](https://travis-ci.org/yihui/servr.svg)](https://travis-ci.org/yihui/servr)
 
 A simple HTTP server to serve files under a given directory based on the
-[**httpuv**](http://cran.r-project.org/package=httpuv) package.
+[**httpuv**](http://cran.rstudio.com/package=httpuv) package.
 
 You can install this package from
-[CRAN](http://cran.r-project.org/package=servr) (stable version) or
+[CRAN](http://cran.rstudio.com/package=servr) (stable version) or
 [RForge](http://www.rforge.net/servr/) (development version):
 
 ```r

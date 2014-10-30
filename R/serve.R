@@ -92,11 +92,11 @@ rmdv1 = function(dir = '.', script = 'build.R', in_session = FALSE, ...) {
 
 dynamic_rmd = function(dir, script, ..., method, in_session = FALSE) {
   dynamic_site(
-    dir, ...
+    dir, ...,
     build = function() {
       # exclude .hidden dirs
       dirs = grep('^[.].', list.dirs(), value = TRUE, invert = TRUE)
-      knit_maybe(dirs, dirs, script, method = method, in_session)
+      knit_maybe(dirs, dirs, script, method, in_session)
     },
     site.dir = '.'
   )

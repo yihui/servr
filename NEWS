@@ -8,6 +8,8 @@ NEW FEATURES
 - added three server functions jekyll(), rmdv1(), and rmdv2() to serve Jekyll
   websites, R Markdown v1, and R Markdown v2 documents, respectively
 
+- added a server function vign() to serve R Markdown/HTML package vignettes
+
 		 CHANGES IN servr VERSION 0.1
 
 NEW FEATURES

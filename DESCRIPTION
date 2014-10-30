@@ -11,6 +11,9 @@ Description: Start an HTTP server in R to serve static files, or dynamic
 Imports:
     mime (>= 0.1.1),
     httpuv (>= 1.2.0)
+Suggests:
+    knitr (>= 1.7),
+    rmarkdown
 License: GPL
 URL: https://github.com/yihui/servr
 BugReports: https://github.com/yihui/servr/issues

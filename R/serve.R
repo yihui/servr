@@ -48,7 +48,7 @@
 #' @export
 jekyll = function(
   dir = '.', input = c('.', '_source', '_posts'), output = c('.', '_posts', '_posts'),
-  script = 'build.R', baseurl, port, launch.browser
+  script = 'build.R', baseurl, ...
 ) {
   if (missing(baseurl) && file.exists(config <- file.path(dir, '_config.yml'))) {
     x = iconv(readLines(config, encoding = 'UTF-8'), 'UTF-8')
@@ -57,7 +57,7 @@ jekyll = function(
     if (length(x) == 1) baseurl = gsub('"', '', sub(p, '\\1', x))
   } else baseurl = ''
   dynamic_site(
-    dir, port, launch.browser,
+    dir, ...,
     build = function() {
       jekyll_build = function() {
         if (system2('jekyll', 'build') != 0) stop('Failed to run Jekyll')
@@ -107,25 +107,28 @@ dynamic_rmd = function(dir, script, ..., method, in_session = FALSE) {
 # the HTML pages whether they need to refresh themselves, which is determined by
 # the value returned from the build() function
 dynamic_site = function(
-  dir = '.', port, launch.browser, build = function() FALSE,
-  site.dir = dir, baseurl = ''
+  dir = '.', ..., build = function() FALSE, site.dir = dir, baseurl = '',
+  pre_process = identity, post_process = identity
 ) {
-  owd = setwd(dir); on.exit(setwd(owd))
-  build()
+  dir = normalizePath(dir, mustWork = TRUE)
+  in_dir(dir, build())
 
   js  = readLines(system.file('resources', 'ws-reload.html', package = 'servr'))
-  res = config(dir, port, launch.browser)
+  res = server_config(dir, ...)
   res$browse()
 
-  server = startServer('0.0.0.0', res$port, list(
+  app = list(
     call = function(req) {
-      owd = setwd(site.dir); on.exit(setwd(owd))
+      owd = setwd(dir); on.exit(setwd(owd))
+      setwd(site.dir)
       if (baseurl != '') {
         path = req$PATH_INFO
         if (substr(path, 1, nchar(baseurl)) == baseurl)
           req$PATH_INFO = substr(path, nchar(baseurl) + 1, nchar(path))
       }
+      req = pre_process(req)
       res = serve_dir(req)
+      req = post_process(req)
       if (res$headers[['Content-Type']] != 'text/html') return(res)
       # post-process HTML content: inject the websocket code
       body = res$body
@@ -141,17 +144,13 @@ dynamic_site = function(
       # the client keeps on sending messages to ws, and ws needs to decide when
       # to update output from source files
       ws$onMessage(function(binary, message) {
+        owd = setwd(dir); on.exit(setwd(owd))
         # notify the client that the output has been updated
         if (build()) ws$send(message)
       })
     }
-  ))
-  on.exit(stopServer(server), add = TRUE)
-
-  while (TRUE) {
-    service()
-    Sys.sleep(0.001)
-  }
+  )
+  res$start_server(app)
 }
 
 #' Determin if R Markdown files need to be re-built

@@ -68,7 +68,7 @@ jekyll = function(
       update
     },
     site.dir = '_site',
-    baseurl
+    baseurl = baseurl
   )
 }
 

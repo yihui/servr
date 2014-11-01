@@ -58,7 +58,7 @@ jekyll = function(
   } else baseurl = ''
   dynamic_site(
     dir, ...,
-    build = function() {
+    build = function(...) {
       jekyll_build = function() {
         if (system2('jekyll', 'build') != 0) stop('Failed to run Jekyll')
       }
@@ -110,7 +110,7 @@ rmdv1 = function(dir = '.', script = 'build.R', in_session = FALSE, ...) {
 dynamic_rmd = function(dir, script, ..., method, in_session = FALSE) {
   dynamic_site(
     dir, ...,
-    build = function() {
+    build = function(message) {
       # exclude .hidden dirs
       dirs = grep('^[.].', list.dirs(), value = TRUE, invert = TRUE)
       knit_maybe(dirs, dirs, script, method, in_session)
@@ -124,7 +124,7 @@ dynamic_rmd = function(dir, script, ..., method, in_session = FALSE) {
 # the HTML pages whether they need to refresh themselves, which is determined by
 # the value returned from the build() function
 dynamic_site = function(
-  dir = '.', ..., build = function() FALSE, site.dir = dir, baseurl = '',
+  dir = '.', ..., build = function(...) FALSE, site.dir = dir, baseurl = '',
   pre_process = identity, post_process = identity
 ) {
   dir = normalizePath(dir, mustWork = TRUE)
@@ -166,7 +166,10 @@ dynamic_site = function(
         if (error || !timeout()) return()
         owd = setwd(dir); on.exit(setwd(owd))
         # notify the client that the output has been updated
-        tryCatch(if (build()) ws$send(message), error = function(e) error <<- TRUE)
+        tryCatch(
+          if (build(jsonlite::fromJSON(message))) ws$send('reload'),
+          error = function(e) error <<- TRUE
+        )
       })
     }
   )

@@ -12,7 +12,8 @@ Depends:
     R (>= 3.0.0)
 Imports:
     mime (>= 0.1.1),
-    httpuv (>= 1.2.0)
+    httpuv (>= 1.2.0),
+    jsonlite
 Suggests:
     tools,
     knitr (>= 1.7),

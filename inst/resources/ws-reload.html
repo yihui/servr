@@ -11,7 +11,10 @@
   // message back when necessary
   setInterval(function() {
     if (ws.readyState === ws.OPEN)
-      ws.send(1);
+      ws.send(JSON.stringify({
+        "pathname": location.pathname,
+        "search": location.search
+      }));
   }, 1000);
 })();
 </script>

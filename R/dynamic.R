@@ -125,7 +125,7 @@ dynamic_rmd = function(dir, script, ..., method, in_session = FALSE) {
 # the value returned from the build() function
 dynamic_site = function(
   dir = '.', ..., build = function(...) FALSE, site.dir = dir, baseurl = '',
-  pre_process = identity, post_process = identity
+  pre_process = identity, post_process = identity, response = serve_dir()
 ) {
   dir = normalizePath(dir, mustWork = TRUE)
   in_dir(dir, build())
@@ -145,7 +145,7 @@ dynamic_site = function(
           req$PATH_INFO = substr(path, nchar(baseurl) + 1, nchar(path))
       }
       req = pre_process(req)
-      res = serve_dir()(req)
+      res = response(req)
       req = post_process(req)
       if (res$headers[['Content-Type']] != 'text/html') return(res)
       # post-process HTML content: inject the websocket code

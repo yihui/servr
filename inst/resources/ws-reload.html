@@ -1,7 +1,9 @@
 <script type="text/javascript">
 // automatically refresh the page when necessary (R will send a message to ws)
 (function() {
-  var ws = new WebSocket("ws://" + location.host);
+  var protocol = 'ws:';
+  if (window.location.protocol === 'https:') protocol = 'wss:';
+  var ws = new WebSocket(protocol + "//" + location.host);
   ws.onmessage = function(evt) {
     location.reload();
   }

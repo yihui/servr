@@ -56,12 +56,13 @@ jekyll = function(
     x = grep(p, x, value = TRUE)
     if (length(x) == 1) baseurl = gsub('"', '', sub(p, '\\1', x))
   } else baseurl = ''
+  jekyll_build = function() {
+    if (system2('jekyll', 'build') != 0) stop('Failed to run Jekyll')
+  }
+  in_dir(dir, jekyll_build())
   dynamic_site(
     dir, ...,
     build = function(...) {
-      jekyll_build = function() {
-        if (system2('jekyll', 'build') != 0) stop('Failed to run Jekyll')
-      }
       if (!file_test('-d', '_site')) jekyll_build()
       update = knit_maybe(input, output, script, method = 'jekyll')
       if (update) jekyll_build()

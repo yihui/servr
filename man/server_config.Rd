@@ -1,3 +1,4 @@
+% Please edit documentation in R/static.R
 \name{server_config}
 \alias{server_config}
 \title{Server configurations}

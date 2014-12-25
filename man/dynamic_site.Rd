@@ -1,3 +1,4 @@
+% Please edit documentation in R/dynamic.R
 \name{jekyll}
 \alias{jekyll}
 \alias{rmdv1}

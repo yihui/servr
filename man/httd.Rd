@@ -1,3 +1,4 @@
+% Please edit documentation in R/static.R
 \name{httd}
 \alias{httd}
 \title{Serve the static files under a directory}

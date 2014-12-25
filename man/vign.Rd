@@ -1,3 +1,4 @@
+% Please edit documentation in R/vignette.R
 \name{vign}
 \alias{vign}
 \title{Serve R Markdown/HTML package vignettes}

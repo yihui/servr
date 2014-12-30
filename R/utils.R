@@ -140,3 +140,23 @@ daemon_stop = function(which = daemon_list()) {
 #' @rdname daemon_stop
 #' @export
 daemon_list = function() servrEnv$daemon_list
+
+# watch files with pattern, and rebuild them if necessary
+build_watcher = function(pattern, build, dir = getwd()) {
+  source_info = function() {
+    file.info(list.files(dir, pattern, recursive = TRUE))[, 'mtime', drop = FALSE]
+  }
+  info = source_info()
+  function(message) {
+    if (missing(message) || !is.list(message)) return(FALSE)
+    path = sub('^/', '', message$pathname)
+    if (!is.character(path) || length(path) != 1 || !file.exists(path))
+      return(FALSE)
+    if (!grepl(pattern, path)) return(FALSE)
+    info2 = source_info()
+    yes = !(path %in% rownames(info)) || info2[path, 'mtime'] > info[path, 'mtime']
+    if (yes) build(path)
+    info <<- source_info()
+    yes
+  }
+}

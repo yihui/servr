@@ -22,15 +22,16 @@
 #'   package. If that is not the case, you should provide the correct path to
 #'   the \file{vignettes/} directory of your package to the \code{dir} argument.
 vign = function(dir = 'vignettes', ...) {
-  source_info = function() {
-    file.info(list.files('.', '[.]R(md|html)$'))[, 'mtime', drop = FALSE]
+  build_vign = function(path) {
+    # TODO: remove this line after R 3.1.2 (it has been fixed at
+    # https://github.com/wch/r-source/commit/ce7acc5f33)
+    on.exit(unlink('.build.timestamp'))
+    tools::buildVignette(path, latex = FALSE, tangle = FALSE)
   }
-  render = function(path) {
-    tools::buildVignettes(dir = '..')
-    if (!missing(path)) sub('[.]R(md|html)$', '.html', path)
-  }
-  clean = function(path = sub('[.]R(md|html)$', '.html', rownames(source_info()))) {
-    if (length(path) == 0) return()
+  in_dir(dir, {
+    build_fun = build_watcher('[.]R(md|html)$', build_vign)
+  })
+  clean = function(path) {
     for (p in path) {
       if (!grepl('[.]html$', p)) next
       # remove .html only if source document exists
@@ -43,25 +44,11 @@ vign = function(dir = 'vignettes', ...) {
   }
   dynamic_site(
     dir, ..., site.dir = '.',
-    build = local({
-      info = source_info()
-      function() {
-        info2 = source_info()
-        files = rownames(info2)
-        if (length(files) == 0) return(FALSE)
-        on.exit(info <<- info2)
-        yes = !all(files %in% rownames(info)) ||
-          any(info2[files, 'mtime'] > info[files, 'mtime'])
-        if (yes) {
-          render(); clean()
-        }
-        yes
-      }
-    }),
+    build = build_fun,
     pre_process = function(req) {
       path = sub('^/', '', req$PATH_INFO)
       if (!grepl('[.]R(md|html)$', path)) return(req)
-      req$PATH_INFO = paste0('/', render(path))
+      req$PATH_INFO = paste0('/', build_vign(path))
       req
     },
     post_process = function(req) {

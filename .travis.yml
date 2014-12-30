@@ -1,7 +1,10 @@
 language: c
 
 env:
-  - R_PKG="$(basename $TRAVIS_REPO_SLUG)"
+  matrix:
+    - R_PKG="$(basename $TRAVIS_REPO_SLUG)"
+  global:
+    secure: RXpswOOXf6qEOfiZWZXV4C69X9ObrfKFWrOi5WY/m3K844uL3Dxeeqr+Ei9JlIVAS1lBp1Hpt5In4CXTXKrfdwuN7XpOg1EId6hX8UJ5BpOCSDJ9HA/R80JyaeC5Vx9Uiqbxji9x8Zw7awBV/PqnNcUI9NcUmKtut2RsNsBALvs=
 
 install:
   - sudo apt-add-repository -y "deb http://cran.rstudio.com/bin/linux/ubuntu `lsb_release -cs`/"

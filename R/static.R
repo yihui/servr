@@ -84,6 +84,10 @@ serve_dir = function(dir = '.') function(req) {
   owd = setwd(dir); on.exit(setwd(owd))
   path = paste('.', req$PATH_INFO, sep = '')  # the requested file
   body = if (file_test('-d', path)) {
+    # ensure a trailing slash if the requested dir does not have one
+    if (!grepl('/$', path)) return(list(
+      status = 301L, body = '', headers = list('Location' = sprintf('%s/', req$PATH_INFO))
+    ))
     type = 'text/html'
     if (file.exists(idx <- file.path(path, 'index.html'))) readLines(idx) else {
       d = file.info(list.files(path, all.files = TRUE, full.names = TRUE))

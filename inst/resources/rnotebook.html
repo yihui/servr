@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>R Notebook Viewer</title>
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script src="//spec.commonmark.org/js/commonmark.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+</div>
+
+<script type="text/javascript">
+$(function() {
+  var writer = new commonmark.HtmlRenderer();
+  var reader = new commonmark.DocParser();
+  var rnotebook =
+%RNOTEBOOK_DATA%
+  ;
+  rnotebook.body.forEach(function(cell, i) {
+    var out = cell.out;
+    if (out === null) out = cell.src;
+    if (out instanceof Array) out = out.join('\n\n');
+    $('div.container').append(writer.render(reader.parse(out)));
+  });
+});
+</script>
+
+</body>
+</html>

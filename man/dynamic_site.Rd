@@ -6,7 +6,7 @@
 \title{Serve R Markdown based websites}
 \usage{
 jekyll(dir = ".", input = c(".", "_source", "_posts"), output = c(".", "_posts", 
-    "_posts"), script = "build.R", ...)
+    "_posts"), script = "build.R", serve = TRUE, ...)
 
 rmdv2(dir = ".", script = "build.R", in_session = FALSE, ...)
 
@@ -31,6 +31,9 @@ arg2} where \code{build.R} is the script specified by this argument,
 inside the R script, you can use \code{\link{commandArgs}(TRUE)} to capture
 \code{c(arg1, arg2)}, e.g. \code{knitr::knit(commandArgs(TRUE)[1],
 commandArgs(TRUE)[2])}}
+
+\item{serve}{whether to serve the website; if \code{FALSE}, the R Markdown
+documents and the website will be compiled but not served}
 
 \item{...}{server configurations passed to \code{\link{server_config}()}}
 

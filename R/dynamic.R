@@ -24,6 +24,8 @@
 #'   inside the R script, you can use \code{\link{commandArgs}(TRUE)} to capture
 #'   \code{c(arg1, arg2)}, e.g. \code{knitr::knit(commandArgs(TRUE)[1],
 #'   commandArgs(TRUE)[2])}
+#' @param serve whether to serve the website; if \code{FALSE}, the R Markdown
+#'   documents and the website will be compiled but not served
 #' @inheritParams httd
 #' @rdname dynamic_site
 #' @note Apparently \code{jekyll()} and \code{rmdv1()} require the \pkg{knitr}
@@ -46,19 +48,26 @@
 #' @export
 jekyll = function(
   dir = '.', input = c('.', '_source', '_posts'), output = c('.', '_posts', '_posts'),
-  script = 'build.R', ...
+  script = 'build.R', serve = TRUE, ...
 ) {
   baseurl = jekyll_config(dir, 'baseurl', '')
   destination = jekyll_config(dir, 'destination', '_site')
   jekyll_build = function() {
     if (system2('jekyll', 'build') != 0) stop('Failed to run Jekyll')
   }
-  in_dir(dir, jekyll_build())
+  build_all = function() knit_maybe(input, output, script, method = 'jekyll')
+
+  in_dir(dir, {
+    if (!serve) build_all()
+    jekyll_build()
+  })
+  if (!serve) return()
+
   dynamic_site(
     dir, ...,
     build = function(...) {
       if (!file_test('-d', destination)) jekyll_build()
-      update = knit_maybe(input, output, script, method = 'jekyll')
+      update = build_all()
       if (update) jekyll_build()
       update
     },

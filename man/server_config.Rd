@@ -3,7 +3,7 @@
 \alias{server_config}
 \title{Server configurations}
 \usage{
-server_config(dir, host = "127.0.0.1", port, browser, daemon, interval = 1)
+server_config(dir, host = "127.0.0.1", port, browser, daemon, interval = 1, baseurl = "")
 }
 \arguments{
 \item{dir}{the root directory to serve}
@@ -31,6 +31,9 @@ block the current R session) or a blocking server; by default, it is
 rebuilt (by default, it is checked every second); at the moment, the
 smallest possible \code{interval} is set to be 1, and this may change in
 the future}
+
+\item{baseurl}{the base URL (the full URL will be
+\code{http://host:port/baseurl})}
 }
 \value{
 A list of configuration information of the form \code{list(host,

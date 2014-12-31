@@ -6,7 +6,7 @@
 \title{Serve R Markdown based websites}
 \usage{
 jekyll(dir = ".", input = c(".", "_source", "_posts"), output = c(".", "_posts", 
-    "_posts"), script = "build.R", baseurl, ...)
+    "_posts"), script = "build.R", ...)
 
 rmdv2(dir = ".", script = "build.R", in_session = FALSE, ...)
 
@@ -31,9 +31,6 @@ arg2} where \code{build.R} is the script specified by this argument,
 inside the R script, you can use \code{\link{commandArgs}(TRUE)} to capture
 \code{c(arg1, arg2)}, e.g. \code{knitr::knit(commandArgs(TRUE)[1],
 commandArgs(TRUE)[2])}}
-
-\item{baseurl}{the base URL for Jekyll (will be read from \file{_config.yml}
-if missing)}
 
 \item{...}{server configurations passed to \code{\link{server_config}()}}
 

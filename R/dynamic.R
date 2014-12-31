@@ -24,8 +24,6 @@
 #'   inside the R script, you can use \code{\link{commandArgs}(TRUE)} to capture
 #'   \code{c(arg1, arg2)}, e.g. \code{knitr::knit(commandArgs(TRUE)[1],
 #'   commandArgs(TRUE)[2])}
-#' @param baseurl the base URL for Jekyll (will be read from \file{_config.yml}
-#'   if missing)
 #' @inheritParams httd
 #' @rdname dynamic_site
 #' @note Apparently \code{jekyll()} and \code{rmdv1()} require the \pkg{knitr}
@@ -48,14 +46,9 @@
 #' @export
 jekyll = function(
   dir = '.', input = c('.', '_source', '_posts'), output = c('.', '_posts', '_posts'),
-  script = 'build.R', baseurl, ...
+  script = 'build.R', ...
 ) {
-  if (missing(baseurl) && file.exists(config <- file.path(dir, '_config.yml'))) {
-    x = iconv(readLines(config, encoding = 'UTF-8'), 'UTF-8')
-    p = '^baseurl:\\s*([^#[:space:]]+).*$'
-    x = grep(p, x, value = TRUE)
-    if (length(x) == 1) baseurl = gsub('"', '', sub(p, '\\1', x))
-  } else baseurl = ''
+  baseurl = jekyll_config(dir, 'baseurl', '')
   jekyll_build = function() {
     if (system2('jekyll', 'build') != 0) stop('Failed to run Jekyll')
   }
@@ -142,7 +135,7 @@ dynamic_site = function(
   in_dir(dir, build())
 
   js  = readLines(system.file('resources', 'ws-reload.html', package = 'servr'))
-  res = server_config(dir, ...)
+  res = server_config(dir, ..., baseurl = baseurl)
   timeout = new_timeout(res$interval)
   res$browse()
 

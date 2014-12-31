@@ -9,6 +9,16 @@
 #' website. A connection is established between R and the HTML pages through
 #' WebSockets so that R can notify the HTML pages to refresh themselves if any R
 #' Markdown documents have been re-compiled.
+#'
+#' For those who are familiar with GNU make (if you are not, I recommend you to
+#' learn it from Karl Broman's minimal tutorial
+#' \url{http://kbroman.org/minimal_make/}), it may be easier and more flexible
+#' to define how and when to rebuild the R Markdown files, e.g. you can define a
+#' rule \command{_posts/\%.md: _source/\%.Rmd} with a command to build
+#' \file{.Rmd} to \file{.md}. If you use this approach, the exit status of the
+#' command \command{make -q} will decide whether to rebuild R Markdown files and
+#' refresh the web page: rebuilding occurs only when the exit code is not
+#' \code{0}.
 #' @param dir the root directory of the website
 #' @param input the input directories that contain R Markdown documents (the
 #'   directories must be relative instead of absolute; same for \code{output}
@@ -17,13 +27,16 @@
 #'   input document \file{foo.Rmd} under the directory \code{input[i]}, its
 #'   output document \file{foo.md} (or \file{foo.html}) is generated under
 #'   \code{output[i]} if the output document is older than the input document
-#' @param script the name of an R script to re-build R Markdown documents; it
-#'   will be executed via command line of the form \command{Rscript build.R arg1
-#'   arg2} where \code{build.R} is the script specified by this argument,
-#'   \code{arg1} is the input filename, and \code{arg2} is the output filename;
-#'   inside the R script, you can use \code{\link{commandArgs}(TRUE)} to capture
-#'   \code{c(arg1, arg2)}, e.g. \code{knitr::knit(commandArgs(TRUE)[1],
-#'   commandArgs(TRUE)[2])}
+#' @param script a Makefile, or (if Makefile not found) the name of an R script
+#'   to re-build R Markdown documents, which will be executed via command line
+#'   of the form \command{Rscript build.R arg1 arg2} where \code{build.R} is the
+#'   script specified by this argument, \code{arg1} is the input filename, and
+#'   \code{arg2} is the output filename; inside the R script, you can use
+#'   \code{\link{commandArgs}(TRUE)} to capture \code{c(arg1, arg2)}, e.g.
+#'   \code{knitr::knit(commandArgs(TRUE)[1], commandArgs(TRUE)[2])}; if this R
+#'   script is not found, either, internal compiling methods will be used, which
+#'   are basically \code{\link[knitr]{knit}()},
+#'   \code{\link[knitr]{knit2html}()}, or \code{\link[rmarkdown]{render}()}
 #' @param serve whether to serve the website; if \code{FALSE}, the R Markdown
 #'   documents and the website will be compiled but not served
 #' @inheritParams httd
@@ -48,7 +61,7 @@
 #' @export
 jekyll = function(
   dir = '.', input = c('.', '_source', '_posts'), output = c('.', '_posts', '_posts'),
-  script = 'build.R', serve = TRUE, ...
+  script = c('Makefile', 'build.R'), serve = TRUE, ...
 ) {
   baseurl = jekyll_config(dir, 'baseurl', '')
   destination = jekyll_config(dir, 'destination', '_site')
@@ -111,13 +124,13 @@ jekyll_config = function(dir, field, default) {
 #'   turn off the evaluation of that code chunk, and keep on working on the rest
 #'   of code chunks so that data will not be read over and over again.
 #' @export
-rmdv2 = function(dir = '.', script = 'build.R', in_session = FALSE, ...) {
+rmdv2 = function(dir = '.', script = c('Makefile', 'build.R'), in_session = FALSE, ...) {
   dynamic_rmd(dir, script, ..., method = 'rmdv2', in_session = in_session)
 }
 
 #' @rdname dynamic_site
 #' @export
-rmdv1 = function(dir = '.', script = 'build.R', in_session = FALSE, ...) {
+rmdv1 = function(dir = '.', script = c('Makefile', 'build.R'), in_session = FALSE, ...) {
   dynamic_rmd(dir, script, ..., method = 'rmdv1', in_session = in_session)
 }
 
@@ -200,6 +213,20 @@ dynamic_site = function(
 #'   v2, or something else
 #' @noRd
 knit_maybe = function(input, output, script, method = 'jekyll', in_session = FALSE) {
+  # if the script is a Makefile, check `make -q` to see if we need to
+  # re-generate any files; if we do not, there is nothing to do, otherwise run
+  # make, and tell the client that the files have been updated
+  if (is.character(script)) {
+    i = file.exists(script)
+    if (any(i)) script = script[i][1]
+    if (script == 'Makefile') {
+      if (in_session) warning('You cannot use in_session = TRUE with Makefile')
+      if (system('make -q') == 0L) return(FALSE)
+      if (system('make') != 0) stop('Failed to run Makefile')
+      return(TRUE)
+    }
+  }
+
   outext = switch(method, jekyll = '.md', '.html')
   # check if R Markdown files need to be recompiled
   res = mapply(

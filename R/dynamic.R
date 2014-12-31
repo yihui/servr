@@ -73,6 +73,16 @@ jekyll = function(
   )
 }
 
+# in theory, I should use the yaml package, but I do not want to introduce a
+# dependency at the moment, so here goes the naive way
+jekyll_config = function(dir, field, default) {
+  if (!file.exists(config <- file.path(dir, '_config.yml'))) return(default)
+  x = iconv(readLines(config, encoding = 'UTF-8'), 'UTF-8')
+  p = sprintf('^%s:\\s*([^#[:space:]]+).*$', field)
+  x = grep(p, x, value = TRUE)
+  if (length(x) == 1) gsub('"', '', sub(p, '\\1', x)) else default
+}
+
 #' @details The functions \code{rmdv1()} and \code{rmdv2()} are similar to
 #'   \code{jekyll()}, and the only difference is the way to compile R Markdown
 #'   documents: \code{rmdv1()} uses the \pkg{markdown} package (a.k.a R Markdown

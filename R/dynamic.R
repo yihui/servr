@@ -49,6 +49,7 @@ jekyll = function(
   script = 'build.R', ...
 ) {
   baseurl = jekyll_config(dir, 'baseurl', '')
+  destination = jekyll_config(dir, 'destination', '_site')
   jekyll_build = function() {
     if (system2('jekyll', 'build') != 0) stop('Failed to run Jekyll')
   }
@@ -56,12 +57,12 @@ jekyll = function(
   dynamic_site(
     dir, ...,
     build = function(...) {
-      if (!file_test('-d', '_site')) jekyll_build()
+      if (!file_test('-d', destination)) jekyll_build()
       update = knit_maybe(input, output, script, method = 'jekyll')
       if (update) jekyll_build()
       update
     },
-    site.dir = '_site',
+    site.dir = destination,
     baseurl = baseurl
   )
 }

@@ -152,7 +152,8 @@ dynamic_site = function(
       req = pre_process(req)
       res = response(req)
       req = post_process(req)
-      if (res$headers[['Content-Type']] != 'text/html') return(res)
+      if (res$status != 200L || res$headers[['Content-Type']] != 'text/html')
+        return(res)
       # post-process HTML content: inject the websocket code
       body = res$body
       if (is.raw(body)) body = rawToChar(body)

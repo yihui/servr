@@ -191,7 +191,7 @@ dynamic_site = function(
   res$start_server(app)
 }
 
-#' Determin if R Markdown files need to be re-built
+#' Determine if R Markdown files need to be re-built
 #' @param input the input dirs
 #' @param output the output dirs
 #' @param script the R script, or an R function to build the R Markdown files

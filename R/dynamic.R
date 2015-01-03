@@ -191,8 +191,11 @@ dynamic_site = function(
       # to update output from source files
       error = FALSE  # when an error occurred, stop sending messages
       ws$onMessage(function(binary, message) {
-        if (error || !timeout()) return()
+        # if the last build errored, wait for 1, 2, 4, 8, 16, ... seconds,
+        # otherwise restore the default time interval
+        if (!timeout(error)) return()
         owd = setwd(dir); on.exit(setwd(owd))
+        error <<- FALSE
         # notify the client that the output has been updated
         tryCatch(
           if (build(jsonlite::fromJSON(message))) ws$send('reload'),

@@ -80,10 +80,13 @@ in_dir = function(dir, expr) {
 
 new_timeout = function(interval) {
   old = NULL
-  function() {
+  int = interval  # stores initial value (may need to restore later)
+  function(delay = FALSE) {
     now = Sys.time()
     if (is.null(old)) old <<- now
-    if (as.numeric(now - old) < interval) return(FALSE)
+    # when delay = TRUE, wait for twice longer until returning TRUE (like Gmail)
+    int <<- if (delay) 2 * int else interval
+    if (as.numeric(now - old) < int) return(FALSE)
     old <<- now
     TRUE
   }

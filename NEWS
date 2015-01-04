@@ -10,6 +10,12 @@ NEW FEATURES
 
 - added a server function vign() to serve R Markdown/HTML package vignettes
 
+- added a server function make() to serve a directory and update files
+  automatically via Makefile (#2)
+
+- the URL pathname foo will be redirected to foo/ automatically if foo is a
+  directory (#5)
+
 		 CHANGES IN servr VERSION 0.1
 
 NEW FEATURES

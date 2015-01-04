@@ -1,0 +1,28 @@
+---
+title: "Serve an R Markdown Document Using servr"
+author: "Yihui Xie"
+date: "2015/01/03"
+output: html_document
+---
+
+R code chunk:
+
+```{r}
+if (TRUE) {
+  1 + 1
+}
+rnorm(10)
+summary(cars)
+knitr::kable(head(mtcars))
+```
+
+Use `servr::make()` to serve this example. The Makefile for this directory is:
+
+```{r engine='cat', engine.opts=list(lang='Makefile'), code=readLines('Makefile')}
+```
+
+Session info:
+
+```{r}
+sessionInfo()
+```

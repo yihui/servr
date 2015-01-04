@@ -163,3 +163,32 @@ build_watcher = function(pattern, build, dir = getwd()) {
     yes
   }
 }
+
+#' A convenience function to serve examples in this package
+#'
+#' Use server functions to serve built-in examples of this package.
+#' @param name the directory name of the example under the directory
+#'   \code{system.file('examples', package = 'servr')}
+#' @param FUN a server function that takes the example path as its first
+#'   argument, e.g. \code{\link{httd}}, or \code{\link{rmdv1}}
+#' @param ... other arguments passed to \code{FUN}
+#' @param run whether to run the example (this is mainly for \command{R CMD
+#'   check} purposes: the examples will not be really served when the R session
+#'   is not interactive, so they will not block \command{R CMD check})
+#' @export
+#' @return \code{NULL} if \code{run = FALSE}, otherwise the value returned from
+#'   \code{FUN()}.
+#' @examples # R Markdown v1 or v2
+#' servr::serve_example('rmd', servr::rmdv1)
+#' servr::serve_example('rmd', servr::rmdv2)
+#'
+#' # GNU Make
+#' servr::serve_example('make1', servr::make)
+#' servr::serve_example('make2', servr::make)
+serve_example = function(name, FUN, ..., run = interactive()) {
+  if (!run) return(invisible(NULL))
+  dir = system.file('examples', name, package = 'servr')
+  if (!file_test('-d', dir)) stop('The example ', name, ' does not exist')
+  message('Serving the example ', dir)
+  FUN(dir, ...)
+}

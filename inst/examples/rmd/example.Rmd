@@ -1,0 +1,39 @@
+---
+title: "Serve an R Markdown Document Using servr"
+author: "Yihui Xie"
+date: "2015/01/03"
+output: html_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown, see <http://rmarkdown.rstudio.com>. This document can be compiled by either R Markdown [v1](http://cran.rstudio.com/package=markdown) or [v2](http://cran.rstudio.com/package=rmarkdown), and you can serve it by either `servr::rmdv1` or `servr::rmdv2` accordingly.
+
+You can include an R code chunk:
+
+```{r}
+if (TRUE) {
+  1 + 1
+}
+rnorm(10)
+summary(cars)
+knitr::kable(head(mtcars))
+```
+
+You can also embed plots, for example:
+
+```{r}
+plot(cars, pch = 20, col = 'red')
+```
+
+After you start **servr** for this document, you can click `example.html` to view it, then edit and save this R Markdown document, and you will see the HTML output file is automatically reloaded in your browser.
+
+```{r}
+servr::serve_example('rmd', servr::rmdv1)
+# or
+servr::serve_example('rmd', servr::rmdv2)
+```
+
+Session info:
+
+```{r}
+sessionInfo()
+```

@@ -23,12 +23,12 @@
 #' servr::serve_example('make1', servr::make)
 #' servr::serve_example('make2', servr::make)
 make = function(dir = '.', ...) {
-  dynamic_site(dir, ..., build = function(...) make_maybe())
+  dynamic_site(dir, ..., build = make_maybe)
 }
 
 # if need to make, make and return TRUE (to tell the browser to refresh itself);
 # otherwise just return FALSE
-make_maybe = function() {
+make_maybe = function(...) {
   if (system('make -q') == 0L) return(FALSE)
   if (system('make') != 0) stop('Failed to run Makefile')
   return(TRUE)

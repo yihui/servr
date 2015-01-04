@@ -24,16 +24,17 @@ input document \file{foo.Rmd} under the directory \code{input[i]}, its
 output document \file{foo.md} (or \file{foo.html}) is generated under
 \code{output[i]} if the output document is older than the input document}
 
-\item{script}{a Makefile, or (if Makefile not found) the name of an R script
-to re-build R Markdown documents, which will be executed via command line
-of the form \command{Rscript build.R arg1 arg2} where \code{build.R} is the
-script specified by this argument, \code{arg1} is the input filename, and
-\code{arg2} is the output filename; inside the R script, you can use
-\code{\link{commandArgs}(TRUE)} to capture \code{c(arg1, arg2)}, e.g.
-\code{knitr::knit(commandArgs(TRUE)[1], commandArgs(TRUE)[2])}; if this R
-script is not found, either, internal compiling methods will be used, which
-are basically \code{\link[knitr]{knit}()},
-\code{\link[knitr]{knit2html}()}, or \code{\link[rmarkdown]{render}()}}
+\item{script}{a Makefile (see \code{\link{make}}), or (if Makefile not found)
+the name of an R script to re-build R Markdown documents, which will be
+executed via command line of the form \command{Rscript build.R arg1 arg2}
+where \code{build.R} is the script specified by this argument, \code{arg1}
+is the input filename, and \code{arg2} is the output filename; inside the R
+script, you can use \code{\link{commandArgs}(TRUE)} to capture
+\code{c(arg1, arg2)}, e.g. \code{knitr::knit(commandArgs(TRUE)[1],
+commandArgs(TRUE)[2])}; if this R script is not found, either, internal
+compiling methods will be used, which are basically
+\code{\link[knitr]{knit}()}, \code{\link[knitr]{knit2html}()}, or
+\code{\link[rmarkdown]{render}()}}
 
 \item{serve}{whether to serve the website; if \code{FALSE}, the R Markdown
 documents and the website will be compiled but not served}
@@ -59,16 +60,6 @@ The function \code{jekyll()} sets up a web server to serve a Jekyll-based
 website. A connection is established between R and the HTML pages through
 WebSockets so that R can notify the HTML pages to refresh themselves if any R
 Markdown documents have been re-compiled.
-
-For those who are familiar with GNU make (if you are not, I recommend you to
-learn it from Karl Broman's minimal tutorial
-\url{http://kbroman.org/minimal_make/}), it may be easier and more flexible
-to define how and when to rebuild the R Markdown files, e.g. you can define a
-rule \command{_posts/\%.md: _source/\%.Rmd} with a command to build
-\file{.Rmd} to \file{.md}. If you use this approach, the exit status of the
-command \command{make -q} will decide whether to rebuild R Markdown files and
-refresh the web page: rebuilding occurs only when the exit code is not
-\code{0}.
 
 The functions \code{rmdv1()} and \code{rmdv2()} are similar to
   \code{jekyll()}, and the only difference is the way to compile R Markdown
@@ -101,6 +92,10 @@ For the sake of reproducibility, you are recommended to compile each
 \examples{
 if (interactive()) servr::rmdv1()  # serve the current dir with R Markdown v1
 if (interactive()) servr::rmdv2()  # or R Markdown v2
+
+# built-in examples
+servr::serve_example("rmd", servr::rmdv1)
+servr::serve_example("rmd", servr::rmdv2)
 }
 \references{
 R Markdown v1: \url{http://cran.rstudio.com/package=markdown}. R

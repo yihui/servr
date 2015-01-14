@@ -30,6 +30,8 @@
 #'   \code{\link[rmarkdown]{render}()}
 #' @param serve whether to serve the website; if \code{FALSE}, the R Markdown
 #'   documents and the website will be compiled but not served
+#' @param bundle whether to use bundle to run jekyll, that is use 
+#'   \code{bundle exec jekyll build} instead of \code{jekyll build}
 #' @inheritParams httd
 #' @rdname dynamic_site
 #' @note Apparently \code{jekyll()} and \code{rmdv1()} require the \pkg{knitr}
@@ -56,12 +58,19 @@
 #' @export
 jekyll = function(
   dir = '.', input = c('.', '_source', '_posts'), output = c('.', '_posts', '_posts'),
-  script = c('Makefile', 'build.R'), serve = TRUE, ...
+  script = c('Makefile', 'build.R'), serve = TRUE, bundle = FALSE, ...
 ) {
   baseurl = jekyll_config(dir, 'baseurl', '')
   destination = jekyll_config(dir, 'destination', '_site')
   jekyll_build = function() {
-    if (system2('jekyll', 'build') != 0) stop('Failed to run Jekyll')
+    if (bundle) {
+      build_command = 'bundle'
+      build_args = 'exec jekyll build'
+    }else {
+      build_command = 'jekyll'
+      build_args = 'build'
+    }
+    if (system2(build_command, build_args) != 0) stop('Failed to run Jekyll')
   }
   build_all = function() knit_maybe(input, output, script, method = 'jekyll')
 

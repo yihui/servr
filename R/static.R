@@ -87,7 +87,10 @@ server_config = function(
 
 serve_dir = function(dir = '.') function(req) {
   owd = setwd(dir); on.exit(setwd(owd))
-  path = paste('.', req$PATH_INFO, sep = '')  # the requested file
+  path = req$PATH_INFO
+  if (grepl('^/', path)) {
+    path = paste('.', path, sep = '')  # the requested file
+  } else if (path == '') path = '.'
   body = if (file_test('-d', path)) {
     # ensure a trailing slash if the requested dir does not have one
     if (!grepl('/$', path)) return(list(

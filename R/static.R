@@ -93,8 +93,10 @@ serve_dir = function(dir = '.') function(req) {
   } else if (path == '') path = '.'
   body = if (file_test('-d', path)) {
     # ensure a trailing slash if the requested dir does not have one
-    if (!grepl('/$', path)) return(list(
-      status = 301L, body = '', headers = list('Location' = sprintf('%s/', req$PATH_INFO))
+    if (path != '.' && !grepl('/$', path)) return(list(
+      status = 301L, body = '', headers = list(
+        'Location' = sprintf('/%s/', req$PATH_INFO)
+      )
     ))
     type = 'text/html'
     if (file.exists(idx <- file.path(path, 'index.html'))) readLines(idx) else {

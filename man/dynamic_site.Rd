@@ -5,12 +5,15 @@
 \alias{rmdv2}
 \title{Serve R Markdown based websites}
 \usage{
-jekyll(dir = ".", input = c(".", "_source", "_posts"), output = c(".", "_posts", 
-    "_posts"), script = c("Makefile", "build.R"), serve = TRUE, ...)
+jekyll(dir = ".", input = c(".", "_source", "_posts"), output = c(".", 
+    "_posts", "_posts"), script = c("Makefile", "build.R"), serve = TRUE, 
+    command = "jekyll build", ...)
 
-rmdv2(dir = ".", script = c("Makefile", "build.R"), in_session = FALSE, ...)
+rmdv2(dir = ".", script = c("Makefile", "build.R"), in_session = FALSE, 
+    ...)
 
-rmdv1(dir = ".", script = c("Makefile", "build.R"), in_session = FALSE, ...)
+rmdv1(dir = ".", script = c("Makefile", "build.R"), in_session = FALSE, 
+    ...)
 }
 \arguments{
 \item{dir}{the root directory of the website}
@@ -38,6 +41,10 @@ compiling methods will be used, which are basically
 
 \item{serve}{whether to serve the website; if \code{FALSE}, the R Markdown
 documents and the website will be compiled but not served}
+
+\item{command}{a command to build the Jekyll website; by default, it is
+\command{jekyll build}, and you can use alternative commands, such as
+\command{bundle exec jekyll build}}
 
 \item{...}{server configurations passed to \code{\link{server_config}()}}
 

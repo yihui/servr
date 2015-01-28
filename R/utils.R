@@ -110,6 +110,7 @@ daemon_hint = function(server) {
   servrEnv$daemon_list = c(servrEnv$daemon_list, server)
   message('To stop the server, run servr::daemon_stop("', server, '")',
           ' or restart your R session')
+  invisible(server)
 }
 
 #' Utilities for daemonized servers

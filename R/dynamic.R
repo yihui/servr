@@ -43,6 +43,11 @@
 #'   you have any R Markdown documents that should not be compiled as standalone
 #'   documents (e.g. child documents), you can use different filename
 #'   extensions, such as \file{.Rmarkdown}.
+#'
+#'   The \code{baseurl} argument does not work in \code{jekyll()}, and the base
+#'   URL setting will be read from \file{_config.yml} (the \samp{baseurl} field)
+#'   of the website if present. You should not pass \code{baseurl} to the
+#'   function \code{jekyll()} directly.
 #' @references R Markdown v1: \url{http://cran.rstudio.com/package=markdown}. R
 #'   Markdown v2: \url{http://rmarkdown.rstudio.com}. For Jekyll, see
 #'   \url{http://jekyllrb.com}. The GitHub repository

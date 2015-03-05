@@ -85,6 +85,11 @@ Apparently \code{jekyll()} and \code{rmdv1()} require the \pkg{knitr}
   documents (e.g. child documents), you can use different filename
   extensions, such as \file{.Rmarkdown}.
 
+  The \code{baseurl} argument does not work in \code{jekyll()}, and the base
+  URL setting will be read from \file{_config.yml} (the \samp{baseurl} field)
+  of the website if present. You should not pass \code{baseurl} to the
+  function \code{jekyll()} directly.
+
 For the sake of reproducibility, you are recommended to compile each
   source document in a separate R session (i.e., use the default
   \code{in_session = FALSE}) to make sure they can compile on their own,

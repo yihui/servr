@@ -21,5 +21,6 @@ implementation of \href{http://commonmark.org}{CommonMark} at the moment (the
 renderer may change in the future).
 }
 \examples{
-# see ?servr::newnb for examples
+# see ?rnotebook::newnb for examples
 }
+\keyword{internal}

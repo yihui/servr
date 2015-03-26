@@ -13,8 +13,9 @@
 #' @examples # see ?rnotebook::newnb for examples
 notebook = function(dir = '.', ...) {
   dir = normalizePath(dir, mustWork = TRUE)
+  refresh = getFromNamespace('refresh', 'rnotebook')
   in_dir(dir, {
-    build = build_watcher('[.]Rnb$', rnotebook::refresh)
+    build = build_watcher('[.]Rnb$', refresh)
   })
   dynamic_site(
     dir, ..., site.dir = '.',

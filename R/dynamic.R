@@ -196,7 +196,10 @@ dynamic_site = function(
       ws$onMessage(function(binary, message) {
         # if the last build errored, wait for 1, 2, 4, 8, 16, ... seconds,
         # otherwise restore the default time interval
-        if (!timeout(error)) return()
+        if (!timeout(error)) {
+          error <<- NA  # in an indetermined state (wait and see)
+          return()
+        }
         owd = setwd(dir); on.exit(setwd(owd))
         error <<- FALSE
         # notify the client that the output has been updated

@@ -85,7 +85,12 @@ new_timeout = function(interval) {
     now = Sys.time()
     if (is.null(old)) old <<- now
     # when delay = TRUE, wait for twice longer until returning TRUE (like Gmail)
-    int <<- if (delay) 2 * int else interval
+    if (!is.na(delay)) {
+      if (delay) {
+        int <<- 2 * int
+        message('\n* Retrying in ', int, ' second', if (int > 1) 's', '...\n')
+      } else int <<- interval
+    }
     if (as.numeric(now - old) < int) return(FALSE)
     old <<- now
     TRUE

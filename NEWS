@@ -16,6 +16,10 @@ NEW FEATURES
 - the URL pathname foo will be redirected to foo/ automatically if foo is a
   directory (#5)
 
+- in case of errors when serving dynamic documents, the server functions will
+  double the delay to check for updates and wait for the next build until the
+  error is cleared (like Gmail)
+
 		 CHANGES IN servr VERSION 0.1
 
 NEW FEATURES

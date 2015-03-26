@@ -10,7 +10,7 @@
 #' @inheritParams httd
 #' @inheritParams server_config
 #' @export
-#' @examples # see ?servr::newnb for examples
+#' @examples # see ?rnotebook::newnb for examples
 notebook = function(dir = '.', ...) {
   dir = normalizePath(dir, mustWork = TRUE)
   in_dir(dir, {

@@ -74,8 +74,10 @@ jekyll = function(
   build_all = function() knit_maybe(input, output, script, method = 'jekyll')
 
   in_dir(dir, {
-    if (!serve) build_all()
-    jekyll_build()
+    if (!serve) {
+      build_all()
+      jekyll_build()
+    }
   })
   if (!serve) return()
 

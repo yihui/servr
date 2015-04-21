@@ -84,9 +84,8 @@ jekyll = function(
   dynamic_site(
     dir, ...,
     build = function(...) {
-      if (!file_test('-d', destination)) jekyll_build()
       update = build_all()
-      if (update) jekyll_build()
+      if (update || !file_test('-d', destination)) jekyll_build()
       update
     },
     site.dir = destination,

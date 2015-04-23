@@ -73,23 +73,23 @@ jekyll = function(
   }
   build_all = function() knit_maybe(input, output, script, method = 'jekyll')
 
-  in_dir(dir, {
-    if (!serve) build_all()
-    jekyll_build()
-  })
-  if (!serve) return()
-
-  dynamic_site(
-    dir, ...,
-    build = function(...) {
-      if (!file_test('-d', destination)) jekyll_build()
-      update = build_all()
-      if (update) jekyll_build()
-      update
-    },
-    site.dir = destination,
-    baseurl = baseurl
-  )
+  if (serve) {
+    dynamic_site(
+      dir, ...,
+      build = function(...) {
+        update = build_all()
+        if (update || !file_test('-d', destination)) jekyll_build()
+        update
+      },
+      site.dir = destination,
+      baseurl = baseurl
+    )
+  } else {
+    in_dir(dir, {
+      build_all()
+      jekyll_build()
+    })
+  }
 }
 
 # in theory, I should use the yaml package, but I do not want to introduce a

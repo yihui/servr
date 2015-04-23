@@ -33,6 +33,7 @@
 #' @param command a command to build the Jekyll website; by default, it is
 #'   \command{jekyll build}, and you can use alternative commands, such as
 #'   \command{bundle exec jekyll build}
+#' @param verbose when R markdown files are rebuilt, should output be displayed?
 #' @inheritParams httd
 #' @rdname dynamic_site
 #' @note Apparently \code{jekyll()} and \code{rmdv1()} require the \pkg{knitr}
@@ -64,14 +65,15 @@
 #' @export
 jekyll = function(
   dir = '.', input = c('.', '_source', '_posts'), output = c('.', '_posts', '_posts'),
-  script = c('Makefile', 'build.R'), serve = TRUE, command = 'jekyll build', ...
+  script = c('Makefile', 'build.R'), serve = TRUE, command = 'jekyll build',
+  verbose = TRUE, ...
 ) {
   baseurl = jekyll_config(dir, 'baseurl', '')
   destination = jekyll_config(dir, 'destination', '_site')
   jekyll_build = function() {
     if (system(command) != 0) stop('Failed to run: ', command)
   }
-  build_all = function() knit_maybe(input, output, script, method = 'jekyll')
+  build_all = function() knit_maybe(input, output, script, method = 'jekyll', verbose = verbose)
 
   if (serve) {
     dynamic_site(
@@ -213,15 +215,21 @@ dynamic_site = function(
   res$start_server(app)
 }
 
-#' Determine if R Markdown files need to be re-built
+#' Determine if R Markdown files need to be re-built and rebuild if necessary
 #' @param input the input dirs
 #' @param output the output dirs
 #' @param script the R script, or an R function to build the R Markdown files
 #' @param method if no \code{script} was provided, fall back to internal methods
 #'   to build R Markdown files, so I need to know if you are Jekyll, R Markdown
 #'   v2, or something else
+#' @param in_session if files are rebuilt, should they be built in this R session?
+#' Or a separate (child) session?
+#' @param verbose if files are rebuilt, should output be displayed? This argument is
+#' ignored if \code{script} is a function.
+#' @value TRUE if rebuilt, FALSE otherwise
 #' @noRd
-knit_maybe = function(input, output, script, method = 'jekyll', in_session = FALSE) {
+knit_maybe = function(input, output, script, method = 'jekyll',
+                      in_session = FALSE, verbose = TRUE) {
   # if the script is a Makefile, check `make -q` to see if we need to
   # re-generate any files; if we do not, there is nothing to do, otherwise run
   # make, and tell the client that the files have been updated
@@ -247,9 +255,9 @@ knit_maybe = function(input, output, script, method = 'jekyll', in_session = FAL
     update <<- TRUE
     # compile each posts in a separate R session
     for (i in seq_len(nrow(r))) {
-      # run script if exists, passing input and output filenames to Rscript
+      # run script in a separate session, passing input and output filenames to Rscript
       if (!in_session && file.exists(script)) {
-        rscript(shQuote(c(script, r[i, 1], r[i, 2])), r[i, 1])
+        rscript(shQuote(c(script, r[i, 1], r[i, 2])), r[i, 1], verbose = verbose)
         next
       }
       if (in_session && is.function(script)) {
@@ -258,7 +266,7 @@ knit_maybe = function(input, output, script, method = 'jekyll', in_session = FAL
       }
       # otherwise run default code
       build = getFromNamespace(paste('build', method, sep = '_'), 'servr')
-      build(r[i, 1], r[i, 2], in_session)
+      build(r[i, 1], r[i, 2], verbose = verbose)
     }
     if (any(i <- !file.exists(r[, 2])))
       stop('Some output files were not successfully generated: ', paste(r[i, 2], collapse = ', '))
@@ -279,20 +287,27 @@ obsolete_out = function(input, output, pattern = '[.]Rmd$', outext = '.md') {
   if (any(idx)) cbind(src[idx], out[idx])
 }
 
-build_jekyll = function(input, output, ...) {
+build_jekyll = function(input, output, verbose = TRUE, ...) {
+  # extract arguments in `...` and coerce to string
+  params = as.list(match.call())[-1]
+  idx = !names(params) %in% names(formals(build_jekyll))
+  dots = params[idx]
+  dotz = paste(names(dots), as.character(dots), sep = "=", collapse = ", ")
   code = c(
     sprintf(
       c("knitr::opts_chunk$set(fig.path = 'figure/%s/', ",
         "cache.path = 'cache/%s/')"),
       gsub('^_|[.][a-zA-Z]+$', '', input)
     ),
-    "knitr::opts_knit$set(base.url = '/')",
+    "markdown = jekyll_config('.', 'markdown', 'kramdown')",
+    "if (markdown == 'kramdown') knitr::render_jekyll() else knitr::render_markdown()",
+    "knitr::opts_knit$set(base.url = jekyll_config('.', 'baseurl', '/'))",
     sprintf(
-      "knitr::knit('%s', '%s', quiet = TRUE, encoding = 'UTF-8')",
-      input, output
+      "knitr::knit('%s', '%s', encoding = 'UTF-8', '%s')",
+      input, output, dotz
     )
   )
-  rscript(c(rbind('-e', shQuote(code))), input)
+  rscript(c('-e', shQuote(code)), input = input, verbose = verbose)
 }
 
 build_rmd = function(input, output, template, in_session) {
@@ -307,9 +322,9 @@ build_rmd = function(input, output, template, in_session) {
 }
 
 build_rmdv2 = function(...) {
-  build_rmd(..., template = "rmarkdown::render('%s', encoding = 'UTF-8', quiet = TRUE)")
+  build_rmd(..., template = "rmarkdown::render('%s', encoding = 'UTF-8')")
 }
 
 build_rmdv1 = function(...) {
-  build_rmd(..., template = "knitr::knit2html('%s', encoding = 'UTF-8', quiet = TRUE)")
+  build_rmd(..., template = "knitr::knit2html('%s', encoding = 'UTF-8')")
 }

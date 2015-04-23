@@ -68,9 +68,13 @@ get_browser = function() {
   browser
 }
 
-rscript = function(code, input) {
-  if (system2(file.path(R.home('bin'), 'Rscript'), code, stdout = NULL) != 0)
+rscript = function(code, input, verbose = FALSE) {
+  r_bin <- file.path(R.home('bin'), 'Rscript')
+  if (verbose) {
+    message(paste(x = system2(r_bin, code, stdout = TRUE), "\n"))
+  } else if (system2(r_bin, code, stdout = NULL) != 0) {
     stop('Failed to compile ', input, call. = FALSE)
+  }
 }
 
 in_dir = function(dir, expr) {

@@ -266,7 +266,7 @@ knit_maybe = function(input, output, script, method = 'jekyll',
       }
       # otherwise run default code
       build = getFromNamespace(paste('build', method, sep = '_'), 'servr')
-      build(r[i, 1], r[i, 2], verbose = verbose)
+      build(r[i, 1], r[i, 2], in_session = in_session, verbose = verbose)
     }
     if (any(i <- !file.exists(r[, 2])))
       stop('Some output files were not successfully generated: ', paste(r[i, 2], collapse = ', '))
@@ -287,7 +287,7 @@ obsolete_out = function(input, output, pattern = '[.]Rmd$', outext = '.md') {
   if (any(idx)) cbind(src[idx], out[idx])
 }
 
-build_jekyll = function(input, output, verbose = TRUE, ...) {
+build_jekyll = function(input, output, in_session = FALSE, verbose = TRUE, ...) {
   # extract arguments in `...` and coerce to string
   params = as.list(match.call())[-1]
   idx = !names(params) %in% names(formals(build_jekyll))
@@ -307,17 +307,21 @@ build_jekyll = function(input, output, verbose = TRUE, ...) {
       input, output, dotz
     )
   )
-  rscript(c('-e', shQuote(code)), input = input, verbose = verbose)
+  if (in_session) {
+    eval(parse(text = code), envir = globalenv())
+  } else {
+    rscript(c('-e', shQuote(code)), input = input, verbose = verbose)
+  }
 }
 
-build_rmd = function(input, output, template, in_session) {
+build_rmd = function(input, output, template, in_session = FALSE, verbose = TRUE) {
   owd = setwd(dirname(input)); on.exit(setwd(owd))
   input = basename(input)
   code = sprintf(template, input)
   if (in_session) {
     eval(parse(text = code), envir = globalenv())
   } else {
-    rscript(c(rbind('-e', shQuote(code))), file.path(owd, input))
+    rscript(c(rbind('-e', shQuote(code))), file.path(owd, input), verbose = verbose)
   }
 }
 

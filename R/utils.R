@@ -57,7 +57,7 @@ is_rstudio = function() Sys.getenv('RSTUDIO') == '1'
 # use the RStudio viewer if possible
 get_browser = function() {
   browser = if ('tools:rstudio' %in% search()) getOption('viewer') else {
-    if (is_rstudio()) getFromNamespace('viewer', 'rstudio')
+    if (is_rstudio()) getFromNamespace('viewer', 'rstudioapi')
   }
   # rstudio::viewer() does not seem to work when a separate R session is
   # launched from RStudio, so we need to try() and if it fails, fall back to the

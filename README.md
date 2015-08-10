@@ -7,11 +7,11 @@ A simple HTTP server to serve files under a given directory based on the
 
 You can install this package from
 [CRAN](http://cran.rstudio.com/package=servr) (stable version) or
-[RForge](http://www.rforge.net/servr/) (development version):
+[XRAN](http://yihui.name/xran/) (development version):
 
 ```r
 install.packages('servr')  # stable version; use a CRAN mirror, or
-install.packages('servr', repos = 'http://rforge.net')  # devel version
+install.packages('servr', repos = 'http://yihui.name/xran')  # devel version
 ```
 
 This package is licensed under GPL.

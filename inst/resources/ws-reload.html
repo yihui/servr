@@ -3,7 +3,12 @@
 (function() {
   var protocol = 'ws:';
   if (window.location.protocol === 'https:') protocol = 'wss:';
-  var ws = new WebSocket(protocol + "//" + location.host);
+  var path = window.location.pathname;
+  if (!/\/$/.test(path)) path += '/';
+  path += 'websocket/';
+
+  var ws = new WebSocket(protocol + '//' + window.location.host + path);
+
   ws.onmessage = function(evt) {
     location.reload();
   }

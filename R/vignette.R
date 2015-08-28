@@ -23,9 +23,7 @@
 #'   the \file{vignettes/} directory of your package to the \code{dir} argument.
 vign = function(dir = 'vignettes', ...) {
   build_vign = function(path) {
-    # TODO: remove this line after R 3.1.2 (it has been fixed at
-    # https://github.com/wch/r-source/commit/ce7acc5f33)
-    on.exit(unlink('.build.timestamp'))
+    on.exit(unlink(sub('[.]R(md|html)$', '.R', path)))
     tools::buildVignette(path, latex = FALSE, tangle = FALSE)
   }
   in_dir(dir, {

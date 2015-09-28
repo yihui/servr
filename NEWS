@@ -1,5 +1,9 @@
 		 CHANGES IN servr VERSION 0.3
 
+NEW FEATURES
+
+- servr accepts HTTP Range requests now (thanks, @rekado, #21)
+
 BUG FIXES
 
 - servr did not work with RStudio Server (#20)

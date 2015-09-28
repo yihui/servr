@@ -116,24 +116,24 @@ serve_dir = function(dir = '.') function(req) {
     range = req$HTTP_RANGE
 
     if (is.null(range)) {
-        readBin(path, 'raw', file.info(path)[, 'size'])
+      readBin(path, 'raw', file.info(path)[, 'size'])
     } else {
-        range = strsplit(range, split = "(=|-)")
-        firstByte = as.numeric(range[[1]][2])
-        lastByte = as.numeric(range[[1]][3])
+      range = strsplit(range, split = "(=|-)")
+      firstByte = as.numeric(range[[1]][2])
+      lastByte = as.numeric(range[[1]][3])
 
-        if ((range[[1]][1] != "bytes") ||
-            (firstByte >= lastByte) ||
-            (lastByte == 0))
-            return(list(status = 416L, headers = list('Content-Type' = 'text/plain'),
-                        body = 'Requested range not satisfiable\r\n'))
+      if ((range[[1]][1] != "bytes") ||
+          (firstByte >= lastByte) ||
+          (lastByte == 0))
+        return(list(status = 416L, headers = list('Content-Type' = 'text/plain'),
+                    body = 'Requested range not satisfiable\r\n'))
 
-        status = 206L  # partial content
+      status = 206L  # partial content
 
-        con = file(path, open = "rb", raw = TRUE)
-        on.exit(close(con))
-        seek(con, where = firstByte, origin = "start")
-        readBin(con, 'raw', lastByte - firstByte)
+      con = file(path, open = "rb", raw = TRUE)
+      on.exit(close(con))
+      seek(con, where = firstByte, origin = "start")
+      readBin(con, 'raw', lastByte - firstByte)
     }
   }
   if (is.character(body) && length(body) > 1) body = paste(body, collapse='\r\n')

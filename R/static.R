@@ -88,6 +88,8 @@ server_config = function(
 serve_dir = function(dir = '.') function(req) {
   owd = setwd(dir); on.exit(setwd(owd))
   path = req$PATH_INFO
+  status = 200L
+
   if (grepl('^/', path)) {
     path = paste('.', path, sep = '')  # the requested file
   } else if (path == '') path = '.'
@@ -109,9 +111,31 @@ serve_dir = function(dir = '.') function(req) {
     if (!file.exists(path))
       return(list(status = 404L, headers = list('Content-Type' = 'text/plain'),
                   body = paste('Not found:', path, '\r\n')))
+
     type = guess_type(path)
-    readBin(path, 'raw', file.info(path)[, 'size'])
+    range = req$HTTP_RANGE
+
+    if (is.null(range)) {
+        readBin(path, 'raw', file.info(path)[, 'size'])
+    } else {
+        range = strsplit(range, split = "(=|-)")
+        firstByte = as.numeric(range[[1]][2])
+        lastByte = as.numeric(range[[1]][3])
+
+        if ((range[[1]][1] != "bytes") ||
+            (firstByte >= lastByte) ||
+            (lastByte == 0))
+            return(list(status = 416L, headers = list('Content-Type' = 'text/plain'),
+                        body = 'Requested range not satisfiable\r\n'))
+
+        status = 206L  # partial content
+
+        con = file(path, open = "rb", raw = TRUE)
+        on.exit(close(con))
+        seek(con, where = firstByte, origin = "start")
+        readBin(con, 'raw', lastByte - firstByte)
+    }
   }
   if (is.character(body) && length(body) > 1) body = paste(body, collapse='\r\n')
-  list(status = 200L, headers = list('Content-Type' = type), body = body)
+  list(status = status, headers = list('Content-Type' = type), body = body)
 }

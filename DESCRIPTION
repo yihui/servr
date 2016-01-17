@@ -26,3 +26,4 @@ Suggests:
 License: GPL
 URL: https://github.com/yihui/servr
 BugReports: https://github.com/yihui/servr/issues
+RoxygenNote: 5.0.1

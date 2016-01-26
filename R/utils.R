@@ -78,7 +78,7 @@ in_dir = function(dir, expr) {
   expr
 }
 
-new_timeout = function(interval) {
+new_timeout = function(interval, max_timeout = 32) {
   old = NULL
   int = interval  # stores initial value (may need to restore later)
   function(delay = FALSE) {
@@ -87,7 +87,7 @@ new_timeout = function(interval) {
     # when delay = TRUE, wait for twice longer until returning TRUE (like Gmail)
     if (!is.na(delay)) {
       if (delay) {
-        int <<- 2 * int
+        int <<- min(2 * int, max_timeout)
         message('\n* Retrying in ', int, ' second', if (int > 1) 's', '...\n')
       } else int <<- interval
     }

@@ -4,6 +4,11 @@
 #' otherwise the list of files is displayed, with links on their names. After we
 #' run this function, we can go to \samp{http://localhost:port} to browse the
 #' web pages either created from R or read from HTML files.
+#'
+#' \code{httd()} is a pure static server, and \code{httw()} is similar but
+#' watches for changes under the directory: if an HTML file is being viewed in
+#' the browser, and any files are modified under the directory, the HTML page
+#' will be automatically refreshed.
 #' @inheritParams server_config
 #' @param ... server configurations passed to \code{\link{server_config}()}
 #' @export
@@ -21,6 +26,27 @@ httd = function(dir = '.', ...) {
   res$browse()
   app = list(call = serve_dir(dir))
   res$start_server(app)
+}
+
+#' @rdname httd
+#' @export
+httw = function(dir = '.', ...) {
+  dynamic_site(dir, ..., build = watch_dir('.'))
+}
+
+watch_dir = function(dir = '.') {
+  mtime = function(dir) {
+    file.info(
+      list.files(dir, all.files = TRUE, full.names = TRUE, no.. = TRUE)
+    )[, 'mtime', drop = FALSE]
+  }
+  info = mtime(dir)
+  function(...) {
+    info2 = mtime(dir)
+    changed = !identical(info, info2)
+    if (changed) info <<- info2
+    changed
+  }
 }
 
 #' Server configurations

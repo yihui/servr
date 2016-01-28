@@ -1,6 +1,7 @@
 export(daemon_list)
 export(daemon_stop)
 export(httd)
+export(httw)
 export(jekyll)
 export(make)
 export(notebook)

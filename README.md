@@ -54,6 +54,13 @@ servr -b  # launch the browser
 servr -b -p4000  # change port to 4000
 ```
 
+## Serve and watch a directory
+
+Similar to `httd()`, the function `httw()` can both serve and watch a directory.
+If you are viewing an HTML file in the browser, it will be automatically
+refreshed whenever there are any changes in the directory (e.g. you added,
+deleted, or modified certain files in the directory).
+
 ## Serve dynamic documents
 
 Besides `httd()`, there are functions `jekyll()`, `rmdv1()`, and `rmdv2()` in

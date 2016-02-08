@@ -6,6 +6,7 @@ Date: 2015-03-29
 Authors@R: c(
   person("Carson", "Sievert", role = "ctb"),
   person("Jesse", "Anderson", role = "ctb"),
+  person("Ramnath", "Vaidyanathan", role = "ctb"),
   person("Yihui", "Xie", role = c("aut", "cre"), email = "xie@yihui.name"),
   person()
   )

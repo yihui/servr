@@ -2,7 +2,7 @@
 \name{httd}
 \alias{httd}
 \alias{httw}
-\title{Serve the static files under a directory}
+\title{Serve static files under a directory}
 \usage{
 httd(dir = ".", ...)
 

@@ -1,4 +1,4 @@
-#' Serve the static files under a directory
+#' Serve static files under a directory
 #'
 #' If there is an \file{index.html} under this directory, it will be displayed;
 #' otherwise the list of files is displayed, with links on their names. After we
@@ -42,9 +42,7 @@ httw = function(dir = '.', pattern = NULL, build = NULL, ...) {
 watch_dir = function(dir = '.', pattern = NULL, build = NULL) {
   mtime = function(dir) {
     file.info(
-      list.files(dir, pattern = pattern, all.files = TRUE,
-         full.names = TRUE, no.. = TRUE
-      )
+      list.files(dir, pattern, all.files = TRUE, full.names = TRUE, no.. = TRUE)
     )[, 'mtime', drop = FALSE]
   }
   info = mtime(dir)

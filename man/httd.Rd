@@ -6,7 +6,7 @@
 \usage{
 httd(dir = ".", ...)
 
-httw(dir = ".", ...)
+httw(dir = ".", pattern = NULL, build = NULL, ...)
 }
 \arguments{
 \item{dir}{the root directory to serve}

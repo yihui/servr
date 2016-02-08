@@ -12,6 +12,13 @@ httw(dir = ".", pattern = NULL, build = NULL, ...)
 \item{dir}{the root directory to serve}
 
 \item{...}{server configurations passed to \code{\link{server_config}()}}
+
+\item{pattern}{a regular expression passed to \code{\link{list.files}()} to
+determine the files to watch}
+
+\item{build}{(for expert use only) a function to be called every time any
+files are changed under the directory; its argument is the WebSocket
+message sent from the browser}
 }
 \description{
 If there is an \file{index.html} under this directory, it will be displayed;

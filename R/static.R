@@ -30,21 +30,26 @@ httd = function(dir = '.', ...) {
 
 #' @rdname httd
 #' @export
-httw = function(dir = '.', ...) {
-  dynamic_site(dir, ..., build = watch_dir('.'))
+httw = function(dir = '.', pattern = NULL, build = NULL, ...) {
+  dynamic_site(dir, ..., build = watch_dir('.', pattern = pattern, build = build))
 }
 
-watch_dir = function(dir = '.') {
+watch_dir = function(dir = '.', pattern = NULL, build = NULL) {
   mtime = function(dir) {
     file.info(
-      list.files(dir, all.files = TRUE, full.names = TRUE, no.. = TRUE)
+      list.files(dir, pattern = pattern, all.files = TRUE,
+         full.names = TRUE, no.. = TRUE
+      )
     )[, 'mtime', drop = FALSE]
   }
   info = mtime(dir)
   function(...) {
     info2 = mtime(dir)
     changed = !identical(info, info2)
-    if (changed) info <<- info2
+    if (changed) {
+      if (!is.null(build)) build(...)
+      info <<- info2
+    }
     changed
   }
 }

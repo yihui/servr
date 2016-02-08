@@ -50,7 +50,10 @@ watch_dir = function(dir = '.', pattern = NULL, build = NULL) {
     info2 = mtime(dir)
     changed = !identical(info, info2)
     if (changed) {
-      if (is.function(build)) build(...)
+      if (is.function(build)) {
+        build(...)
+        info2 = mtime(dir)
+      }
       info <<- info2
     }
     changed

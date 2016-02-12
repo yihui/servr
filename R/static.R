@@ -40,9 +40,10 @@ httw = function(dir = '.', pattern = NULL, build = NULL, ...) {
 }
 
 watch_dir = function(dir = '.', pattern = NULL, build = NULL) {
+  dir = normalizePath(dir, mustWork = TRUE)
   mtime = function(dir) {
     file.info(
-      list.files(dir, pattern, all.files = TRUE, full.names = TRUE, no.. = TRUE)
+      list.files(dir, pattern, all.files = TRUE, no.. = TRUE)
     )[, 'mtime', drop = FALSE]
   }
   info = mtime(dir)

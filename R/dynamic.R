@@ -208,7 +208,9 @@ dynamic_site = function(
         # notify the client that the output has been updated
         tryCatch(
           if (build(jsonlite::fromJSON(message))) ws$send('reload'),
-          error = function(e) error <<- TRUE
+          error = function(e) {
+            error <<- TRUE; print(e)
+          }
         )
       })
     }

@@ -30,16 +30,16 @@ httd = function(dir = '.', ...) {
 
 #' @param pattern a regular expression passed to \code{\link{list.files}()} to
 #'   determine the files to watch
-#' @param build (for expert use only) a function to be called every time any
-#'   files are changed under the directory; its argument is the WebSocket
-#'   message sent from the browser
+#' @param handler a function to be called every time any files are changed or
+#'   added under the directory; its argument is a character vector of the
+#'   filenames of the files modified or added
 #' @rdname httd
 #' @export
-httw = function(dir = '.', pattern = NULL, build = NULL, ...) {
-  dynamic_site(dir, ..., build = watch_dir('.', pattern = pattern, build = build))
+httw = function(dir = '.', pattern = NULL, handler = NULL, ...) {
+  dynamic_site(dir, ..., build = watch_dir('.', pattern = pattern, handler = handler))
 }
 
-watch_dir = function(dir = '.', pattern = NULL, build = NULL) {
+watch_dir = function(dir = '.', pattern = NULL, handler = NULL) {
   dir = normalizePath(dir, mustWork = TRUE)
   mtime = function(dir) {
     file.info(
@@ -51,8 +51,13 @@ watch_dir = function(dir = '.', pattern = NULL, build = NULL) {
     info2 = mtime(dir)
     changed = !identical(info, info2)
     if (changed) {
-      if (is.function(build)) {
-        build(...)
+      if (is.function(handler)) {
+        f1 = rownames(info)
+        f2 = rownames(info2)
+        f3 = setdiff(f2, f1)    # new files
+        f4 = intersect(f1, f2)  # old files
+        f5 = f4[info[f4, 1] != info2[f4, 1]]  # modified files
+        handler(c(f3, na.omit(f5)))
         info2 = mtime(dir)
       }
       info <<- info2

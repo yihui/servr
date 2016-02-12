@@ -6,7 +6,7 @@
 \usage{
 httd(dir = ".", ...)
 
-httw(dir = ".", pattern = NULL, build = NULL, ...)
+httw(dir = ".", pattern = NULL, handler = NULL, ...)
 }
 \arguments{
 \item{dir}{the root directory to serve}
@@ -16,9 +16,9 @@ httw(dir = ".", pattern = NULL, build = NULL, ...)
 \item{pattern}{a regular expression passed to \code{\link{list.files}()} to
 determine the files to watch}
 
-\item{build}{(for expert use only) a function to be called every time any
-files are changed under the directory; its argument is the WebSocket
-message sent from the browser}
+\item{handler}{a function to be called every time any files are changed or
+added under the directory; its argument is a character vector of the
+filenames of the files modified or added}
 }
 \description{
 If there is an \file{index.html} under this directory, it will be displayed;

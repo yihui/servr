@@ -30,20 +30,23 @@ httd = function(dir = '.', ...) {
 
 #' @param pattern a regular expression passed to \code{\link{list.files}()} to
 #'   determine the files to watch
+#' @param all_files whether to watch all files including the hidden files
 #' @param handler a function to be called every time any files are changed or
 #'   added under the directory; its argument is a character vector of the
 #'   filenames of the files modified or added
 #' @rdname httd
 #' @export
-httw = function(dir = '.', pattern = NULL, handler = NULL, ...) {
-  dynamic_site(dir, ..., build = watch_dir('.', pattern = pattern, handler = handler))
+httw = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NULL, ...) {
+  dynamic_site(dir, ..., build = watch_dir(
+    '.', pattern = pattern, all_files = all_files, handler = handler
+  ))
 }
 
-watch_dir = function(dir = '.', pattern = NULL, handler = NULL) {
+watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NULL) {
   dir = normalizePath(dir, mustWork = TRUE)
   mtime = function(dir) {
     file.info(
-      list.files(dir, pattern, all.files = TRUE, no.. = TRUE)
+      list.files(dir, pattern, all.files = all_files, no.. = TRUE)
     )[, 'mtime', drop = FALSE]
   }
   info = mtime(dir)

@@ -6,7 +6,7 @@
 \usage{
 httd(dir = ".", ...)
 
-httw(dir = ".", pattern = NULL, handler = NULL, ...)
+httw(dir = ".", pattern = NULL, all_files = FALSE, handler = NULL, ...)
 }
 \arguments{
 \item{dir}{the root directory to serve}
@@ -15,6 +15,8 @@ httw(dir = ".", pattern = NULL, handler = NULL, ...)
 
 \item{pattern}{a regular expression passed to \code{\link{list.files}()} to
 determine the files to watch}
+
+\item{all_files}{whether to watch all files including the hidden files}
 
 \item{handler}{a function to be called every time any files are changed or
 added under the directory; its argument is a character vector of the

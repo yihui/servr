@@ -46,7 +46,7 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
   dir = normalizePath(dir, mustWork = TRUE)
   mtime = function(dir) {
     file.info(
-      list.files(dir, pattern, all.files = all_files, no.. = TRUE)
+      list.files(dir, pattern, all.files = all_files, recursive = TRUE, no.. = TRUE)
     )[, 'mtime', drop = FALSE]
   }
   info = mtime(dir)

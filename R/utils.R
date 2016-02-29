@@ -1,3 +1,5 @@
+#' @import stats utils
+
 servrEnv = new.env(parent = emptyenv())
 
 # turn file.info() to an HTML table

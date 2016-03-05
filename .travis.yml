@@ -10,11 +10,6 @@ env:
 repos:
   XRAN: http://yihui.name/xran
 
-install:
-  - "wget -q -O - http://yihui.name/xran/r-config | bash"
-  - Rscript -e "if (!require('devtools')) install.packages('devtools')"
-  - Rscript -e "devtools::install_deps(dep = TRUE)"
-
 before_install:
   - "wget -q http://yihui.name/xran/.gitconfig -O ~/.gitconfig"
 

@@ -1,3 +1,12 @@
+		 CHANGES IN servr VERSION 0.4
+
+NEW FEATURES
+
+- you can disable websocket listening on an HTML page using a special HTML
+  comment `<!-- DISABLE-SERVR-WEBSOCKET -->` when servr is serving and watching
+  a directory, so that this page will not communicate with R (e.g. when it is
+  updated, R will not send signals to refresh it) (thanks @hafen, #25)
+
 		 CHANGES IN servr VERSION 0.3
 
 NEW FEATURES

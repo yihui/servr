@@ -11,10 +11,10 @@ server_config(dir, host = "127.0.0.1", port, browser, daemon, interval = 1, base
 \item{host}{A string that is a valid IPv4 address that is owned by this
 server, or \code{"0.0.0.0"} to listen on all IP addresses.}
 
-\item{port}{the TCP port number; by default it is \code{4321}, unless a
-command line argument of the form \code{-pNNNN} (N is a digit from 0 to 9)
-was passed in when R was launched, in which case \code{NNNN} will be used
-as the port number}
+\item{port}{the TCP port number; by default it is \code{4321} or a random
+port if \code{4321} is not available, unless a command line argument of the
+form \code{-pNNNN} (N is a digit from 0 to 9) was passed in when R was
+launched, in which case \code{NNNN} will be used as the port number}
 
 \item{browser}{whether to launch the default web browser; by default, it is
 \code{TRUE} if the R session is \code{\link{interactive}()}, or when a

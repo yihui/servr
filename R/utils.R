@@ -200,3 +200,22 @@ serve_example = function(name, FUN, ..., run = interactive()) {
   message('Serving the example ', dir)
   FUN(dir, ...)
 }
+
+# find a random available TCP port (to launch server)
+random_port = function(port = 4321L, host = '127.0.0.1') {
+  ports = c(port, sample(3000:8000, 20))
+  port = NULL
+  for (p in ports) if (port_available(p, host)) {
+    port = p
+    break
+  }
+  if (is.null(port)) stop("Cannot find an available TCP port")
+  port
+}
+
+port_available = function(port, host = '127.0.0.1') {
+  tmp = try(httpuv::startServer(host, port, list()), silent = TRUE)
+  if (inherits(tmp, 'try-error')) return(FALSE)
+  httpuv::stopServer(tmp)
+  TRUE
+}

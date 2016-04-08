@@ -7,6 +7,8 @@ NEW FEATURES
   a directory, so that this page will not communicate with R (e.g. when it is
   updated, R will not send signals to refresh it) (thanks @hafen, #25)
 
+- a random TCP port will be used if the port 4321 is not available
+
 		 CHANGES IN servr VERSION 0.3
 
 NEW FEATURES

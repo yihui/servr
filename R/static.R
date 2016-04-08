@@ -73,10 +73,10 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
 #'
 #' The server functions in this package are configured through this function.
 #' @param dir the root directory to serve
-#' @param port the TCP port number; by default it is \code{4321}, unless a
-#'   command line argument of the form \code{-pNNNN} (N is a digit from 0 to 9)
-#'   was passed in when R was launched, in which case \code{NNNN} will be used
-#'   as the port number
+#' @param port the TCP port number; by default it is \code{4321} or a random
+#'   port if \code{4321} is not available, unless a command line argument of the
+#'   form \code{-pNNNN} (N is a digit from 0 to 9) was passed in when R was
+#'   launched, in which case \code{NNNN} will be used as the port number
 #' @param browser whether to launch the default web browser; by default, it is
 #'   \code{TRUE} if the R session is \code{\link{interactive}()}, or when a
 #'   command line argument \code{-b} was passed to R (see
@@ -102,7 +102,7 @@ server_config = function(
   if (missing(browser)) browser = interactive() || '-b' %in% cargs || is_rstudio()
   if (missing(port))
     port = if (length(port <- grep('^-p[0-9]{4,}$', cargs, value = TRUE)) == 1)
-      as.integer(sub('^-p', '', port)) else 4321L
+      as.integer(sub('^-p', '', port)) else random_port(4321L)
   if (missing(daemon)) daemon = '-d' %in% cargs
   damn_library('methods')
   url = sprintf('http://%s:%d', host, port)

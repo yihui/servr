@@ -1,13 +1,13 @@
 Package: servr
 Type: Package
 Title: A Simple HTTP Server to Serve Static Files or Dynamic Documents
-Version: 0.3.2
-Date: 2016-02-29
+Version: 0.4
+Date: 2016-04-14
 Authors@R: c(
+  person("Yihui", "Xie", role = c("aut", "cre"), email = "xie@yihui.name"),
   person("Carson", "Sievert", role = "ctb"),
   person("Jesse", "Anderson", role = "ctb"),
   person("Ramnath", "Vaidyanathan", role = "ctb"),
-  person("Yihui", "Xie", role = c("aut", "cre"), email = "xie@yihui.name"),
   person()
   )
 Maintainer: Yihui Xie <xie@yihui.name>

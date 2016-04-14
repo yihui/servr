@@ -48,8 +48,8 @@
 #'   URL setting will be read from \file{_config.yml} (the \samp{baseurl} field)
 #'   of the website if present. You should not pass \code{baseurl} to the
 #'   function \code{jekyll()} directly.
-#' @references R Markdown v1: \url{http://cran.rstudio.com/package=markdown}. R
-#'   Markdown v2: \url{http://rmarkdown.rstudio.com}. For Jekyll, see
+#' @references R Markdown v1: \url{https://cran.r-project.org/package=markdown}.
+#'   R Markdown v2: \url{http://rmarkdown.rstudio.com}. For Jekyll, see
 #'   \url{http://jekyllrb.com}. The GitHub repository
 #'   \url{https://github.com/yihui/knitr-jekyll} is an example of serving Jekyll
 #'   websites with \code{servr::jekyll()}.

@@ -86,7 +86,7 @@ web browser to make sure your source package is clean.
 
 ## Daemonized server
 
-All server functions be used in the daemonized mode, i.e., they can be
+All server functions can be used in the daemonized mode, i.e., they can be
 non-blocking in the R session, which allows you to continue working in the R
 console after the server is launched. This mode can be set via the argument
 `daemon = TRUE` in most server functions. See `?server_config` for more

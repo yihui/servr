@@ -147,7 +147,9 @@ serve_dir = function(dir = '.') function(req) {
       )
     ))
     type = 'text/html'
-    if (file.exists(idx <- file.path(path, 'index.html'))) readLines(idx) else {
+    if (file.exists(idx <- file.path(path, 'index.html'))) {
+      readLines(idx, warn = FALSE)
+    } else {
       d = file.info(list.files(path, all.files = TRUE, full.names = TRUE))
       title = escape_html(path)
       html_doc(c(sprintf('<h1>Index of %s</h1>', title), fileinfo_table(d)),

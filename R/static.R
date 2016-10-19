@@ -143,7 +143,7 @@ serve_dir = function(dir = '.') function(req) {
     # ensure a trailing slash if the requested dir does not have one
     if (path != '.' && !grepl('/$', path)) return(list(
       status = 301L, body = '', headers = list(
-        'Location' = sprintf('/%s/', req$PATH_INFO)
+        'Location' = sprintf('%s/', req$PATH_INFO)
       )
     ))
     type = 'text/html'

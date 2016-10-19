@@ -203,7 +203,9 @@ serve_example = function(name, FUN, ..., run = interactive()) {
 
 # find a random available TCP port (to launch server)
 random_port = function(port = 4321L, host = '127.0.0.1') {
-  ports = c(port, sample(3000:8000, 20))
+  # exclude ports considered unsafe by Chrome http://superuser.com/a/188070
+  ports = sample(setdiff(3000:8000, c(3659, 4045, 6000, 6665:6669)), 20)
+  ports = c(port, ports)
   port = NULL
   for (p in ports) if (port_available(p, host)) {
     port = p

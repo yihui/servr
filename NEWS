@@ -1,3 +1,15 @@
+		 CHANGES IN servr VERSION 0.4.1
+
+NEW FEATURES
+
+- excluded ports considered unsafe by Chrome http://superuser.com/a/188070 when
+  selecting a random port automatically
+
+BUG FIXES
+
+- fixed a bug in 301 redirection when serving a directory without the trailing
+  slash
+
 		 CHANGES IN servr VERSION 0.4
 
 NEW FEATURES

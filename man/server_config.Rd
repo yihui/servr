@@ -3,7 +3,8 @@
 \alias{server_config}
 \title{Server configurations}
 \usage{
-server_config(dir, host = "127.0.0.1", port, browser, daemon, interval = 1, baseurl = "")
+server_config(dir, host = "127.0.0.1", port, browser, daemon, interval = 1, 
+    baseurl = "", initpath = "")
 }
 \arguments{
 \item{dir}{the root directory to serve}
@@ -34,6 +35,9 @@ the future}
 
 \item{baseurl}{the base URL (the full URL will be
 \code{http://host:port/baseurl})}
+
+\item{initpath}{the initial path in the URL (e.g. you can open a specific
+HTML file initially)}
 }
 \value{
 A list of configuration information of the form \code{list(host,

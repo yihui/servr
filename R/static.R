@@ -92,11 +92,14 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
 #'   the future
 #' @param baseurl the base URL (the full URL will be
 #'   \code{http://host:port/baseurl})
+#' @param initpath the initial path in the URL (e.g. you can open a specific
+#'   HTML file initially)
 #' @inheritParams httpuv::startServer
 #' @return A list of configuration information of the form \code{list(host,
 #'   port, start_server = function(app) {}, ...)}.
 server_config = function(
-  dir, host = '127.0.0.1', port, browser, daemon, interval = 1, baseurl = ''
+  dir, host = '127.0.0.1', port, browser, daemon, interval = 1, baseurl = '',
+  initpath = ''
 ) {
   cargs = commandArgs(TRUE)
   if (missing(browser)) browser = interactive() || '-b' %in% cargs || is_rstudio()
@@ -107,6 +110,7 @@ server_config = function(
   damn_library('methods')
   url = sprintf('http://%s:%d', host, port)
   if (baseurl != '') url = paste(url, baseurl, sep = '')
+  url = paste0(url, if (initpath != '' && !grepl('^/', initpath)) '/', initpath)
   list(
     host = host,
     port = port,

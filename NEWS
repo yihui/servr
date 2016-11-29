@@ -1,3 +1,10 @@
+		 CHANGES IN servr VERSION 0.5
+
+NEW FEATURES
+
+- added an argument `initpath` to `server_config()` so you can open a specific
+  path initially in the web browser
+
 		 CHANGES IN servr VERSION 0.4.1
 
 NEW FEATURES

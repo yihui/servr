@@ -83,9 +83,11 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
 #'   \code{\link{commandArgs}()}); N.B. the RStudio viewer is used as the web
 #'   browser if available
 #' @param daemon whether to launch a daemonized server (the server does not
-#'   block the current R session) or a blocking server; by default, it is
-#'   \code{TRUE} if a command line argument \code{-d} was passed to R (through
-#'   \command{Rscript}); normally it should be \code{FALSE} by default
+#'   block the current R session) or a blocking server; by default, it is the
+#'   global option \code{getOption('servr.daemon')} (e.g., you can set
+#'   \code{options(servr.daemon = TRUE)}); if this option was not set,
+#'   \code{daemon = TRUE} if a command line argument \code{-d} was passed to R
+#'   (through \command{Rscript}); normally it should be \code{FALSE} by default
 #' @param interval the time interval used to check if an HTML page needs to be
 #'   rebuilt (by default, it is checked every second); at the moment, the
 #'   smallest possible \code{interval} is set to be 1, and this may change in
@@ -106,7 +108,7 @@ server_config = function(
   if (missing(port))
     port = if (length(port <- grep('^-p[0-9]{4,}$', cargs, value = TRUE)) == 1)
       as.integer(sub('^-p', '', port)) else random_port(4321L)
-  if (missing(daemon)) daemon = '-d' %in% cargs
+  if (missing(daemon)) daemon = getOption('servr.daemon', '-d' %in% cargs)
   damn_library('methods')
   url = sprintf('http://%s:%d', host, port)
   if (baseurl != '') url = paste(url, baseurl, sep = '')

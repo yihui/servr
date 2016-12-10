@@ -5,6 +5,10 @@ NEW FEATURES
 - added an argument `initpath` to `server_config()` so you can open a specific
   path initially in the web browser
 
+- the `daemon` argument of `server_config()` takes the default value from the
+  global option `getOption('servr.daemon')` now, e.g., you can set
+  `options(servr.daemon = TRUE)` so that the daemonized server is always used
+
 		 CHANGES IN servr VERSION 0.4.1
 
 NEW FEATURES

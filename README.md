@@ -1,6 +1,6 @@
 # servr
 
-[![Build Status](https://travis-ci.org/yihui/servr.svg)](https://travis-ci.org/yihui/servr)
+[![Build Status](https://travis-ci.org/yihui/servr.svg)](https://travis-ci.org/yihui/servr) ![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/bookdown)
 
 A simple HTTP server to serve files under a given directory based on the
 [**httpuv**](https://cran.rstudio.org/package=httpuv) package.
@@ -21,6 +21,10 @@ This package is licensed under GPL.
 To some degree, this package is like `python -m SimpleHTTPServer` or `python -m
 http.server`. It may be used to serve:
 
+- R Markdown applications
+    - [**bookdown**](https://github.com/rstudio/bookdown) books
+    - [**blogdown**](https://github.com/rstudio/bookdown) websites
+    - [**xaringan**](https://github.com/rstudio/bookdown) presentations
 - [**googleVis**](https://cran.rstudio.org/package=googleVis) charts (to solve
   the Flash security problem)
 - D3 charts which need to load JSON from local files (see also the

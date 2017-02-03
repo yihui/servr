@@ -163,8 +163,13 @@ serve_dir = function(dir = '.') function(req) {
     }
   } else {
     if (!file.exists(path))
-      return(list(status = 404L, headers = list('Content-Type' = 'text/plain'),
-                  body = paste('Not found:', path, '\r\n')))
+      return(list(
+        status = 404L, headers = list('Content-Type' = 'text/plain'),
+        body = paste(
+          if (file.exists('404.html')) readLines('404.html') else c('Not found:', path),
+          collapse = '\r\n'
+        )
+      ))
 
     type = guess_type(path)
     range = req$HTTP_RANGE

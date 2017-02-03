@@ -1,3 +1,10 @@
+		 CHANGES IN servr VERSION 0.6 (unreleased)
+
+NEW FEATURES
+
+- on 404 (page not found), 404.html will be displayed if it exists under the
+  root directory
+
 		 CHANGES IN servr VERSION 0.5
 
 NEW FEATURES

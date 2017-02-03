@@ -29,7 +29,7 @@ notebook = function(dir = '.', ...) {
       token = '%RNOTEBOOK_DATA%'
       if (length(i <- which(token == tmpl)) != 1) stop('Wrong notebook template')
       tmpl[i] = paste(json, collapse = '\n')
-      tmpl = paste(tmpl, collapse = '\r\n')
+      tmpl = paste2(tmpl)
       list(status = 200L, headers = list('Content-Type' = 'text/html'), body = tmpl)
     }
   )

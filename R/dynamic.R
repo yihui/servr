@@ -189,11 +189,11 @@ dynamic_site = function(
         '<!-- DISABLE-SERVR-WEBSOCKET -->', body, fixed = TRUE, useBytes = TRUE
       ))) return(res)
       body = if (length(grep('</head>', body))) sub(
-        '</head>', paste(c(js, '</head>'), collapse = '\r\n'), body,
+        '</head>', paste2(js, '</head>'), body,
         fixed = TRUE, useBytes = TRUE
       ) else if (length(grep('</html>', body)) == 0) {
         # there is no </head> or </html>, just append js after the document
-        paste(c(body, js), collapse = '\r\n')
+        paste2(body, js)
       } else body
       res$body = body
       res

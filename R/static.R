@@ -162,13 +162,17 @@ serve_dir = function(dir = '.') function(req) {
                title = title)
     }
   } else {
+    # FIXME: using 302 here because 404.html may contain relative paths, e.g. if
+    # /foo/bar/hi.html gives 404, I cannot just read 404.html and display it,
+    # because it will be treated as /foo/bar/404.html; if 404.html contains
+    # paths like ./css/style.css, I don't know how to let the browser know that
+    # it means /css/style.css instead of /foo/bar/css/style.css
     if (!file.exists(path))
-      return(list(
+      return(if (file.exists('404.html')) list(
+        status = 302L, body = '', headers = list('Location' = '/404.html')
+      ) else list(
         status = 404L, headers = list('Content-Type' = 'text/plain'),
-        body = paste(
-          if (file.exists('404.html')) readLines('404.html') else c('Not found:', path),
-          collapse = '\r\n'
-        )
+        body = paste2('Not found:', path)
       ))
 
     type = guess_type(path)

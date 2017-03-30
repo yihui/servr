@@ -182,7 +182,9 @@ serve_dir = function(dir = '.') function(req) {
     type = guess_type(path)
     range = req$HTTP_RANGE
 
-    if (is.null(range)) read_raw(path) else {
+    # Chrome sends the range reuest 'bytes=0-' and I'm not sure what to do:
+    # http://stackoverflow.com/a/18745164/559676
+    if (is.null(range) || identical(range, 'bytes=0-')) read_raw(path) else {
       range = strsplit(range, split = "(=|-)")[[1]]
       b2 = as.numeric(range[2])
       b3 = as.numeric(range[3])

@@ -183,11 +183,11 @@ serve_dir = function(dir = '.') function(req) {
     range = req$HTTP_RANGE
 
     if (is.null(range)) read_raw(path) else {
-      range = strsplit(range, split = "(=|-)")
-      firstByte = as.numeric(range[[1]][2])
-      lastByte = as.numeric(range[[1]][3])
+      range = strsplit(range, split = "(=|-)")[[1]]
+      b2 = as.numeric(range[2])
+      b3 = as.numeric(range[3])
 
-      if ((range[[1]][1] != "bytes") || (firstByte >= lastByte) || (lastByte == 0))
+      if ((range[1] != "bytes") || (b2 >= b3) || (b3 == 0))
         return(list(
           status = 416L, headers = list('Content-Type' = 'text/plain'),
           body = 'Requested range not satisfiable\r\n'
@@ -197,8 +197,8 @@ serve_dir = function(dir = '.') function(req) {
 
       con = file(path, open = "rb", raw = TRUE)
       on.exit(close(con))
-      seek(con, where = firstByte, origin = "start")
-      readBin(con, 'raw', lastByte - firstByte)
+      seek(con, where = b2, origin = "start")
+      readBin(con, 'raw', b3 - b2)
     }
   }
   if (is.character(body) && length(body) > 1) body = paste2(body)

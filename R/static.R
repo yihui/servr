@@ -187,7 +187,7 @@ serve_dir = function(dir = '.') function(req) {
       b2 = as.numeric(range[2])
       b3 = as.numeric(range[3])
 
-      if ((range[1] != "bytes") || (b2 >= b3) || (b3 == 0))
+      if (length(range) < 3 || (range[1] != "bytes") || (b2 >= b3) || (b3 == 0))
         return(list(
           status = 416L, headers = list('Content-Type' = 'text/plain'),
           body = 'Requested range not satisfiable\r\n'

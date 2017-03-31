@@ -132,7 +132,8 @@ server_config = function(
     browse = function() {
       if (browser) {
         browseURL(url, browser = get_browser())
-      } else message('serving the directory ', dir, ' at ', url)
+      }
+      message('Serving the directory ', dir, ' at ', url)
     }
   )
 }

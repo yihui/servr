@@ -205,5 +205,10 @@ serve_dir = function(dir = '.') function(req) {
     }
   }
   if (is.character(body) && length(body) > 1) body = paste2(body)
-  list(status = status, headers = list('Content-Type' = type), body = body)
+  list(
+    status = status, body = body,
+    headers = c(list('Content-Type' = type), if (status == 206L) list(
+      'Content-Range' = paste(sub('=', ' ', req$HTTP_RANGE), file_size(path), sep = '/')
+    ))
+  )
 }

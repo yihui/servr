@@ -224,4 +224,6 @@ port_available = function(port, host = '127.0.0.1') {
 
 paste2 = function(...) paste(c(...), collapse = '\r\n')
 
-read_raw = function(path) readBin(path, 'raw', file.info(path)[, 'size'])
+file_size = function(path) file.info(path)[, 'size']
+
+read_raw = function(path) readBin(path, 'raw', file_size(path))

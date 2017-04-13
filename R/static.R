@@ -201,7 +201,7 @@ serve_dir = function(dir = '.') function(req) {
       con = file(path, open = "rb", raw = TRUE)
       on.exit(close(con))
       seek(con, where = b2, origin = "start")
-      readBin(con, 'raw', b3 - b2)
+      readBin(con, 'raw', b3 - b2 + 1)
     }
   }
   if (is.character(body) && length(body) > 1) body = paste2(body)

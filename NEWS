@@ -8,6 +8,10 @@ NEW FEATURES
 - improved the support for HTTP Range requests, e.g. servr can correctly serve
   MP4 videos now in major browsers including Safari
 
+BUG FIXES
+
+- servr should decode requested paths before reading them (https://github.com/rstudio/blogdown/issues/85)
+
 		 CHANGES IN servr VERSION 0.5
 
 NEW FEATURES

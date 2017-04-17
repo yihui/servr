@@ -146,6 +146,7 @@ serve_dir = function(dir = '.') function(req) {
   if (grepl('^/', path)) {
     path = paste('.', path, sep = '')  # the requested file
   } else if (path == '') path = '.'
+  path = httpuv::decodeURIComponent(path)
   body = if (file_test('-d', path)) {
     # ensure a trailing slash if the requested dir does not have one
     if (path != '.' && !grepl('/$', path)) return(list(

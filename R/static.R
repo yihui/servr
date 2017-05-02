@@ -140,13 +140,12 @@ server_config = function(
 
 serve_dir = function(dir = '.') function(req) {
   owd = setwd(dir); on.exit(setwd(owd))
-  path = req$PATH_INFO
+  path = decode_path(req)
   status = 200L
 
   if (grepl('^/', path)) {
     path = paste('.', path, sep = '')  # the requested file
   } else if (path == '') path = '.'
-  path = httpuv::decodeURIComponent(path)
   body = if (file_test('-d', path)) {
     # ensure a trailing slash if the requested dir does not have one
     if (path != '.' && !grepl('/$', path)) return(list(

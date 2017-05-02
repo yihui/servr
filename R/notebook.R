@@ -22,7 +22,7 @@ notebook = function(dir = '.', ...) {
     dir, ..., site.dir = '.',
     build = build,
     response = function(req) {
-      path = sub('^/', '', req$PATH_INFO)
+      path = sub('^/', '', decode_path(req))
       if (!grepl('[.]Rnb$', path) || !file.exists(path)) return(serve_dir()(req))
       json  = readLines(path, encoding = 'UTF-8')
       tmpl  = readLines(system.file('resources', 'rnotebook.html', package = 'servr'))

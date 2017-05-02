@@ -44,13 +44,13 @@ vign = function(dir = 'vignettes', ...) {
     dir, ..., site.dir = '.',
     build = build_fun,
     pre_process = function(req) {
-      path = sub('^/', '', req$PATH_INFO)
+      path = sub('^/', '', decode_path(req))
       if (!grepl('[.]R(md|html)$', path)) return(req)
       req$PATH_INFO = paste0('/', build_vign(path))
       req
     },
     post_process = function(req) {
-      path = sub('^/', '', req$PATH_INFO)
+      path = sub('^/', '', decode_path(req))
       clean(path)
       req
     }

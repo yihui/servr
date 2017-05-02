@@ -173,7 +173,7 @@ dynamic_site = function(
       owd = setwd(dir); on.exit(setwd(owd))
       setwd(site.dir)
       if (baseurl != '') {
-        path = req$PATH_INFO
+        path = decode_path(req)
         if (substr(path, 1, nchar(baseurl)) == baseurl)
           req$PATH_INFO = substr(path, nchar(baseurl) + 1, nchar(path))
       }

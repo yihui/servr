@@ -222,6 +222,9 @@ port_available = function(port, host = '127.0.0.1') {
   TRUE
 }
 
+# decode the requested path
+decode_path = function(req) httpuv::decodeURIComponent(req$PATH_INFO)
+
 paste2 = function(...) paste(c(...), collapse = '\r\n')
 
 file_size = function(path) file.info(path)[, 'size']

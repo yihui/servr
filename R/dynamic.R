@@ -164,6 +164,7 @@ dynamic_site = function(
   in_dir(dir, build())
 
   js  = readLines(system.file('resources', 'ws-reload.html', package = 'servr'))
+  if (baseurl == '/') baseurl = ''
   res = server_config(dir, ..., baseurl = baseurl)
   timeout = new_timeout(res$interval)
   res$browse()

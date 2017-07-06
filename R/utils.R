@@ -223,7 +223,11 @@ port_available = function(port, host = '127.0.0.1') {
 }
 
 # decode the requested path
-decode_path = function(req) httpuv::decodeURIComponent(req$PATH_INFO)
+decode_path = function(req) {
+  path = httpuv::decodeURIComponent(req$PATH_INFO)
+  Encoding(path) = 'UTF-8'
+  path
+}
 
 paste2 = function(...) paste(c(...), collapse = '\r\n')
 

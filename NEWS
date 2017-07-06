@@ -1,3 +1,9 @@
+		 CHANGES IN servr VERSION 0.7 (unreleased)
+
+BUG FIXES
+
+- files/directories that contain multibyte characters in path names cannot be served correctly (thanks, Hao Peng)
+
 		 CHANGES IN servr VERSION 0.6
 
 NEW FEATURES

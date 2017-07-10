@@ -28,6 +28,8 @@ httd = function(dir = '.', ...) {
   res$start_server(app)
 }
 
+#' @param watch a directory under which \code{httw()} is to watch for changes;
+#'   if it is a relative path, it is relative to the \code{dir} argument
 #' @param pattern a regular expression passed to \code{\link{list.files}()} to
 #'   determine the files to watch
 #' @param all_files whether to watch all files including the hidden files
@@ -36,18 +38,22 @@ httd = function(dir = '.', ...) {
 #'   filenames of the files modified or added
 #' @rdname httd
 #' @export
-httw = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NULL, ...) {
+httw = function(
+  dir = '.', watch = '.', pattern = NULL, all_files = FALSE, handler = NULL, ...
+) {
   dynamic_site(dir, ..., build = watch_dir(
-    '.', pattern = pattern, all_files = all_files, handler = handler
+    watch, pattern = pattern, all_files = all_files, handler = handler
   ))
 }
 
 watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NULL) {
-  dir = normalizePath(dir, mustWork = TRUE)
   mtime = function(dir) {
-    file.info(
-      list.files(dir, pattern, all.files = all_files, recursive = TRUE, no.. = TRUE)
-    )[, 'mtime', drop = FALSE]
+    info = file.info(list.files(
+      dir, pattern, all.files = all_files, full.names = TRUE, recursive = TRUE,
+      no.. = TRUE
+    ))[, 'mtime', drop = FALSE]
+    rownames(info) = gsub('^[.]/', '', rownames(info))
+    info
   }
   info = mtime(dir)
   function(...) {

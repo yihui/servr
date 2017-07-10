@@ -1,5 +1,9 @@
 		 CHANGES IN servr VERSION 0.7 (unreleased)
 
+NEW FEATURES
+
+- added a new argument `watch` to `servr::httw()`
+
 BUG FIXES
 
 - files/directories that contain multibyte characters in path names cannot be served correctly (thanks, Hao Peng)

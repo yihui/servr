@@ -7,12 +7,15 @@
 \usage{
 httd(dir = ".", ...)
 
-httw(dir = ".", pattern = NULL, all_files = FALSE, handler = NULL, ...)
+httw(dir = ".", watch = ".", pattern = NULL, all_files = FALSE, handler = NULL, ...)
 }
 \arguments{
 \item{dir}{the root directory to serve}
 
 \item{...}{server configurations passed to \code{\link{server_config}()}}
+
+\item{watch}{a directory under which \code{httw()} is to watch for changes;
+if it is a relative path, it is relative to the \code{dir} argument}
 
 \item{pattern}{a regular expression passed to \code{\link{list.files}()} to
 determine the files to watch}

@@ -47,7 +47,9 @@ httw = function(
 }
 
 watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NULL) {
+  cwd = getwd()
   mtime = function(dir) {
+    owd = setwd(cwd); on.exit(setwd(owd), add = TRUE)
     info = file.info(list.files(
       dir, pattern, all.files = all_files, full.names = TRUE, recursive = TRUE,
       no.. = TRUE

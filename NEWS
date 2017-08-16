@@ -4,6 +4,8 @@ NEW FEATURES
 
 - added a new argument `watch` to `servr::httw()`
 
+- exported the function `server_config()`
+
 BUG FIXES
 
 - files/directories that contain multibyte characters in path names cannot be served correctly (thanks, Hao Peng)

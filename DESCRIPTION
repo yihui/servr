@@ -1,7 +1,7 @@
 Package: servr
 Type: Package
 Title: A Simple HTTP Server to Serve Static Files or Dynamic Documents
-Version: 0.6.2
+Version: 0.6.3
 Date: 2017-05-12
 Authors@R: c(
   person("Yihui", "Xie", role = c("aut", "cre"), email = "xie@yihui.name"),

@@ -105,10 +105,11 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
 #' @param initpath the initial path in the URL (e.g. you can open a specific
 #'   HTML file initially)
 #' @inheritParams httpuv::startServer
+#' @export
 #' @return A list of configuration information of the form \code{list(host,
 #'   port, start_server = function(app) {}, ...)}.
 server_config = function(
-  dir, host = '127.0.0.1', port, browser, daemon, interval = 1, baseurl = '',
+  dir = '.', host = '127.0.0.1', port, browser, daemon, interval = 1, baseurl = '',
   initpath = ''
 ) {
   cargs = commandArgs(TRUE)

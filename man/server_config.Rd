@@ -4,7 +4,7 @@
 \alias{server_config}
 \title{Server configurations}
 \usage{
-server_config(dir, host = "127.0.0.1", port, browser, daemon, interval = 1, 
+server_config(dir = ".", host = "127.0.0.1", port, browser, daemon, interval = 1, 
     baseurl = "", initpath = "")
 }
 \arguments{

@@ -123,9 +123,7 @@ server_config = function(
   if (baseurl != '') url = paste(url, baseurl, sep = '')
   url = paste0(url, if (initpath != '' && !grepl('^/', initpath)) '/', initpath)
   list(
-    host = host,
-    port = port,
-    interval = interval,
+    host = host, port = port, interval = interval, url = url,
     start_server = function(app) {
       # a daemonized server; stop it using servr::daemon_stop()
       if (daemon) return(daemon_hint(startDaemonizedServer(host, port, app)))

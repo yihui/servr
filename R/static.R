@@ -125,15 +125,26 @@ server_config = function(
   list(
     host = host, port = port, interval = interval, url = url,
     start_server = function(app) {
-      # a daemonized server; stop it using servr::daemon_stop()
-      if (daemon) return(daemon_hint(startDaemonizedServer(host, port, app)))
+      # a built-in daemonized server
+      if (daemon && !requireNamespace('later', quietly = TRUE))
+        return(daemon_hint(startDaemonizedServer(host, port, app)))
 
       server = startServer(host, port, app)
-      on.exit(stopServer(server), add = TRUE)
-
-      while (TRUE) {
-        service()
-        Sys.sleep(0.001)
+      # a daemonized server based on later
+      if (daemon) {
+        daemon_hint(server, TRUE)
+        daemon_serve = function() {
+          if (!server %in% daemon_list()) return()
+          service()
+          later::later(daemon_serve, 0.01)
+        }
+        daemon_serve()
+      } else {
+        on.exit(stopServer(server), add = TRUE)
+        while (TRUE) {
+          service()
+          Sys.sleep(0.001)
+        }
       }
     },
     browse = function() {

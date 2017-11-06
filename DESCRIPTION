@@ -22,6 +22,7 @@ Imports:
     jsonlite
 Suggests:
     tools,
+    later,
     knitr (>= 1.9),
     rmarkdown
 License: GPL

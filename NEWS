@@ -1,3 +1,9 @@
+		 CHANGES IN servr VERSION 0.8
+
+NEW FEATURES
+
+- added another implementation of the daemoinzed server based on the later package, since the previous implmentation based on `httpuv::startDaemonizedServer()` could crash the R session on Windows
+
 		 CHANGES IN servr VERSION 0.7
 
 NEW FEATURES

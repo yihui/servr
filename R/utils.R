@@ -109,12 +109,14 @@ guess_type = function(path) {
   mimetype(stdout = TRUE)
 }
 
-servrEnv$daemon_list = NULL
+servrEnv$daemon_list = list()
 
 # a hint on how to stop the daemonized server
-daemon_hint = function(server) {
+daemon_hint = function(server, daemon = FALSE) {
   if (!interactive()) return(invisible(server))
-  servrEnv$daemon_list = c(servrEnv$daemon_list, server)
+  servrEnv$daemon_list[[length(servrEnv$daemon_list) + 1]] = if (daemon) {
+    structure(server, httpuv_daemon = TRUE)
+  } else server
   message('To stop the server, run servr::daemon_stop("', server, '")',
           ' or restart your R session')
   invisible(server)
@@ -140,17 +142,19 @@ daemon_hint = function(server) {
 daemon_stop = function(which = daemon_list()) {
   list = daemon_list()
   for (d in which) {
-    if (!(d %in% list)) {
+    i = match(d, list)
+    if (is.na(i)) {
       warning('The server ', d, ' has been stopped!')
       next
     }
-    stopDaemonizedServer(d)
+    d = list[[i]]
+    if (isTRUE(attr(d, 'httpuv_daemon'))) stopServer(d) else stopDaemonizedServer(d)
     servrEnv$daemon_list = setdiff(servrEnv$daemon_list, d)
   }
 }
 #' @rdname daemon_stop
 #' @export
-daemon_list = function() servrEnv$daemon_list
+daemon_list = function() unlist(servrEnv$daemon_list)
 
 # watch files with pattern, and rebuild them if necessary
 build_watcher = function(pattern, build, dir = getwd()) {

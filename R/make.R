@@ -9,9 +9,6 @@
 #' it will be automatically refreshed in the web browser.
 #' @inheritParams httd
 #' @inheritParams server_config
-#' @references If you are not familiar with GNU Make, I recommend you to learn
-#'   it from Karl Broman's minimal tutorial
-#'   \url{http://kbroman.org/minimal_make/}.
 #' @note You must have installed GNU Make to use this function. This is normally
 #'   not a problem for Linux and OS X users (it should be available by default).
 #'   For Windows users, you can either install GNU Make, or just install

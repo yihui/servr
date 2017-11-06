@@ -33,8 +33,3 @@ You must have installed GNU Make to use this function. This is normally
 servr::serve_example("make1", servr::make)
 servr::serve_example("make2", servr::make)
 }
-\references{
-If you are not familiar with GNU Make, I recommend you to learn
-  it from Karl Broman's minimal tutorial
-  \url{http://kbroman.org/minimal_make/}.
-}

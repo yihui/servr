@@ -167,7 +167,6 @@ dynamic_site = function(
   if (baseurl == '/') baseurl = ''
   res = server_config(dir, ..., baseurl = baseurl)
   timeout = new_timeout(res$interval)
-  res$browse()
 
   app = list(
     call = function(req) {

@@ -1,3 +1,9 @@
+		 CHANGES IN servr VERSION 0.9
+
+BUG FIXES
+
+- The web browser may be opened too early (before the server is ready) (originally reported at rstudio/rstudio#2475).
+
 		 CHANGES IN servr VERSION 0.8
 
 NEW FEATURES

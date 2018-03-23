@@ -23,7 +23,6 @@ httd = function(dir = '.', ...) {
     owd = setwd(dir); on.exit(setwd(owd))
   }
   res = server_config(dir, ...)
-  res$browse()
   app = list(call = serve_dir(dir))
   res$start_server(app)
 }
@@ -122,6 +121,15 @@ server_config = function(
   url = sprintf('http://%s:%d', host, port)
   if (baseurl != '') url = paste(url, baseurl, sep = '')
   url = paste0(url, if (initpath != '' && !grepl('^/', initpath)) '/', initpath)
+  browsed = FALSE
+  browse = function() {
+    if (browsed) return(invisible(url))
+    if (browser) {
+      browseURL(url, browser = get_browser())
+    }
+    browsed <<- TRUE
+    message('Serving the directory ', dir, ' at ', url)
+  }
   list(
     host = host, port = port, interval = interval, url = url,
     start_server = function(app) {
@@ -130,6 +138,7 @@ server_config = function(
         return(daemon_hint(startDaemonizedServer(host, port, app)))
 
       server = startServer(host, port, app)
+      browse()
       # a daemonized server based on later
       if (daemon) {
         daemon_hint(server, TRUE)
@@ -147,12 +156,7 @@ server_config = function(
         }
       }
     },
-    browse = function() {
-      if (browser) {
-        browseURL(url, browser = get_browser())
-      }
-      message('Serving the directory ', dir, ' at ', url)
-    }
+    browse = browse
   )
 }
 

@@ -134,8 +134,11 @@ server_config = function(
     host = host, port = port, interval = interval, url = url,
     start_server = function(app) {
       # a built-in daemonized server
-      if (daemon && !requireNamespace('later', quietly = TRUE))
-        return(daemon_hint(startDaemonizedServer(host, port, app)))
+      if (daemon && !requireNamespace('later', quietly = TRUE)) {
+        id = startDaemonizedServer(host, port, app)
+        browse()
+        return(daemon_hint(id))
+      }
 
       server = startServer(host, port, app)
       browse()

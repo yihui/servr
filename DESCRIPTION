@@ -19,6 +19,7 @@ Depends:
 Imports:
     mime (>= 0.2),
     httpuv (>= 1.3.2),
+    xfun,
     jsonlite
 Suggests:
     tools,

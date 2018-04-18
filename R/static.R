@@ -122,11 +122,9 @@ server_config = function(
   if (baseurl != '') url = paste(url, baseurl, sep = '')
   url = paste0(url, if (initpath != '' && !grepl('^/', initpath)) '/', initpath)
   browsed = FALSE
-  browse = function() {
-    if (browsed) return(invisible(url))
-    if (browser) {
-      browseURL(url, browser = get_browser())
-    }
+  servrEnv$browse = browse = function(reopen = FALSE) {
+    if (browsed && !reopen) return(invisible(url))
+    if (browser || reopen) browseURL(url, browser = get_browser())
     browsed <<- TRUE
     message('Serving the directory ', dir, ' at ', url)
   }

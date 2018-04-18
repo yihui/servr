@@ -1,3 +1,9 @@
+		 CHANGES IN servr VERSION 0.10
+
+NEW FEATURES
+
+- Added a function `browse_last()` to reopen the last browsed page.
+
 		 CHANGES IN servr VERSION 0.9
 
 BUG FIXES

@@ -126,7 +126,7 @@ server_config = function(
     if (browsed && !reopen) return(invisible(url))
     if (browser || reopen) browseURL(url, browser = get_browser())
     browsed <<- TRUE
-    message('Serving the directory ', dir, ' at ', url)
+    if (!reopen) message('Serving the directory ', dir, ' at ', url)
   }
   list(
     host = host, port = port, interval = interval, url = url,

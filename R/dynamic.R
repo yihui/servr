@@ -63,7 +63,7 @@
 #' # built-in examples
 #' servr::serve_example('rmd', servr::rmdv1)
 #' servr::serve_example('rmd', servr::rmdv2)
-#' @importFrom httpuv startServer service stopServer
+#' @importFrom httpuv startServer stopServer
 #' @export
 jekyll = function(
   dir = '.', input = c('.', '_source', '_posts'), output = c('.', '_posts', '_posts'),

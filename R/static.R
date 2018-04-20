@@ -132,7 +132,7 @@ server_config = function(
     host = host, port = port, interval = interval, url = url,
     start_server = function(app) {
       id = startServer(host, port, app)
-      daemon_hint(id); browse()
+      if (daemon) daemon_hint(id); browse()
       if (!daemon) while (TRUE) {
         httpuv::service(); Sys.sleep(0.001)
       }

@@ -10,10 +10,9 @@
 #' When developing R packages, you may want to preview your vignettes once in a
 #' while. You can certainly click the button in RStudio to do it, but that
 #' requires you to install the package and rebuild the vignettes. With this
-#' function, you may start a daemonzied server (\code{vign(daemon = TRUE)}), and
-#' your vignette will be rebuilt automatically when you update the source
-#' document. Moreover, because the compilation takes place in the current R
-#' session, you can take advantage of \code{devtools::load_all()} (which has a
+#' function, your vignette will be rebuilt automatically when you update the
+#' source document. Moreover, because the compilation takes place in the current
+#' R session, you can take advantage of \code{devtools::load_all()} (which has a
 #' keyboard shortcut in the RStudio IDE) to reload your package and see the
 #' updated vignette in the web browser.
 #' @inheritParams httd

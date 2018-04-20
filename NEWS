@@ -4,6 +4,10 @@ NEW FEATURES
 
 - Added a function `browse_last()` to reopen the last browsed page.
 
+MAJOR CHANGES
+
+- The `daemon` argument in `server_config()` was removed. Similarly, the global R option `servr.daemon` was also removed. This is because the new version of the **httpuv** package (1.4.0) can start a daemonized server via `httpuv::startServer()`. In other words, the server started from **servr** will always be daemoinzed and not block your R session (after all requests have been processed). These changes should not affect **servr** users (you do not need to do anything on your side).
+
 		 CHANGES IN servr VERSION 0.9
 
 BUG FIXES

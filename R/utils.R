@@ -101,11 +101,9 @@ guess_type = function(path) {
 servrEnv$daemon_list = list()
 
 # a hint on how to stop the daemonized server
-daemon_hint = function(server, daemon = FALSE) {
+daemon_hint = function(server) {
   if (!interactive()) return(invisible(server))
-  servrEnv$daemon_list[[length(servrEnv$daemon_list) + 1]] = if (daemon) {
-    structure(server, httpuv_daemon = TRUE)
-  } else server
+  servrEnv$daemon_list[[length(servrEnv$daemon_list) + 1]] = server
   message('To stop the server, run servr::daemon_stop("', server, '")',
           ' or restart your R session')
   invisible(server)
@@ -113,21 +111,14 @@ daemon_hint = function(server, daemon = FALSE) {
 
 #' Utilities for daemonized servers
 #'
-#' The server functions in this package will return server handles if daemonized
-#' servers were used (e.g., \code{servr::httd(daemon = TRUE)}). You can pass the
-#' handles to \code{daemon_stop()} to stop the daemonized servers. Because
-#' stopping a daemonized server more than once using
-#' \code{httpuv::\link{stopDaemonizedServer}()} will crash the R session, this
-#' function will check if a server has been stopped before really attempting to
-#' stop it, so it is safer than the \code{stopDaemonizedServer()} in
-#' \pkg{httpuv}.
+#' The server functions in this package will return server handles. You can pass the
+#' handles to \code{daemon_stop()} to stop the daemonized servers.
 #' @param which the server handles returned by server functions; by default, all
 #'   existing handles in the current R session obtained from
 #'   \code{daemon_list()}, i.e., all daemon servers will be stopped by default
 #' @return  The function \code{daemon_list()} returns a list of existing server
 #'   handles, and \code{daemon_stop()} returns an invisible \code{NULL}.
 #' @export
-#' @importFrom httpuv stopDaemonizedServer
 daemon_stop = function(which = daemon_list()) {
   list = daemon_list()
   for (d in which) {
@@ -137,7 +128,7 @@ daemon_stop = function(which = daemon_list()) {
       next
     }
     d = list[[i]]
-    if (isTRUE(attr(d, 'httpuv_daemon'))) stopServer(d) else stopDaemonizedServer(d)
+    stopServer(d)
     servrEnv$daemon_list = setdiff(servrEnv$daemon_list, d)
   }
 }

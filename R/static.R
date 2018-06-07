@@ -23,7 +23,8 @@ httd = function(dir = '.', ...) {
   }
   res = server_config(dir, ...)
   app = list(call = serve_dir(dir))
-  res$start_server(app)
+  id = res$start_server(app)
+  invisible(id)
 }
 
 #' @param watch a directory under which \code{httw()} is to watch for changes;
@@ -39,9 +40,10 @@ httd = function(dir = '.', ...) {
 httw = function(
   dir = '.', watch = '.', pattern = NULL, all_files = FALSE, handler = NULL, ...
 ) {
-  dynamic_site(dir, ..., build = watch_dir(
+  id = dynamic_site(dir, ..., build = watch_dir(
     watch, pattern = pattern, all_files = all_files, handler = handler
   ))
+  invisible(id)
 }
 
 watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NULL) {

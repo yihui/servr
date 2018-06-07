@@ -221,7 +221,8 @@ dynamic_site = function(
       })
     }
   )
-  res$start_server(app)
+  id = res$start_server(app)
+  invisible(id)
 }
 
 #' Determine if R Markdown files need to be re-built

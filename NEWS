@@ -2,7 +2,10 @@
 
 NEW FEATURES
 
-- The `port` argument of `server_config()` can be set via the global option `servr.port` now, e.g., `options(servr.port = 4322)`.
+- The default value of the `port` argument of `server_config()` can be set via
+  the environment variable `R_SERVR_PORT`. If the environment variable does not
+  exist, the global option `servr.port` will be used if set, e.g.,
+  `options(servr.port = 4322)`. See `?servr::server_config` for details.
 
 		 CHANGES IN servr VERSION 0.10
 

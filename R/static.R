@@ -78,31 +78,36 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
 #' Server configurations
 #'
 #' The server functions in this package are configured through this function.
-#' @param dir the root directory to serve
-#' @param port the TCP port number; by default it is \code{4321} or a random
-#'   port if \code{4321} is not available, unless a command line argument of the
-#'   form \code{-pNNNN} (N is a digit from 0 to 9) was passed in when R was
-#'   launched, in which case \code{NNNN} will be used as the port number
-#' @param browser whether to launch the default web browser; by default, it is
+#' @param dir The root directory to serve.
+#' @param port The TCP port number. If it is not explicitly set, the default
+#'   value will be looked up in this order: First, the command line argument of
+#'   the form \code{-pNNNN} (N is a digit from 0 to 9). If it was passed to R
+#'   when R was started, \code{NNNN} will be used as the port number. Second,
+#'   the environment variable \code{R_SERVR_PORT}. Third, the global option
+#'   \code{servr.port} (e.g., \code{options(servr.port = 4322)}). If none of
+#'   these command-line arguments, variables, or options were set, the default
+#'   port will be \code{4321}. If this port is not available, a random available
+#'   port will be used.
+#' @param browser Whether to launch the default web browser. By default, it is
 #'   \code{TRUE} if the R session is \code{\link{interactive}()}, or when a
 #'   command line argument \code{-b} was passed to R (see
-#'   \code{\link{commandArgs}()}); N.B. the RStudio viewer is used as the web
-#'   browser if available
-#' @param daemon whether to launch a daemonized server (the server does not
-#'   block the current R session) or a blocking server; by default, it is the
+#'   \code{\link{commandArgs}()}). N.B. the RStudio viewer is used as the web
+#'   browser if available.
+#' @param daemon Whether to launch a daemonized server (the server does not
+#'   block the current R session) or a blocking server. By default, it is the
 #'   global option \code{getOption('servr.daemon')} (e.g., you can set
 #'   \code{options(servr.daemon = TRUE)}); if this option was not set,
 #'   \code{daemon = TRUE} if a command line argument \code{-d} was passed to R
 #'   (through \command{Rscript}), or the server is running in an interactive R
-#'   session
-#' @param interval the time interval used to check if an HTML page needs to be
-#'   rebuilt (by default, it is checked every second); at the moment, the
+#'   session.
+#' @param interval The time interval used to check if an HTML page needs to be
+#'   rebuilt (by default, it is checked every second). At the moment, the
 #'   smallest possible \code{interval} is set to be 1, and this may change in
-#'   the future
-#' @param baseurl the base URL (the full URL will be
-#'   \code{http://host:port/baseurl})
-#' @param initpath the initial path in the URL (e.g. you can open a specific
-#'   HTML file initially)
+#'   the future.
+#' @param baseurl The base URL (the full URL will be
+#'   \code{http://host:port/baseurl}).
+#' @param initpath The initial path in the URL (e.g. you can open a specific
+#'   HTML file initially).
 #' @inheritParams httpuv::startServer
 #' @export
 #' @return A list of configuration information of the form \code{list(host,
@@ -113,8 +118,12 @@ server_config = function(
 ) {
   cargs = commandArgs(TRUE)
   if (missing(browser)) browser = interactive() || '-b' %in% cargs || is_rstudio()
-  if (missing(port)) port = if (length(port <- grep('^-p[0-9]{4,}$', cargs, value = TRUE)) == 1)
-    as.integer(sub('^-p', '', port)) else getOption('servr.port', random_port())
+  if (missing(port)) port = if (length(port <- grep('^-p[0-9]{4,}$', cargs, value = TRUE)) == 1) {
+    sub('^-p', '', port)
+  } else {
+    Sys.getenv('R_SERVR_PORT', getOption('servr.port', random_port()))
+  }
+  port = as.integer(port)
   if (missing(daemon)) daemon = getOption('servr.daemon', ('-d' %in% cargs) || interactive())
   url = sprintf('http://%s:%d', host, port)
   if (baseurl != '') url = paste(url, baseurl, sep = '')

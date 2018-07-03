@@ -113,9 +113,8 @@ server_config = function(
 ) {
   cargs = commandArgs(TRUE)
   if (missing(browser)) browser = interactive() || '-b' %in% cargs || is_rstudio()
-  if (missing(port))
-    port = if (length(port <- grep('^-p[0-9]{4,}$', cargs, value = TRUE)) == 1)
-      as.integer(sub('^-p', '', port)) else getOption('servr.port', random_port())
+  if (missing(port)) port = if (length(port <- grep('^-p[0-9]{4,}$', cargs, value = TRUE)) == 1)
+    as.integer(sub('^-p', '', port)) else getOption('servr.port', random_port())
   if (missing(daemon)) daemon = getOption('servr.daemon', ('-d' %in% cargs) || interactive())
   url = sprintf('http://%s:%d', host, port)
   if (baseurl != '') url = paste(url, baseurl, sep = '')

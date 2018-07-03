@@ -7,7 +7,7 @@
 vign(dir = "vignettes", ...)
 }
 \arguments{
-\item{dir}{the root directory to serve}
+\item{dir}{The root directory to serve.}
 
 \item{...}{server configurations passed to \code{\link{server_config}()}}
 }

@@ -1,3 +1,9 @@
+		 CHANGES IN servr VERSION 0.11
+
+NEW FEATURES
+
+- The `port` argument of `server_config()` can be set via the global option `servr.port` now, e.g., `options(servr.port = 4322)`.
+
 		 CHANGES IN servr VERSION 0.10
 
 NEW FEATURES

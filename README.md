@@ -7,11 +7,11 @@ A simple HTTP server to serve files under a given directory based on the
 
 You can install this package from
 [CRAN](https://cran.rstudio.org/package=servr) (stable version) or
-[XRAN](http://yihui.name/xran/) (development version):
+[XRAN](https://xran.yihui.name) (development version):
 
 ```r
 install.packages('servr')  # stable version; use a CRAN mirror, or
-install.packages('servr', repos = 'http://yihui.name/xran')  # devel version
+install.packages('servr', repos = 'https://xran.yihui.name')  # devel version
 ```
 
 This package is licensed under GPL.
@@ -69,8 +69,8 @@ deleted, or modified certain files in the directory).
 
 Besides `httd()`, there are functions `jekyll()`, `rmdv1()`, and `rmdv2()` in
 this package to serve HTML files generated from R Markdown documents (via
-[**knitr**](http://yihui.name/knitr) or
-[**rmarkdown**](http://rmarkdown.rstudio.com)). R Markdown documents can be
+[**knitr**](https://yihui.name/knitr/) or
+[**rmarkdown**](https://rmarkdown.rstudio.com)). R Markdown documents can be
 automatically re-compiled when their HTML output files are older than the
 corresponding source files, and HTML pages in the web browser can be
 automatically refreshed accordingly, so you can focus on writing R Markdown

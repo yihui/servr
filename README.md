@@ -3,10 +3,10 @@
 [![Build Status](https://travis-ci.org/yihui/servr.svg)](https://travis-ci.org/yihui/servr) ![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/servr)
 
 A simple HTTP server to serve files under a given directory based on the
-[**httpuv**](https://cran.rstudio.org/package=httpuv) package.
+[**httpuv**](https://cran.r-project.org/package=httpuv) package.
 
 You can install this package from
-[CRAN](https://cran.rstudio.org/package=servr) (stable version) or
+[CRAN](https://cran.r-project.org/package=servr) (stable version) or
 [XRAN](https://xran.yihui.name) (development version):
 
 ```r
@@ -25,7 +25,7 @@ http.server`. It may be used to serve:
     - [**bookdown**](https://github.com/rstudio/bookdown) books
     - [**blogdown**](https://github.com/rstudio/bookdown) websites
     - [**xaringan**](https://github.com/rstudio/bookdown) presentations
-- [**googleVis**](https://cran.rstudio.org/package=googleVis) charts (to solve
+- [**googleVis**](https://cran.r-project.org/package=googleVis) charts (to solve
   the Flash security problem)
 - D3 charts which need to load JSON from local files (see also the
   [**animint**](https://github.com/tdhock/animint) package)

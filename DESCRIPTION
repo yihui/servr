@@ -29,4 +29,4 @@ Suggests:
 License: GPL
 URL: https://github.com/yihui/servr
 BugReports: https://github.com/yihui/servr/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

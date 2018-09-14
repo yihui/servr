@@ -125,7 +125,10 @@ server_config = function(
   }
   port = as.integer(port)
   if (missing(daemon)) daemon = getOption('servr.daemon', ('-d' %in% cargs) || interactive())
-  url = sprintf('http://%s:%d', host, port)
+  # rstudio viewer cannot display a page served at 0.0.0.0; use 127.0.0.1 instead
+  url = sprintf(
+    'http://%s:%d', if (host == '0.0.0.0' && is_rstudio()) '127.0.0.1' else host, port
+  )
   if (baseurl != '') url = paste(url, baseurl, sep = '')
   url = paste0(url, if (initpath != '' && !grepl('^/', initpath)) '/', initpath)
   browsed = FALSE

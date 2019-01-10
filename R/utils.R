@@ -204,7 +204,7 @@ decode_path = function(req) {
   path
 }
 
-paste2 = function(...) paste(c(...), collapse = '\r\n')
+paste2 = function(...) paste(c(...), collapse = '\n')
 
 file_size = function(path) file.info(path)[, 'size']
 

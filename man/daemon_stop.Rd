@@ -10,15 +10,15 @@ daemon_stop(which = daemon_list())
 daemon_list()
 }
 \arguments{
-\item{which}{the server handles returned by server functions; by default, all
-existing handles in the current R session obtained from
-\code{daemon_list()}, i.e., all daemon servers will be stopped by default}
+\item{which}{A integer vector of the server IDs; by default, IDs of all
+existing servers in the current R session obtained from
+\code{daemon_list()}, i.e., all daemon servers will be stopped by default.}
 }
 \value{
 The function \code{daemon_list()} returns a list of existing server
-  handles, and \code{daemon_stop()} returns an invisible \code{NULL}.
+  IDs, and \code{daemon_stop()} returns an invisible \code{NULL}.
 }
 \description{
-The server functions in this package will return server handles. You can pass the
-handles to \code{daemon_stop()} to stop the daemonized servers.
+\code{daemon_list()} returns IDs of servers, which can be used to stop the
+daemonized servers.
 }

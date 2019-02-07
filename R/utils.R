@@ -94,21 +94,21 @@ servrEnv$daemon_list = list()
 # a hint on how to stop the daemonized server
 daemon_hint = function(server) {
   if (!interactive()) return(invisible(server))
-  servrEnv$daemon_list[[length(servrEnv$daemon_list) + 1]] = server
-  message('To stop the server, run servr::daemon_stop("', server, '")',
-          ' or restart your R session')
+  i = length(servrEnv$daemon_list) + 1
+  servrEnv$daemon_list[[i]] = server
+  message('To stop the server, run servr::daemon_stop(', i, ') or restart your R session')
   invisible(server)
 }
 
 #' Utilities for daemonized servers
 #'
-#' The server functions in this package will return server handles. You can pass the
-#' handles to \code{daemon_stop()} to stop the daemonized servers.
-#' @param which the server handles returned by server functions; by default, all
-#'   existing handles in the current R session obtained from
-#'   \code{daemon_list()}, i.e., all daemon servers will be stopped by default
+#' \code{daemon_list()} returns IDs of servers, which can be used to stop the
+#' daemonized servers.
+#' @param which A integer vector of the server IDs; by default, IDs of all
+#'   existing servers in the current R session obtained from
+#'   \code{daemon_list()}, i.e., all daemon servers will be stopped by default.
 #' @return  The function \code{daemon_list()} returns a list of existing server
-#'   handles, and \code{daemon_stop()} returns an invisible \code{NULL}.
+#'   IDs, and \code{daemon_stop()} returns an invisible \code{NULL}.
 #' @export
 daemon_stop = function(which = daemon_list()) {
   list = daemon_list()
@@ -118,14 +118,14 @@ daemon_stop = function(which = daemon_list()) {
       warning('The server ', d, ' has been stopped!')
       next
     }
-    d = list[[i]]
-    stopServer(d)
-    servrEnv$daemon_list = setdiff(servrEnv$daemon_list, d)
+    d = list[[i]]; s = servrEnv$daemon_list[[d]]
+    if (length(s)) stopServer(s)
+    servrEnv$daemon_list[[d]] = list()
   }
 }
 #' @rdname daemon_stop
 #' @export
-daemon_list = function() unlist(servrEnv$daemon_list)
+daemon_list = function() seq_along(servrEnv$daemon_list)
 
 # watch files with pattern, and rebuild them if necessary
 build_watcher = function(pattern, build, dir = getwd()) {

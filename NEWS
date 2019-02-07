@@ -1,6 +1,9 @@
 		 CHANGES IN servr VERSION 0.12
 
+MAJOR CHANGES
 
+- `daemon_list()` returns server IDs instead of handles, so that it will work
+  with httpuv >= v1.4.5.1 (rstudio/blogdown#365).
 
 		 CHANGES IN servr VERSION 0.11
 

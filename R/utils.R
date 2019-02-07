@@ -176,10 +176,19 @@ serve_example = function(name, FUN, ..., run = interactive()) {
   FUN(dir, ...)
 }
 
-# find a random available TCP port (to launch server)
-random_port = function(port = 4321L, host = '127.0.0.1') {
+#' Find a random available TCP port
+#'
+#' Test a series of random TCP ports from 3000 to 8000 (excluding a few that are
+#' considered unsafe by Chrome) and return the first available one. A web server
+#' can be later started on this port.
+#' @param port The preferred port(s).
+#' @param n The maximum number of random ports to be tested.
+#' @inheritParams server_config
+#' @export
+#' @return A port number, or an error if no ports are available.
+random_port = function(port = 4321L, host = '127.0.0.1', n = 20) {
   # exclude ports considered unsafe by Chrome http://superuser.com/a/188070
-  ports = sample(setdiff(3000:8000, c(3659, 4045, 6000, 6665:6669)), 20)
+  ports = sample(setdiff(3000:8000, c(3659, 4045, 6000, 6665:6669)), n)
   ports = c(port, ports)
   port = NULL
   for (p in ports) if (port_available(p, host)) {

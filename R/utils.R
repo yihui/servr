@@ -111,21 +111,21 @@ daemon_hint = function(server) {
 #'   IDs, and \code{daemon_stop()} returns an invisible \code{NULL}.
 #' @export
 daemon_stop = function(which = daemon_list()) {
-  list = daemon_list()
   for (d in which) {
-    i = match(d, list)
-    if (is.na(i)) {
-      warning('The server ', d, ' has been stopped!')
-      next
-    }
-    d = list[[i]]; s = servrEnv$daemon_list[[d]]
-    if (length(s)) stopServer(s)
+    if (length(s <- servrEnv$daemon_list[[d]]) == 0) next
+    stopServer(s)
     servrEnv$daemon_list[[d]] = list()
   }
 }
 #' @rdname daemon_stop
 #' @export
-daemon_list = function() seq_along(servrEnv$daemon_list)
+daemon_list = function() {
+  x = seq_along(servrEnv$daemon_list)
+  d = integer()
+  for (i in x) if (length(servrEnv$daemon_list[[i]]) == 0) d = c(d, i)
+  if (length(d)) x = x[-d]
+  if (length(x)) x else invisible(x)
+}
 
 # watch files with pattern, and rebuild them if necessary
 build_watcher = function(pattern, build, dir = getwd()) {

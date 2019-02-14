@@ -1,5 +1,15 @@
 		 CHANGES IN servr VERSION 0.13
 
+NEW FEATURES
+
+- Added a `verbose` argument to `server_config()`.
+
+MAJOR CHANGES
+
+- Server functions such as `httd()` now return the config object created by
+  `server_config()` instead of the server handle returned by
+  `httpuv::startServer()`. The config object contains various information about
+  the server and methods to start/stop the server.
 
 		 CHANGES IN servr VERSION 0.12
 

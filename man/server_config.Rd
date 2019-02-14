@@ -5,7 +5,7 @@
 \title{Server configurations}
 \usage{
 server_config(dir = ".", host = "127.0.0.1", port, browser, daemon, interval = 1, 
-    baseurl = "", initpath = "")
+    baseurl = "", initpath = "", verbose = TRUE)
 }
 \arguments{
 \item{dir}{The root directory to serve.}
@@ -47,6 +47,8 @@ the future.}
 
 \item{initpath}{The initial path in the URL (e.g. you can open a specific
 HTML file initially).}
+
+\item{verbose}{Whether to print messages when launching the server.}
 }
 \value{
 A list of configuration information of the form \code{list(host,

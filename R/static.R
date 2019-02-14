@@ -109,13 +109,14 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
 #'   \code{http://host:port/baseurl}).
 #' @param initpath The initial path in the URL (e.g. you can open a specific
 #'   HTML file initially).
+#' @param verbose Whether to print messages when launching the server.
 #' @inheritParams httpuv::startServer
 #' @export
 #' @return A list of configuration information of the form \code{list(host,
 #'   port, start_server = function(app) {}, ...)}.
 server_config = function(
   dir = '.', host = '127.0.0.1', port, browser, daemon, interval = 1, baseurl = '',
-  initpath = ''
+  initpath = '', verbose = TRUE
 ) {
   cargs = commandArgs(TRUE)
   if (missing(browser)) browser = interactive() || '-b' %in% cargs || is_rstudio()
@@ -137,14 +138,14 @@ server_config = function(
     if (browsed && !reopen) return(invisible(url))
     if (browser || reopen) browseURL(url, browser = get_browser())
     browsed <<- TRUE
-    if (!reopen) message('Serving the directory ', dir, ' at ', url)
+    if (verbose && !reopen) message('Serving the directory ', dir, ' at ', url)
   }
   server = NULL
   list(
     host = host, port = port, interval = interval, url = url,
     start_server = function(app) {
       id = startServer(host, port, app)
-      if (daemon) daemon_hint(id); browse()
+      if (verbose && daemon) daemon_hint(id); browse()
       server <<- id
       if (!daemon) while (TRUE) {
         httpuv::service(); Sys.sleep(0.001)

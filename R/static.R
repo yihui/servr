@@ -24,6 +24,7 @@ httd = function(dir = '.', ...) {
   res = server_config(dir, ...)
   app = list(call = serve_dir(dir))
   res$start_server(app)
+  invisible(res)
 }
 
 #' @param watch a directory under which \code{httw()} is to watch for changes;

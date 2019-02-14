@@ -200,9 +200,9 @@ random_port = function(port = 4321L, host = '127.0.0.1', n = 20) {
 }
 
 port_available = function(port, host = '127.0.0.1') {
-  tmp = try(httpuv::startServer(host, port, list()), silent = TRUE)
+  tmp = try(startServer(host, port, list()), silent = TRUE)
   if (inherits(tmp, 'try-error')) return(FALSE)
-  httpuv::stopServer(tmp)
+  stopServer(tmp)
   TRUE
 }
 

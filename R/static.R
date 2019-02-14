@@ -139,15 +139,21 @@ server_config = function(
     browsed <<- TRUE
     if (!reopen) message('Serving the directory ', dir, ' at ', url)
   }
+  server = NULL
   list(
     host = host, port = port, interval = interval, url = url,
     start_server = function(app) {
       id = startServer(host, port, app)
       if (daemon) daemon_hint(id); browse()
+      server <<- id
       if (!daemon) while (TRUE) {
         httpuv::service(); Sys.sleep(0.001)
       }
       invisible(id)
+    },
+    stop_server = function() {
+      if (is.null(server)) stop('The server has not been started yet.')
+      stopServer(server)
     },
     browse = browse
   )

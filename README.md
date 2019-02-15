@@ -24,10 +24,10 @@ http.server`. It may be used to serve:
 
 - R Markdown applications
     - [**bookdown**](https://github.com/rstudio/bookdown) books
-    - [**blogdown**](https://github.com/rstudio/bookdown) websites
-    - [**xaringan**](https://github.com/rstudio/bookdown) presentations
-- [**googleVis**](https://cran.r-project.org/package=googleVis) charts (to solve
-  the Flash security problem)
+    - [**blogdown**](https://github.com/rstudio/blogdown) websites
+    - [**xaringan**](https://github.com/yihui/xaringan) presentations
+- [**googleVis**](https://cran.r-project.org/package=googleVis) charts (to avoid
+  the Flash security issue)
 - D3 charts which need to load JSON from local files (see also the
   [**animint**](https://github.com/tdhock/animint) package)
 - [**rCharts**](http://rcharts.io) and

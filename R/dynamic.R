@@ -159,15 +159,17 @@ dynamic_rmd = function(dir, script, ..., method, in_session = FALSE) {
 #' @importFrom jsonlite fromJSON toJSON
 dynamic_site = function(
   dir = '.', ..., build = function(...) FALSE, site.dir = dir, baseurl = '',
-  pre_process = identity, post_process = identity, response = serve_dir()
+  pre_process = identity, post_process = identity, response = serve_dir(),
+  ws_handler = pkg_file('ws-reload.js')
 ) {
   dir = normalizePath(dir, mustWork = TRUE)
   in_dir(dir, build())
 
-  js  = readLines(system.file('resources', 'ws-reload.html', package = 'servr'))
+  js  = readLines(pkg_file('ws-create.html'))
   if (baseurl == '/') baseurl = ''
   res = server_config(dir, ..., baseurl = baseurl)
-  js = gsub('SERVR_INTERVAL', format(res$interval * 1000), js, fixed = TRUE)
+  js = gsub('!!SERVR_HANDLER', paste(' ', readLines(ws_handler), collapse = '\n'), js, fixed = TRUE)
+  js = gsub('!!SERVR_INTERVAL', format(res$interval * 1000), js, fixed = TRUE)
 
   app = list(
     call = function(req) {

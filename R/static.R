@@ -67,6 +67,7 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
         f3 = setdiff(f2, f1)    # new files
         f4 = intersect(f1, f2)  # old files
         f5 = f4[info[f4, 1] != info2[f4, 1]]  # modified files
+        info <<- info2
         handler(c(f3, na.omit(f5)))
         info2 = mtime(dir)
       }

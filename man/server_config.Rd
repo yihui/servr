@@ -38,9 +38,7 @@ global option \code{getOption('servr.daemon')} (e.g., you can set
 session.}
 
 \item{interval}{The time interval used to check if an HTML page needs to be
-rebuilt (by default, it is checked every second). At the moment, the
-smallest possible \code{interval} is set to be 1, and this may change in
-the future.}
+rebuilt (by default, it is checked every second).}
 
 \item{baseurl}{The base URL (the full URL will be
 \code{http://host:port/baseurl}).}

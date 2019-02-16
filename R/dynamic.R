@@ -166,6 +166,7 @@ dynamic_site = function(
   js  = readLines(system.file('resources', 'ws-reload.html', package = 'servr'))
   if (baseurl == '/') baseurl = ''
   res = server_config(dir, ..., baseurl = baseurl)
+  js = gsub('SERVR_INTERVAL', format(res$interval * 1000), js, fixed = TRUE)
 
   app = list(
     call = function(req) {

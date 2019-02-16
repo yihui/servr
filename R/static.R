@@ -103,9 +103,7 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
 #'   (through \command{Rscript}), or the server is running in an interactive R
 #'   session.
 #' @param interval The time interval used to check if an HTML page needs to be
-#'   rebuilt (by default, it is checked every second). At the moment, the
-#'   smallest possible \code{interval} is set to be 1, and this may change in
-#'   the future.
+#'   rebuilt (by default, it is checked every second).
 #' @param baseurl The base URL (the full URL will be
 #'   \code{http://host:port/baseurl}).
 #' @param initpath The initial path in the URL (e.g. you can open a specific

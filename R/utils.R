@@ -60,25 +60,6 @@ rscript = function(code, input) {
     stop('Failed to compile ', input, call. = FALSE)
 }
 
-new_timeout = function(interval, max_timeout = 32) {
-  old = NULL
-  int = interval  # stores initial value (may need to restore later)
-  function(delay = FALSE) {
-    now = Sys.time()
-    if (is.null(old)) old <<- now
-    # when delay = TRUE, wait for twice longer until returning TRUE (like Gmail)
-    if (!is.na(delay)) {
-      if (delay) {
-        int <<- min(2 * int, max_timeout)
-        message('\n* Retrying in ', int, ' second', if (int > 1) 's', '...\n')
-      } else int <<- interval
-    }
-    if (as.numeric(now - old) < int) return(FALSE)
-    old <<- now
-    TRUE
-  }
-}
-
 # use the output from the system utility mimetype if available
 guess_type = function(path) {
   mimetype = function(...) {

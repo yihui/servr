@@ -166,7 +166,6 @@ dynamic_site = function(
   js  = readLines(system.file('resources', 'ws-reload.html', package = 'servr'))
   if (baseurl == '/') baseurl = ''
   res = server_config(dir, ..., baseurl = baseurl)
-  timeout = new_timeout(res$interval)
 
   app = list(
     call = function(req) {
@@ -199,24 +198,12 @@ dynamic_site = function(
       res
     },
     onWSOpen = function(ws) {
-      # the client keeps on sending messages to ws, and ws needs to decide when
-      # to update output from source files
-      error = FALSE  # when an error occurred, stop sending messages
       ws$onMessage(function(binary, message) {
-        # if the last build errored, wait for 1, 2, 4, 8, 16, ... seconds,
-        # otherwise restore the default time interval
-        if (!timeout(error)) {
-          error <<- NA  # in an indetermined state (wait and see)
-          return()
-        }
         owd = setwd(dir); on.exit(setwd(owd))
-        error <<- FALSE
         # notify the client that the output has been updated
         tryCatch(
           if (build(jsonlite::fromJSON(message))) ws$send('reload'),
-          error = function(e) {
-            error <<- TRUE; print(e)
-          }
+          error = function(e) print(e)
         )
       })
     }

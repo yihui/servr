@@ -156,6 +156,7 @@ dynamic_rmd = function(dir, script, ..., method, in_session = FALSE) {
 # that need to be compiled to generate HTML files); we use WebSockets to notify
 # the HTML pages whether they need to refresh themselves, which is determined by
 # the value returned from the build() function
+#' @importFrom jsonlite fromJSON toJSON
 dynamic_site = function(
   dir = '.', ..., build = function(...) FALSE, site.dir = dir, baseurl = '',
   pre_process = identity, post_process = identity, response = serve_dir()
@@ -203,7 +204,8 @@ dynamic_site = function(
         owd = setwd(dir); on.exit(setwd(owd))
         # notify the client that the output has been updated
         tryCatch(
-          if (build(jsonlite::fromJSON(message))) ws$send('reload'),
+          if (!is.null(res <- build(fromJSON(message))) && !identical(res, FALSE))
+            ws$send(toJSON(res, auto_unbox = TRUE)),
           error = function(e) print(e)
         )
       })

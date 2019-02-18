@@ -204,12 +204,11 @@ dynamic_site = function(
     onWSOpen = function(ws) {
       ws$onMessage(function(binary, message) {
         owd = setwd(dir); on.exit(setwd(owd))
-        # notify the client that the output has been updated
-        tryCatch(
-          if (!is.null(res <- build(fromJSON(message))) && !identical(res, FALSE))
-            ws$send(toJSON(res, auto_unbox = TRUE)),
-          error = function(e) print(e)
-        )
+        # send the result of build() to the websocket client
+        ws$send(tryCatch(
+          toJSON(build(if (message != '') fromJSON(message)), auto_unbox = TRUE),
+          error = function(e) { print(e); NULL }
+        ))
       })
     }
   )

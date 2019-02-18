@@ -1,14 +1,13 @@
+var flag;
 ws.onmessage = function(evt) {
+  flag = true;
+  if (!evt.data) return;
   // fire a servr:reload event
   Event && document.dispatchEvent(new Event('servr:reload'));
   location.reload();
 };
-// keep on sending messages to the server, and the server will send the
-// message back when necessary
 setInterval(function() {
-  if (ws.readyState === ws.OPEN)
-    ws.send(JSON.stringify({
-      "pathname": location.pathname,
-      "search": location.search
-    }));
+  if (flag === false || ws.readyState !== ws.OPEN) return;
+  flag = false;  // prevent ws message if R hasn't responded yet
+  ws.send('');
 }, !!SERVR_INTERVAL);

@@ -207,7 +207,7 @@ dynamic_site = function(
         # send the result of build() to the websocket client
         ws$send(tryCatch(
           toJSON(build(if (message != '') fromJSON(message)), auto_unbox = TRUE),
-          error = function(e) { print(e); NULL }
+          error = function(e) { print(e); 'null' }
         ))
       })
     }

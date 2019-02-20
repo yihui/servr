@@ -4,8 +4,9 @@
 \alias{server_config}
 \title{Server configurations}
 \usage{
-server_config(dir = ".", host = "127.0.0.1", port, browser, daemon, interval = 1, 
-    baseurl = "", initpath = "", verbose = TRUE)
+server_config(dir = ".", host = "127.0.0.1", port, browser, daemon, 
+    interval = getOption("servr.interval", 1), baseurl = "", initpath = "", 
+    verbose = TRUE)
 }
 \arguments{
 \item{dir}{The root directory to serve.}

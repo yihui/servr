@@ -4,6 +4,8 @@ NEW FEATURES
 
 - Added a `verbose` argument to `server_config()`.
 
+- The `interval` argument of `server_config()` can be set via the global option `servr.interval` now. For example, `options(servr.interval = 0.5)`.
+
 MAJOR CHANGES
 
 - Server functions such as `httd()` now return the config object created by

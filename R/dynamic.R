@@ -206,7 +206,7 @@ dynamic_site = function(
         owd = setwd(dir); on.exit(setwd(owd))
         # send the result of build() to the websocket client
         ws$send(tryCatch(
-          toJSON(build(if (message != '') fromJSON(message)), auto_unbox = TRUE),
+          toJSON(build(if (message != '') fromJSON(message)), auto_unbox = TRUE, null = 'null'),
           error = function(e) { print(e); 'null' }
         ))
       })

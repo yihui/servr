@@ -163,7 +163,7 @@ dynamic_site = function(
   ws_handler = pkg_file('ws-reload.js')
 ) {
   dir = normalizePath(dir, mustWork = TRUE)
-  in_dir(dir, build())
+  in_dir(dir, build(NULL))
 
   js  = readLines(pkg_file('ws-create.html'))
   if (baseurl == '/') baseurl = ''

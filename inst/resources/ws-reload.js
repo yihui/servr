@@ -1,7 +1,7 @@
 var flag;
 ws.onmessage = function(evt) {
   flag = true;
-  if (!evt.data) return;
+  if (evt.data === 'false' || evt.data === 'null') return;
   // fire a servr:reload event
   Event && document.dispatchEvent(new Event('servr:reload'));
   location.reload();

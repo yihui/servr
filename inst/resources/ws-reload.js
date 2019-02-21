@@ -9,5 +9,5 @@ ws.onmessage = function(evt) {
 setInterval(function() {
   if (flag === false || ws.readyState !== ws.OPEN) return;
   flag = false;  // prevent ws message if R hasn't responded yet
-  ws.send('');
+  ws.send('{}');
 }, !!SERVR_INTERVAL);

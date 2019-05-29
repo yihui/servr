@@ -4,14 +4,14 @@
 \alias{server_config}
 \title{Server configurations}
 \usage{
-server_config(dir = ".", host = "127.0.0.1", port, browser, daemon, 
-    interval = getOption("servr.interval", 1), baseurl = "", initpath = "", 
+server_config(dir = ".", host = getOption("servr.host", "127.0.0.1"), port, browser, 
+    daemon, interval = getOption("servr.interval", 1), baseurl = "", initpath = "", 
     verbose = TRUE)
 }
 \arguments{
 \item{dir}{The root directory to serve.}
 
-\item{host}{A string that is a valid IPv4 address that is owned by this 
+\item{host}{A string that is a valid IPv4 address that is owned by this
 server, or \code{"0.0.0.0"} to listen on all IP addresses.}
 
 \item{port}{The TCP port number. If it is not explicitly set, the default

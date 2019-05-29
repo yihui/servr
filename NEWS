@@ -1,6 +1,8 @@
 		 CHANGES IN servr VERSION 0.14
 
+NEW FEATURES
 
+- The argument `host` in `server_config()` can be configured through the global option `servr.host` now, e.g., `options(servr.host = '0.0.0.0')`.
 
 		 CHANGES IN servr VERSION 0.13
 

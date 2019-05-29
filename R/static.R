@@ -114,7 +114,7 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
 #' @return A list of configuration information of the form \code{list(host,
 #'   port, start_server = function(app) {}, ...)}.
 server_config = function(
-  dir = '.', host = '127.0.0.1', port, browser, daemon,
+  dir = '.', host = getOption('servr.host', '127.0.0.1'), port, browser, daemon,
   interval = getOption('servr.interval', 1), baseurl = '',
   initpath = '', verbose = TRUE
 ) {

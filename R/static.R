@@ -123,7 +123,8 @@ server_config = function(
   if (missing(port)) port = if (length(port <- grep('^-p[0-9]{4,}$', cargs, value = TRUE)) == 1) {
     sub('^-p', '', port)
   } else {
-    Sys.getenv('R_SERVR_PORT', getOption('servr.port', random_port()))
+    port = Sys.getenv('R_SERVR_PORT', NA)
+    if (is.na(port)) getOption('servr.port', random_port()) else port
   }
   port = as.integer(port)
   if (missing(daemon)) daemon = getOption('servr.daemon', ('-d' %in% cargs) || interactive())

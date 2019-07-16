@@ -1,6 +1,8 @@
 		 CHANGES IN servr VERSION 0.15
 
+BUG FIXES
 
+- When the environment variable `R_SERVR_PORT` is set, `server_config()` may issue a superfluous warning "createTcpServer: address already in use" due to an unnecessary call to `random_port()` (thanks, @itcarroll, #39).
 
 		 CHANGES IN servr VERSION 0.14
 

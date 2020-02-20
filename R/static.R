@@ -203,31 +203,31 @@ serve_dir = function(dir = '.') function(req) {
         body = paste2('Not found:', path)
       ))
 
-      type = guess_type(path)
-      range = req$HTTP_RANGE
+    type = guess_type(path)
+    range = req$HTTP_RANGE
 
-      if (is.null(range)) {
-          read_raw(path)
-      } else {
-          range = strsplit(range, split = "(=|-)")[[1]]
-          b2 = as.numeric(range[2])
-          if (length(range) == 2 && range[1] == "bytes") {
-              # open-ended range request
-              # e.g. Chrome sends the range reuest 'bytes=0-'
-              # http://stackoverflow.com/a/18745164/559676
-              range[3] <- file_size(path)-1
-          }
-          b3 <- as.numeric(range[3])
-          if (length(range) < 3 || (range[1] != "bytes") || (b2 >= b3))
-              return(list(
-                  status = 416L, headers = list('Content-Type' = 'text/plain'),
-                  body = 'Requested range not satisfiable\r\n'
-              ))
+    if (is.null(range)) {
+      read_raw(path)
+    } else {
+      range = strsplit(range, split = "(=|-)")[[1]]
+      b2 = as.numeric(range[2])
+      if (length(range) == 2 && range[1] == "bytes") {
+        # open-ended range request
+        # e.g. Chrome sends the range reuest 'bytes=0-'
+        # http://stackoverflow.com/a/18745164/559676
+        range[3] = file_size(path) - 1
+      }
+      b3 = as.numeric(range[3])
+      if (length(range) < 3 || (range[1] != "bytes") || (b2 >= b3))
+        return(list(
+          status = 416L, headers = list('Content-Type' = 'text/plain'),
+          body = 'Requested range not satisfiable\r\n'
+        ))
 
-          status = 206L  # partial content
-          # type may also need to be changed
-          # e.g. to "multipart/byteranges" if multipart range support is added at a later date
-          # or possibly to "application/octet-stream" for binary files
+      status = 206L  # partial content
+      # type may also need to be changed
+      # e.g. to "multipart/byteranges" if multipart range support is added at a later date
+      # or possibly to "application/octet-stream" for binary files
 
       con = file(path, open = "rb", raw = TRUE)
       on.exit(close(con))

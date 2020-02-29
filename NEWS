@@ -2,7 +2,7 @@
 
 BUG FIXES
 
-- Refinements to HTTP range request responses. Open-ended range requests (including "Range: bytes=0-") should now be correctly handled.
+- Refinements to HTTP range request responses. Open-ended range requests (including "Range: bytes=0-") should now be correctly handled (thanks, @raymondben, #41).
 
 		 CHANGES IN servr VERSION 0.15
 

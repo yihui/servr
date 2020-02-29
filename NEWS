@@ -1,6 +1,8 @@
 		 CHANGES IN servr VERSION 0.16
 
+BUG FIXES
 
+- Refinements to HTTP range request responses. Open-ended range requests (including "Range: bytes=0-") should now be correctly handled (thanks, @raymondben, #41).
 
 		 CHANGES IN servr VERSION 0.15
 
@@ -66,7 +68,7 @@ BUG FIXES
 
 NEW FEATURES
 
-- added another implementation of the daemoinzed server based on the later package, since the previous implmentation based on `httpuv::startDaemonizedServer()` could crash the R session on Windows
+- added another implementation of the daemonized server based on the later package, since the previous implmentation based on `httpuv::startDaemonizedServer()` could crash the R session on Windows
 
 		 CHANGES IN servr VERSION 0.7
 

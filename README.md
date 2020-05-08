@@ -38,16 +38,16 @@ command line:
 
 ```bash
 # default: port 4321, do not launch browser
-Rscript -e 'servr::httd()'
+Rscript -e "servr::httd()"
 
 # open a web browser
-Rscript -e 'servr::httd()' -b
+Rscript -e "servr::httd()" -b
 
 # listen on port 4000
-Rscript -e 'servr::httd()' -p4000
+Rscript -e "servr::httd()" -p4000
 
 # pass arguments to the httd() function
-Rscript -e 'servr::httd(,4000,TRUE)'
+Rscript -e "servr::httd(,4000,TRUE)"
 ```
 
 There is also a shell script under `system.file('bin', package = 'servr')`;

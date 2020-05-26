@@ -1,5 +1,8 @@
 		 CHANGES IN servr VERSION 0.17
 
+NEW FEATURES
+
+- Added an argument `open` to `servr::browse_last()` so users can decide whether to reopen the lastly browsed page.
 
 		 CHANGES IN servr VERSION 0.16
 

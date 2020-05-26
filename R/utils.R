@@ -212,6 +212,8 @@ servrEnv$browse = function(reopen = TRUE) {}
 #'
 #' If you have launched a page in the browser via \pkg{servr} but closed it
 #' later, you may call this function to reopen it.
+#' @param open Whether to reopen the lastly browsed page. If \code{FALSE}, the
+#'   URL of the previously browsed page will be returned.
 #' @export
 #' @examples servr::browse_last()
-browse_last = function() servrEnv$browse(TRUE)
+browse_last = function(open = TRUE) servrEnv$browse(open)

@@ -4,7 +4,11 @@
 \alias{browse_last}
 \title{Reopen the last browsed page}
 \usage{
-browse_last()
+browse_last(open = TRUE)
+}
+\arguments{
+\item{open}{Whether to reopen the lastly browsed page. If \code{FALSE}, the
+URL of the previously browsed page will be returned.}
 }
 \description{
 If you have launched a page in the browser via \pkg{servr} but closed it

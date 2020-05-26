@@ -206,7 +206,9 @@ read_raw = function(path) readBin(path, 'raw', file_size(path))
 
 # store the last browsing function, so that we can reopen a page after it has
 # been closed in the browser
-servrEnv$browse = function(reopen = TRUE) {}
+servrEnv$browse = function(reopen = TRUE) {
+  message('It seems you have not served any content with servr yet.')
+}
 
 #' Reopen the last browsed page
 #'

@@ -6,15 +6,19 @@
 \alias{rmdv1}
 \title{Serve R Markdown based websites}
 \usage{
-jekyll(dir = ".", input = c(".", "_source", "_posts"), output = c(".", 
-    "_posts", "_posts"), script = c("Makefile", "build.R"), serve = TRUE, 
-    command = "jekyll build", ...)
+jekyll(
+  dir = ".",
+  input = c(".", "_source", "_posts"),
+  output = c(".", "_posts", "_posts"),
+  script = c("Makefile", "build.R"),
+  serve = TRUE,
+  command = "jekyll build",
+  ...
+)
 
-rmdv2(dir = ".", script = c("Makefile", "build.R"), in_session = FALSE, 
-    ...)
+rmdv2(dir = ".", script = c("Makefile", "build.R"), in_session = FALSE, ...)
 
-rmdv1(dir = ".", script = c("Makefile", "build.R"), in_session = FALSE, 
-    ...)
+rmdv1(dir = ".", script = c("Makefile", "build.R"), in_session = FALSE, ...)
 }
 \arguments{
 \item{dir}{the root directory of the website}

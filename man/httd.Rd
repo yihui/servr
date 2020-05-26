@@ -7,7 +7,14 @@
 \usage{
 httd(dir = ".", ...)
 
-httw(dir = ".", watch = ".", pattern = NULL, all_files = FALSE, handler = NULL, ...)
+httw(
+  dir = ".",
+  watch = ".",
+  pattern = NULL,
+  all_files = FALSE,
+  handler = NULL,
+  ...
+)
 }
 \arguments{
 \item{dir}{The root directory to serve.}

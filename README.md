@@ -29,8 +29,7 @@ http.server`. It may be used to serve:
 - [**googleVis**](https://cran.r-project.org/package=googleVis) charts (to avoid
   the Flash security issue)
 - D3 charts which need to load JSON from local files (see also the
-  [**animint**](https://github.com/tdhock/animint) package)
-- [**rCharts**](http://rcharts.io) and
+  [**animint**](https://github.com/tdhock/animint) package), and
   [**samatha**](https://github.com/DASpringate/samatha), etc
 
 You can either run `servr::httd()` in an interactive R session, or run from

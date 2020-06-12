@@ -162,7 +162,7 @@ server_config = function(
 }
 
 serve_dir = function(dir = '.') function(req) {
-  owd = setwd(dir); on.exit(setwd(owd))
+  owd = setwd(dir); on.exit(setwd(owd), add = TRUE)
   path = decode_path(req)
   status = 200L
 

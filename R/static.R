@@ -241,6 +241,6 @@ serve_dir = function(dir = '.') function(req) {
     headers = c(list('Content-Type' = type), if (status == 206L) list(
       'Content-Range' = paste0("bytes ", range[2], "-", range[3], "/", file_size(path))
       ),
-      'Accept-Ranges: bytes') # indicates that the server supports range requests
+      'Accept-Ranges' = 'bytes') # indicates that the server supports range requests
   )
 }

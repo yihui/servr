@@ -1,6 +1,6 @@
 # servr
 
-[![Build Status](https://travis-ci.org/yihui/servr.svg)](https://travis-ci.org/yihui/servr)
+[![Build Status](https://travis-ci.com/yihui/servr.svg)](https://travis-ci.com/yihui/servr)
 [![CRAN downloads from the RStudio mirror](https://cranlogs.r-pkg.org/badges/servr)](https://cran.r-project.org/package=servr)
 
 A simple HTTP server to serve files under a given directory based on the

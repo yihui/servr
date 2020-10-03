@@ -203,7 +203,7 @@ dynamic_site = function(
     },
     onWSOpen = function(ws) {
       ws$onMessage(function(binary, message) {
-        owd = setwd(dir); on.exit(setwd(owd))
+        owd = setwd(dir); on.exit(setwd(owd), add = TRUE)
         # send the result of build() to the websocket client
         ws$send(tryCatch(
           toJSON(build(fromJSON(message)), auto_unbox = TRUE, null = 'null'),

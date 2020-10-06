@@ -5,7 +5,7 @@ date: "2015/01/03"
 output: html_document
 ---
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown, see <http://rmarkdown.rstudio.com>. This document can be compiled by either R Markdown [v1](http://cran.rstudio.com/package=markdown) or [v2](http://cran.rstudio.com/package=rmarkdown), and you can serve it by either `servr::rmdv1` or `servr::rmdv2` accordingly.
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown, see <https://rmarkdown.rstudio.com>. This document can be compiled by either R Markdown [v1](https://cran.rstudio.com/package=markdown) or [v2](https://cran.rstudio.com/package=rmarkdown), and you can serve it by either `servr::rmdv1` or `servr::rmdv2` accordingly.
 
 You can include an R code chunk:
 

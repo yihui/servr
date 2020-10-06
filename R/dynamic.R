@@ -49,7 +49,7 @@
 #'   of the website if present. You should not pass \code{baseurl} to the
 #'   function \code{jekyll()} directly.
 #' @references R Markdown v1: \url{https://cran.r-project.org/package=markdown}. R
-#'   Markdown v2: \url{http://rmarkdown.rstudio.com}. For Jekyll, see
+#'   Markdown v2: \url{https://rmarkdown.rstudio.com}. For Jekyll, see
 #'   \url{https://jekyllrb.com}. The GitHub repository
 #'   \url{https://github.com/yihui/blogdown-jekyll} is an example of serving Jekyll
 #'   websites with \code{servr::jekyll()}.

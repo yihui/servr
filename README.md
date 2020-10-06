@@ -69,7 +69,7 @@ deleted, or modified certain files in the directory).
 
 Besides `httd()`, there are functions `jekyll()`, `rmdv1()`, and `rmdv2()` in
 this package to serve HTML files generated from R Markdown documents (via
-[**knitr**](https://yihui.name/knitr/) or
+[**knitr**](https://yihui.org/knitr/) or
 [**rmarkdown**](https://rmarkdown.rstudio.com)). R Markdown documents can be
 automatically re-compiled when their HTML output files are older than the
 corresponding source files, and HTML pages in the web browser can be

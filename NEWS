@@ -1,5 +1,8 @@
 		 CHANGES IN servr VERSION 0.19
 
+MINOR CHANGES
+
+- `server_config()` also returns the `daemon` value in the list.
 
 		 CHANGES IN servr VERSION 0.18
 

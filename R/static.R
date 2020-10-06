@@ -143,7 +143,7 @@ server_config = function(
   }
   server = NULL
   list(
-    host = host, port = port, interval = interval, url = url,
+    host = host, port = port, interval = interval, url = url, daemon = daemon,
     start_server = function(app) {
       id = startServer(host, port, app)
       if (verbose && daemon) daemon_hint(id); browse()

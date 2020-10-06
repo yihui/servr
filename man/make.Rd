@@ -24,7 +24,7 @@ it will be automatically refreshed in the web browser.
 You must have installed GNU Make to use this function. This is normally
   not a problem for Linux and OS X users (it should be available by default).
   For Windows users, you can either install GNU Make, or just install
-  \href{https://cran.r-project.org/bin/windows/Rtools}{Rtools}, which also
+  \href{https://cran.r-project.org/bin/windows/Rtools/}{Rtools}, which also
   contains GNU Make.
 }
 \examples{

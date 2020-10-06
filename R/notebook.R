@@ -5,7 +5,7 @@
 #' An R notebook is basically a JSON file, and the JSON data is inserted to a
 #' predefined template in this package (\code{system.file('resources',
 #' 'rnotebook.html', package = 'servr')}), and rendered through the JavaScript
-#' implementation of \href{http://commonmark.org}{CommonMark} at the moment (the
+#' implementation of \href{https://commonmark.org}{CommonMark} at the moment (the
 #' renderer may change in the future).
 #' @inheritParams httd
 #' @inheritParams server_config

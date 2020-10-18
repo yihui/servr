@@ -132,7 +132,8 @@ server_config = function(
   url = sprintf(
     'http://%s:%d', if (host == '0.0.0.0' && is_rstudio()) '127.0.0.1' else host, port
   )
-  if (baseurl != '') url = paste(url, sub('^/?', '/', baseurl), sep = '')
+  baseurl = gsub('^/+', '', baseurl)
+  if (baseurl != '') url = paste0(url, '/', baseurl)
   url = paste0(url, if (initpath != '' && !grepl('^/', initpath)) '/', initpath)
   browsed = FALSE
   servrEnv$browse = browse = function(reopen = FALSE) {

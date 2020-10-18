@@ -1,5 +1,8 @@
 		 CHANGES IN servr VERSION 0.20
 
+MINOR CHANGES
+
+- `server_config()` will add a leading `/` to `baseurl` if it has not already been included.
 
 		 CHANGES IN servr VERSION 0.19
 

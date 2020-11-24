@@ -49,16 +49,19 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
   cwd = getwd()
   mtime = function(dir) {
     owd = setwd(cwd); on.exit(setwd(owd), add = TRUE)
-    info = file.info(
-      grep(pattern,
-           list.files(
-             dir,
-             all.files = all_files, full.names = TRUE, recursive = TRUE,
-             no.. = TRUE
-           ),
-           perl = TRUE,
-           value = TRUE
-      ))[, 'mtime', drop = FALSE]
+    files <- list.files(
+      dir,
+      all.files = all_files, full.names = TRUE, recursive = TRUE,
+      no.. = TRUE
+    )
+    if (!is.null(pattern)){
+      files <- grep(pattern,
+                    files,
+                    perl = TRUE,
+                    value = TRUE
+      )
+    }
+    info = file.info(files)[, 'mtime', drop = FALSE]
     rownames(info) = gsub('^[.]/', '', rownames(info))
     info
   }

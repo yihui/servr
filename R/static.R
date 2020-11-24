@@ -29,8 +29,8 @@ httd = function(dir = '.', ...) {
 
 #' @param watch a directory under which \code{httw()} is to watch for changes;
 #'   if it is a relative path, it is relative to the \code{dir} argument
-#' @param pattern a regular expression passed to \code{\link{list.files}()} to
-#'   determine the files to watch
+#' @param pattern a regular expression to
+#'   determine the files to watch. Supports Perl-like regular expressions unlike \code{list.files()}
 #' @param all_files whether to watch all files including the hidden files
 #' @param handler a function to be called every time any files are changed or
 #'   added under the directory; its argument is a character vector of the
@@ -49,10 +49,16 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
   cwd = getwd()
   mtime = function(dir) {
     owd = setwd(cwd); on.exit(setwd(owd), add = TRUE)
-    info = file.info(list.files(
-      dir, pattern, all.files = all_files, full.names = TRUE, recursive = TRUE,
-      no.. = TRUE
-    ))[, 'mtime', drop = FALSE]
+    info = file.info(
+      grep(pattern,
+               list.files(
+                  dir,
+                  all.files = all_files, full.names = TRUE, recursive = TRUE,
+                   no.. = TRUE
+               )
+               perl = TRUE,
+               value = TRUE
+          ))[, 'mtime', drop = FALSE]
     rownames(info) = gsub('^[.]/', '', rownames(info))
     info
   }

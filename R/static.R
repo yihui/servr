@@ -30,7 +30,7 @@ httd = function(dir = '.', ...) {
 #' @param watch a directory under which \code{httw()} is to watch for changes;
 #'   if it is a relative path, it is relative to the \code{dir} argument
 #' @param pattern a regular expression to
-#'   determine the files to watch. Supports Perl-like regular expressions unlike \code{list.files()}
+#'   determine the files to watch. Supports Perl-like regular expression
 #' @param all_files whether to watch all files including the hidden files
 #' @param handler a function to be called every time any files are changed or
 #'   added under the directory; its argument is a character vector of the
@@ -51,14 +51,14 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
     owd = setwd(cwd); on.exit(setwd(owd), add = TRUE)
     info = file.info(
       grep(pattern,
-               list.files(
-                  dir,
-                  all.files = all_files, full.names = TRUE, recursive = TRUE,
-                   no.. = TRUE
-               )
-               perl = TRUE,
-               value = TRUE
-          ))[, 'mtime', drop = FALSE]
+           list.files(
+             dir,
+             all.files = all_files, full.names = TRUE, recursive = TRUE,
+             no.. = TRUE
+           ),
+           perl = TRUE,
+           value = TRUE
+      ))[, 'mtime', drop = FALSE]
     rownames(info) = gsub('^[.]/', '', rownames(info))
     info
   }
@@ -247,7 +247,7 @@ serve_dir = function(dir = '.') function(req) {
     status = status, body = body,
     headers = c(list('Content-Type' = type), if (status == 206L) list(
       'Content-Range' = paste0("bytes ", range[2], "-", range[3], "/", file_size(path))
-      ),
-      'Accept-Ranges' = 'bytes') # indicates that the server supports range requests
+    ),
+    'Accept-Ranges' = 'bytes') # indicates that the server supports range requests
   )
 }

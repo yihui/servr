@@ -111,8 +111,8 @@ if (interactive()) servr::rmdv1()  # serve the current dir with R Markdown v1
 if (interactive()) servr::rmdv2()  # or R Markdown v2
 
 # built-in examples
-servr::serve_example("rmd", servr::rmdv1)
-servr::serve_example("rmd", servr::rmdv2)
+servr::serve_example('rmd', servr::rmdv1)
+servr::serve_example('rmd', servr::rmdv2)
 }
 \references{
 R Markdown v1: \url{https://cran.r-project.org/package=markdown}. R

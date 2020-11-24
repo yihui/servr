@@ -1,5 +1,8 @@
 		 CHANGES IN servr VERSION 0.21
 
+MINOR CHANGES
+
+- `httw()` now accepts Perl-like regular expression for the `pattern` parameter
 
 
 		 CHANGES IN servr VERSION 0.20

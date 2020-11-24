@@ -28,10 +28,10 @@ Use server functions to serve built-in examples of this package.
 }
 \examples{
 # R Markdown v1 or v2
-servr::serve_example("rmd", servr::rmdv1)
-servr::serve_example("rmd", servr::rmdv2)
+servr::serve_example('rmd', servr::rmdv1)
+servr::serve_example('rmd', servr::rmdv2)
 
 # GNU Make
-servr::serve_example("make1", servr::make)
-servr::serve_example("make2", servr::make)
+servr::serve_example('make1', servr::make)
+servr::serve_example('make2', servr::make)
 }

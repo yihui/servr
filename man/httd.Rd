@@ -24,8 +24,8 @@ httw(
 \item{watch}{a directory under which \code{httw()} is to watch for changes;
 if it is a relative path, it is relative to the \code{dir} argument}
 
-\item{pattern}{a regular expression passed to \code{\link{list.files}()} to
-determine the files to watch}
+\item{pattern}{a regular expression to
+determine the files to watch. Supports Perl-like regular expression}
 
 \item{all_files}{whether to watch all files including the hidden files}
 

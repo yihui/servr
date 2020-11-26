@@ -115,7 +115,7 @@ daemon_list = function() {
 # watch files with pattern, and rebuild them if necessary
 build_watcher = function(pattern, build, dir = getwd()) {
   source_info = function() {
-    file.info(list.files(dir, pattern, recursive = TRUE))[, 'mtime', drop = FALSE]
+    file.info(grep(pattern, list.files(dir, recursive = TRUE), perl = TRUE, value = TRUE))[, 'mtime', drop = FALSE]
   }
   info = source_info()
   function(message) {

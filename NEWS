@@ -1,6 +1,8 @@
 		 CHANGES IN servr VERSION 0.21
 
+NEW FEATURES
 
+- Added a new argument `hosturl` to `server_config()`.
 
 		 CHANGES IN servr VERSION 0.20
 

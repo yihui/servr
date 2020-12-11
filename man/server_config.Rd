@@ -13,6 +13,7 @@ server_config(
   interval = getOption("servr.interval", 1),
   baseurl = "",
   initpath = "",
+  hosturl = identity,
   verbose = TRUE
 )
 }
@@ -54,6 +55,11 @@ rebuilt (by default, it is checked every second).}
 
 \item{initpath}{The initial path in the URL (e.g. you can open a specific
 HTML file initially).}
+
+\item{hosturl}{A function that takes the host address and returns a character
+string to be used in the URL, e.g., \code{function(host) { if (host ==
+'127.0.0.1') 'localhost' else host}} to convert \code{127.0.0.1} to
+\code{localhost} in the URL.}
 
 \item{verbose}{Whether to print messages when launching the server.}
 }

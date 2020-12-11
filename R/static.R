@@ -108,6 +108,10 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
 #'   \code{http://host:port/baseurl}).
 #' @param initpath The initial path in the URL (e.g. you can open a specific
 #'   HTML file initially).
+#' @param hosturl A function that takes the host address and returns a character
+#'   string to be used in the URL, e.g., \code{function(host) { if (host ==
+#'   '127.0.0.1') 'localhost' else host}} to convert \code{127.0.0.1} to
+#'   \code{localhost} in the URL.
 #' @param verbose Whether to print messages when launching the server.
 #' @inheritParams httpuv::startServer
 #' @export
@@ -116,7 +120,7 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
 server_config = function(
   dir = '.', host = getOption('servr.host', '127.0.0.1'), port, browser, daemon,
   interval = getOption('servr.interval', 1), baseurl = '',
-  initpath = '', verbose = TRUE
+  initpath = '', hosturl = identity, verbose = TRUE
 ) {
   cargs = commandArgs(TRUE)
   if (missing(browser)) browser = interactive() || '-b' %in% cargs || is_rstudio()
@@ -129,9 +133,8 @@ server_config = function(
   port = as.integer(port)
   if (missing(daemon)) daemon = getOption('servr.daemon', ('-d' %in% cargs) || interactive())
   # rstudio viewer cannot display a page served at 0.0.0.0; use 127.0.0.1 instead
-  url = sprintf(
-    'http://%s:%d', if (host == '0.0.0.0' && is_rstudio()) '127.0.0.1' else host, port
-  )
+  host2 = if (host == '0.0.0.0' && is_rstudio()) '127.0.0.1' else host
+  url = sprintf('http://%s:%d', hosturl(host2), port)
   baseurl = gsub('^/+', '', baseurl)
   if (baseurl != '') url = paste0(url, '/', baseurl)
   url = paste0(url, if (initpath != '' && !grepl('^/', initpath)) '/', initpath)

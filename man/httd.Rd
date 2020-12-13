@@ -12,6 +12,7 @@ httw(
   watch = ".",
   pattern = NULL,
   all_files = FALSE,
+  filter = NULL,
   handler = NULL,
   ...
 )
@@ -28,6 +29,10 @@ if it is a relative path, it is relative to the \code{dir} argument}
 determine the files to watch}
 
 \item{all_files}{whether to watch all files including the hidden files}
+
+\item{filter}{a function to filter the file paths returned from
+\code{list.files()} (e.g., you can exclude certain files from the watch
+list)}
 
 \item{handler}{a function to be called every time any files are changed or
 added under the directory; its argument is a character vector of the

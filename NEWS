@@ -4,6 +4,8 @@ NEW FEATURES
 
 - Added a new argument `hosturl` to `server_config()`.
 
+- Added a new argument `filter` to `httw()` to allow users to filter file paths on the watch list (thanks, @ARawles, #51).
+
 		 CHANGES IN servr VERSION 0.20
 
 MINOR CHANGES

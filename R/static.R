@@ -32,20 +32,26 @@ httd = function(dir = '.', ...) {
 #' @param pattern a regular expression passed to \code{\link{list.files}()} to
 #'   determine the files to watch
 #' @param all_files whether to watch all files including the hidden files
+#' @param filter a function to filter the file paths returned from
+#'   \code{list.files()} (e.g., you can exclude certain files from the watch
+#'   list)
 #' @param handler a function to be called every time any files are changed or
 #'   added under the directory; its argument is a character vector of the
 #'   filenames of the files modified or added
 #' @rdname httd
 #' @export
 httw = function(
-  dir = '.', watch = '.', pattern = NULL, all_files = FALSE, handler = NULL, ...
+  dir = '.', watch = '.', pattern = NULL, all_files = FALSE, filter = NULL,
+  handler = NULL, ...
 ) {
   dynamic_site(dir, ..., build = watch_dir(
-    watch, pattern = pattern, all_files = all_files, handler = handler
+    watch, pattern = pattern, all_files = all_files, filter = filter, handler = handler
   ))
 }
 
-watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NULL) {
+watch_dir = function(
+  dir = '.', pattern = NULL, all_files = FALSE, filter = NULL, handler = NULL
+) {
   cwd = getwd()
   mtime = function(dir) {
     owd = setwd(cwd); on.exit(setwd(owd), add = TRUE)
@@ -53,6 +59,7 @@ watch_dir = function(dir = '.', pattern = NULL, all_files = FALSE, handler = NUL
       dir, pattern, all.files = all_files, full.names = TRUE, recursive = TRUE,
       no.. = TRUE
     ))[, 'mtime', drop = FALSE]
+    if (is.function(filter)) info = info[filter(rownames(info)), , drop = FALSE]
     rownames(info) = gsub('^[.]/', '', rownames(info))
     info
   }

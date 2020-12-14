@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/yihui/servr/workflows/R-CMD-check/badge.svg)](https://github.com/yihui/servr/actions)
-[![CRAN downloads from the RStudio mirror](https://cranlogs.r-pkg.org/badges/servr)](https://cran.r-project.org/package=servr)
+[![CRAN release](https://www.r-pkg.org/badges/version/servr)](https://cran.r-project.org/package=servr)
 <!-- badges: end -->
 
 

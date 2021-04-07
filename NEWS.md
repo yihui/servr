@@ -1,5 +1,7 @@
 # CHANGES IN servr VERSION 0.22
 
+- When the global option `options(servr.test.0.0.0.0 = TRUE)`, `random_port()` tests the availability of a port at the host address `0.0.0.0` when the requested host address is `127.0.0.1`.
+
 # CHANGES IN servr VERSION 0.21
 
 - Added a new argument `hosturl` to `server_config()`.

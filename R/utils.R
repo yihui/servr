@@ -176,6 +176,12 @@ random_port = function(port = 4321L, host = '127.0.0.1', n = 20) {
   ports = sample(setdiff(3000:8000, c(3659, 4045, 6000, 6665:6669)), n)
   ports = c(port, ports)
   port = NULL
+  # when a port has been used on 0.0.0.0, port_available() still returns TRUE
+  # when the same port is tested on 127.0.0.1, which might be a bug of httpuv;
+  # so we provide an option to test the availability of a port on 0.0.0.0 when
+  # we intend to serve a site on 127.0.0.1
+  if (host == '127.0.0.1' && getOption('servr.test.0.0.0.0', FALSE))
+    host = '0.0.0.0'
   for (p in ports) if (port_available(p, host)) {
     port = p
     break

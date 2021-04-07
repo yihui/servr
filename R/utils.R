@@ -171,7 +171,7 @@ serve_example = function(name, FUN, ..., run = interactive()) {
 #' @inheritParams server_config
 #' @export
 #' @return A port number, or an error if no ports are available.
-random_port = function(port = 4321L, host = '127.0.0.1', n = 20) {
+random_port = function(port = 4321L, host = getOption('servr.host', '127.0.0.1'), n = 20) {
   # exclude ports considered unsafe by Chrome http://superuser.com/a/188070
   ports = sample(setdiff(3000:8000, c(3659, 4045, 6000, 6665:6669)), n)
   ports = c(port, ports)
@@ -190,7 +190,7 @@ random_port = function(port = 4321L, host = '127.0.0.1', n = 20) {
   port
 }
 
-port_available = function(port, host = '127.0.0.1') {
+port_available = function(port, host = getOption('servr.host', '127.0.0.1')) {
   tmp = try(startServer(host, port, list(), quiet = TRUE), silent = TRUE)
   if (inherits(tmp, 'try-error')) return(FALSE)
   stopServer(tmp)

@@ -4,7 +4,7 @@
 \alias{random_port}
 \title{Find a random available TCP port}
 \usage{
-random_port(port = 4321L, host = "127.0.0.1", n = 20)
+random_port(port = 4321L, host = getOption("servr.host", "127.0.0.1"), n = 20)
 }
 \arguments{
 \item{port}{The preferred port(s).}

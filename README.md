@@ -10,13 +10,8 @@ A simple HTTP server to serve files under a given directory based on the
 [**httpuv**](https://cran.r-project.org/package=httpuv) package.
 
 You can install this package from
-[CRAN](https://cran.r-project.org/package=servr) (stable version) or
-[XRAN](https://xran.yihui.org) (development version):
-
-```r
-install.packages('servr')  # stable version; use a CRAN mirror, or
-install.packages('servr', repos = 'https://xran.yihui.org')  # devel version
-```
+[CRAN](https://cran.r-project.org/package=servr) (stable version) via `install.packages('servr')` or
+[r-universe.dev](https://yihui.r-universe.dev) (development version).
 
 This package is licensed under GPL.
 

@@ -173,7 +173,7 @@ serve_example = function(name, FUN, ..., run = interactive()) {
 #' @return A port number, or an error if no ports are available.
 random_port = function(port = 4321L, host = getOption('servr.host', '127.0.0.1'), n = 20) {
   # exclude ports considered unsafe by Chrome http://superuser.com/a/188070
-  ports = sample(setdiff(3000:8000, c(3659, 4045, 6000, 6665:6669)), n)
+  ports = sample(setdiff(3000:8000, c(3659, 4045, 5060, 5061, 6000, 6566, 6665:6669, 6697)), n)
   ports = c(port, ports)
   port = NULL
   # when a port has been used on 0.0.0.0, port_available() still returns TRUE

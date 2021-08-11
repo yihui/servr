@@ -1,5 +1,6 @@
 # CHANGES IN servr VERSION 0.23
 
+- update the list of ports considered unsafe by Chrome.
 
 # CHANGES IN servr VERSION 0.22
 

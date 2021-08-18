@@ -28,8 +28,8 @@ You must have installed GNU Make to use this function. This is normally
   contains GNU Make.
 }
 \examples{
-# some built-in examples (if you are not familiar with make, you can take a look
-# at the Makefile of each example)
+# some built-in examples (if you are not familiar with make, you can take a
+# look at the Makefile of each example)
 servr::serve_example("make1", servr::make)
 servr::serve_example("make2", servr::make)
 }

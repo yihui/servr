@@ -1,3 +1,6 @@
+# CHANGES IN servr VERSION 0.25
+
+
 # CHANGES IN servr VERSION 0.24
 
 - When searching for an available random port via `servr::random_port()` on the host `127.0.0.1`, the availability of the port is also tested on `0.0.0.0` by default. This is to avoid the situation where a port has been used on `0.0.0.0` but **httpuv** still thinks it is available on `127.0.0.1`. If you want to skip this additional testing, you may set `options(servr.test.0.0.0.0 = FALSE)`.

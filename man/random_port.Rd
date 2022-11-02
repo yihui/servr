@@ -4,7 +4,12 @@
 \alias{random_port}
 \title{Find a random available TCP port}
 \usage{
-random_port(port = 4321L, host = getOption("servr.host", "127.0.0.1"), n = 20)
+random_port(
+  port = 4321L,
+  host = getOption("servr.host", "127.0.0.1"),
+  n = 20,
+  exclude = NULL
+)
 }
 \arguments{
 \item{port}{The preferred port(s).}
@@ -13,6 +18,8 @@ random_port(port = 4321L, host = getOption("servr.host", "127.0.0.1"), n = 20)
 server, or \code{"0.0.0.0"} to listen on all IP addresses.}
 
 \item{n}{The maximum number of random ports to be tested.}
+
+\item{exclude}{A vector of port numbers not to be considered.}
 }
 \value{
 A port number, or an error if no ports are available.

@@ -142,8 +142,8 @@ server_config = function(
   # rstudio viewer cannot display a page served at 0.0.0.0; use 127.0.0.1 instead
   host2 = if (host == '0.0.0.0' && is_rstudio()) '127.0.0.1' else host
   url = sprintf('http://%s:%d', hosturl(host2), port)
-  baseurl = gsub('^/+', '', baseurl)
-  if (baseurl != '') url = paste0(url, '/', baseurl)
+  baseurl = gsub('^/*', '/', baseurl)
+  if (baseurl != '/') url = paste0(url, baseurl)
   url = paste0(url, if (initpath != '' && !grepl('^/', initpath)) '/', initpath)
   browsed = FALSE
   servrEnv$browse = browse = function(reopen = FALSE) {
@@ -156,6 +156,17 @@ server_config = function(
   list(
     host = host, port = port, interval = interval, url = url, daemon = daemon,
     start_server = function(app) {
+      # modify PATH_INFO in the request when baseurl is provided (remove baseurl)
+      if (baseurl != '/' && is.function(app_call <- app$call)) {
+        app$call = function(req) {
+          path = decode_path(req)
+          if (substr(path, 1, nchar(baseurl)) == baseurl) {
+            path = substr(path, nchar(baseurl) + 1, nchar(path))
+            req$PATH_INFO = httpuv::encodeURIComponent(path)
+          }
+          app_call(req)
+        }
+      }
       id = startServer(host, port, app)
       if (verbose && daemon) daemon_hint(id); browse()
       server <<- id

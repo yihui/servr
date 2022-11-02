@@ -1,5 +1,6 @@
 # CHANGES IN servr VERSION 0.25
 
+- The `baseurl` argument works for all server functions now, such as `httd()`.
 
 # CHANGES IN servr VERSION 0.24
 

@@ -1,6 +1,23 @@
-create_server = function(..., serve_fun) {
+#' Create a server
+#'
+#' Create a server with a custom handler to handle the HTTP request.
+#' @param ... Arguments to be passed to \code{\link{server_config}()}.
+#' @param handler A function that takes the HTTP request and returns a response.
+#' @export
+#' @examplesIf interactive()
+#' # always return "Success:" followed by the requested path
+#' s = servr::create_server(handler = function(req) {
+#'   list(status = 200L, body = paste('Success:', req$PATH_INFO))
+#' })
+#' s$url
+#'
+#' browseURL(paste0(s$url, '/hello'))
+#' browseURL(paste0(s$url, '/world'))
+#'
+#' s$stop_server()
+create_server = function(..., handler) {
   res = server_config(...)
-  app = list(call = serve_fun)
+  app = list(call = handler)
   res$start_server(app)
   invisible(res)
 }
@@ -27,7 +44,7 @@ httd = function(dir = '.', ...) {
   if (dir != '.') {
     owd = setwd(dir); on.exit(setwd(owd))
   }
-  create_server(dir, ..., serve_fun = serve_dir(dir))
+  create_server(dir, ..., handler = serve_dir(dir))
 }
 
 #' @param watch a directory under which \code{httw()} is to watch for changes;

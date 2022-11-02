@@ -1,5 +1,7 @@
 # CHANGES IN servr VERSION 0.25
 
+- Added a function `create_server()` to create a server with a custom request handler.
+
 - Added a function 'redirect()` to return a redirect response.
 
 - The `baseurl` argument works for all server functions now, such as `httd()`.

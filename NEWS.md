@@ -1,6 +1,6 @@
 # CHANGES IN servr VERSION 0.25
 
-- Added a new function `redirect()` to redirect a requested path to a new destination.
+- Added a function 'redirect()` to return a redirect response.
 
 - The `baseurl` argument works for all server functions now, such as `httd()`.
 

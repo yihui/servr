@@ -2,29 +2,18 @@
 % Please edit documentation in R/redirect.R
 \name{redirect}
 \alias{redirect}
-\title{Create a redirect server}
+\title{Create a redirect response}
 \usage{
-redirect(dest, ...)
+redirect(dest, status = 301L)
 }
 \arguments{
-\item{dest}{A function that takes the requested path as input and returns a
-destination path.}
+\item{dest}{A destination path.}
 
-\item{...}{Arguments to be passed to \code{\link{server_config}()}.}
+\item{status}{The status code (usually \code{301} or \code{302}).}
 }
 \description{
-Create a server that simply redirect a requested path to another path.
+Create a response to redirect to a destination.
 }
-\examples{\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# redirect any request to httpbin.org
-s = servr::redirect(dest = function(path) {
-    paste0("https://httpbin.org/anything?path=", path)
-})
-s$url
-
-browseURL(paste0(s$url, "/hello"))
-browseURL(paste0(s$url, "/world"))
-
-s$stop_server()
-\dontshow{\}) # examplesIf}
+\examples{
+servr::redirect("https://www.r-project.org")
 }

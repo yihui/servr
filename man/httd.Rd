@@ -50,10 +50,9 @@ watches for changes under the directory: if an HTML file is being viewed in
 the browser, and any files are modified under the directory, the HTML page
 will be automatically refreshed.
 }
-\examples{
-#' see https://github.com/yihui/servr for command line usage
-# or run inside an R session
-if (interactive()) servr::httd()
+\examples{\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+servr::httd()
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://github.com/yihui/servr}

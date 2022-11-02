@@ -1,3 +1,10 @@
+create_server = function(..., serve_fun) {
+  res = server_config(...)
+  app = list(call = serve_fun)
+  res$start_server(app)
+  invisible(res)
+}
+
 #' Serve static files under a directory
 #'
 #' If there is an \file{index.html} under this directory, it will be displayed;
@@ -13,18 +20,14 @@
 #' @param ... server configurations passed to \code{\link{server_config}()}
 #' @export
 #' @references \url{https://github.com/yihui/servr}
-#' @examples #' see https://github.com/yihui/servr for command line usage
-#' # or run inside an R session
-#' if (interactive()) servr::httd()
+#' @examplesIf interactive()
+#' servr::httd()
 httd = function(dir = '.', ...) {
   dir = normalizePath(dir, mustWork = TRUE)
   if (dir != '.') {
     owd = setwd(dir); on.exit(setwd(owd))
   }
-  res = server_config(dir, ...)
-  app = list(call = serve_dir(dir))
-  res$start_server(app)
-  invisible(res)
+  create_server(dir, ..., serve_fun = serve_dir(dir))
 }
 
 #' @param watch a directory under which \code{httw()} is to watch for changes;

@@ -3,6 +3,8 @@
 #' Create a server with a custom handler to handle the HTTP request.
 #' @param ... Arguments to be passed to \code{\link{server_config}()}.
 #' @param handler A function that takes the HTTP request and returns a response.
+#' @param ws_open A function to be called back when a WebSocket connection is
+#'   established (see \code{httpuv::\link{startServer}()}).
 #' @export
 #' @examplesIf interactive()
 #' # always return "Success:" followed by the requested path
@@ -15,9 +17,9 @@
 #' browseURL(paste0(s$url, '/world'))
 #'
 #' s$stop_server()
-create_server = function(..., handler) {
+create_server = function(..., handler, ws_open = function(ws) NULL) {
   res = server_config(...)
-  app = list(call = handler)
+  app = list(call = handler, onWSOpen = ws_open)
   res$start_server(app)
   invisible(res)
 }

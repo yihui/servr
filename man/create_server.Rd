@@ -4,12 +4,15 @@
 \alias{create_server}
 \title{Create a server}
 \usage{
-create_server(..., handler)
+create_server(..., handler, ws_open = function(ws) NULL)
 }
 \arguments{
 \item{...}{Arguments to be passed to \code{\link{server_config}()}.}
 
 \item{handler}{A function that takes the HTTP request and returns a response.}
+
+\item{ws_open}{A function to be called back when a WebSocket connection is
+established (see \code{httpuv::\link{startServer}()}).}
 }
 \description{
 Create a server with a custom handler to handle the HTTP request.

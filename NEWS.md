@@ -1,6 +1,6 @@
 # CHANGES IN servr VERSION 0.25
 
-- Added a function `create_server()` to create a server with a custom request handler.
+- Added a function `create_server()` to create a server with a custom HTTP request handler and optionally a WebSocket handler.
 
 - Added a function 'redirect()` to return a redirect response.
 

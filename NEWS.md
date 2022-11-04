@@ -1,3 +1,6 @@
+# CHANGES IN servr VERSION 0.26
+
+
 # CHANGES IN servr VERSION 0.25
 
 - Added a function `create_server()` to create a server with a custom HTTP request handler and optionally a WebSocket handler.

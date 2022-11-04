@@ -5,7 +5,7 @@
 
 - Added a function `create_server()` to create a server with a custom HTTP request handler and optionally a WebSocket handler.
 
-- Added a function 'redirect()` to return a redirect response.
+- Added a function `redirect()` to return a redirect response.
 
 - Added a new argument `exclude` to `random_port()` to exclude certain port numbers when generating a random available port.
 

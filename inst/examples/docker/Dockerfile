@@ -25,4 +25,4 @@ ENTRYPOINT ["Rscript", "app.R"]
 # Build:
 # docker build .
 # Run:
-# docker run -p 2222 {image}
+# docker run -p 2222:2222 {image}

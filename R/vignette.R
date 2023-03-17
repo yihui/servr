@@ -26,7 +26,7 @@ vign = function(dir = 'vignettes', ...) {
     tools::buildVignette(path, latex = FALSE, tangle = FALSE)
   }
   in_dir(dir, {
-    build_fun = build_watcher('[.]R(md|html)$', build_vign)
+    build_fun = build_watcher('[.](R?md|R?html|js|css)$', build_vign)
   })
   clean = function(path) {
     for (p in path) {

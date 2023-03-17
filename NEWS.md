@@ -1,5 +1,6 @@
 # CHANGES IN servr VERSION 0.26
 
+- `vign()` also watches for changes in js/css files now.
 
 # CHANGES IN servr VERSION 0.25
 

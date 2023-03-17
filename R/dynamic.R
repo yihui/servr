@@ -99,7 +99,7 @@ jekyll = function(
 # dependency at the moment, so here goes the naive way
 jekyll_config = function(dir, field, default) {
   if (!file.exists(config <- file.path(dir, '_config.yml'))) return(default)
-  x = iconv(readLines(config, encoding = 'UTF-8'), 'UTF-8')
+  x = xfun::read_utf8(config)
   p = sprintf('^%s:\\s*([^#[:space:]]+).*$', field)
   x = grep(p, x, value = TRUE)
   if (length(x) == 1) gsub('"', '', sub(p, '\\1', x)) else default
@@ -284,10 +284,7 @@ build_jekyll = function(input, output, ...) {
       gsub('^_|[.][a-zA-Z]+$', '', input)
     ),
     "knitr::opts_knit$set(base.url = '/')",
-    sprintf(
-      "knitr::knit('%s', '%s', quiet = TRUE, encoding = 'UTF-8')",
-      input, output
-    )
+    sprintf("knitr::knit('%s', '%s', quiet = TRUE)", input, output)
   )
   rscript(c(rbind('-e', shQuote(code))), input)
 }
@@ -304,9 +301,9 @@ build_rmd = function(input, output, template, in_session) {
 }
 
 build_rmdv2 = function(...) {
-  build_rmd(..., template = "rmarkdown::render('%s', encoding = 'UTF-8', quiet = TRUE)")
+  build_rmd(..., template = "rmarkdown::render('%s', quiet = TRUE)")
 }
 
 build_rmdv1 = function(...) {
-  build_rmd(..., template = "knitr::knit2html('%s', encoding = 'UTF-8', quiet = TRUE)")
+  build_rmd(..., template = "knitr::knit2html('%s', quiet = TRUE)")
 }

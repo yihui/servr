@@ -2,6 +2,8 @@
 
 - `vign()` also watches for changes in js/css files now.
 
+- Stop using the `encoding` argument of `knitr::knit()` and `rmarkdown::render()`.
+
 # CHANGES IN servr VERSION 0.25
 
 - Added a function `create_server()` to create a server with a custom HTTP request handler and optionally a WebSocket handler.

@@ -24,7 +24,7 @@ notebook = function(dir = '.', ...) {
     response = function(req) {
       path = sub('^/', '', decode_path(req))
       if (!grepl('[.]Rnb$', path) || !file.exists(path)) return(serve_dir()(req))
-      json  = readLines(path, encoding = 'UTF-8')
+      json  = xfun::read_utf8(path)
       tmpl  = readLines(system.file('resources', 'rnotebook.html', package = 'servr'))
       token = '%RNOTEBOOK_DATA%'
       if (length(i <- which(token == tmpl)) != 1) stop('Wrong notebook template')

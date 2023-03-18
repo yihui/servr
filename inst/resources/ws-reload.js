@@ -1,7 +1,7 @@
-var flag;
-ws.onmessage = function(evt) {
+let flag;
+ws.onmessage = e => {
   flag = true;
-  if (evt.data === 'false' || evt.data === 'null') return;
+  if (e.data === 'false' || e.data === 'null') return;
   // fire a servr:reload event
   Event && document.dispatchEvent(new Event('servr:reload'));
   location.reload();

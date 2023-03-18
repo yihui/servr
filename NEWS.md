@@ -4,6 +4,8 @@
 
 - Stop using the `encoding` argument of `knitr::knit()` and `rmarkdown::render()`.
 
+- Removed the experimental function `notebook()` from several years ago.
+
 # CHANGES IN servr VERSION 0.25
 
 - Added a function `create_server()` to create a server with a custom HTTP request handler and optionally a WebSocket handler.

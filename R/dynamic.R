@@ -182,12 +182,10 @@ dynamic_site = function(
       # post-process HTML content: inject the websocket code
       body = res$body
       if (is.raw(body)) body = rawToChar(body)
-      if (length(grep(
-        '<!-- DISABLE-SERVR-WEBSOCKET -->', body, fixed = TRUE, useBytes = TRUE
-      ))) return(res)
+      if (length(grep('<!-- DISABLE-SERVR-WEBSOCKET -->', body, fixed = TRUE)))
+        return(res)
       body = if (length(grep('</head>', body))) sub(
-        '</head>', paste2(js, '</head>'), body,
-        fixed = TRUE, useBytes = TRUE
+        '</head>', paste2(js, '</head>'), body, fixed = TRUE
       ) else if (length(grep('</html>', body)) == 0) {
         # there is no </head> or </html>, just append js after the document
         paste2(body, js)

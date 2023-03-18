@@ -125,7 +125,8 @@ build_watcher = function(pattern, build, dir = getwd()) {
       return(FALSE)
     if (!grepl(pattern, path)) return(FALSE)
     info2 = source_info()
-    yes = !(path %in% rownames(info)) || info2[path, 'mtime'] > info[path, 'mtime']
+    m1 = info[rownames(info2), 'mtime']
+    yes = anyNA(m1) || any(info2[, 'mtime'] > m1)
     if (yes) build(path)
     info <<- source_info()
     yes

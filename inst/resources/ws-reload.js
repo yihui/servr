@@ -9,5 +9,5 @@ ws.onmessage = e => {
 setInterval(function() {
   if (flag === false || ws.readyState !== ws.OPEN) return;
   flag = false;  // prevent ws message if R hasn't responded yet
-  ws.send('{}');
+  ws.send(JSON.stringify({ "pathname": location.pathname }));
 }, !!SERVR_INTERVAL);

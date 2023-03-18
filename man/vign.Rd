@@ -4,7 +4,7 @@
 \alias{vign}
 \title{Serve R Markdown/HTML package vignettes}
 \usage{
-vign(dir = "vignettes", ...)
+vign(dir = ".", ...)
 }
 \arguments{
 \item{dir}{The root directory to serve.}

@@ -20,27 +20,28 @@
 #' @note You are supposed to call this function from the root directory of your
 #'   package. If that is not the case, you should provide the correct path to
 #'   the \file{vignettes/} directory of your package to the \code{dir} argument.
-vign = function(dir = 'vignettes', ...) {
+vign = function(dir = '.', ...) {
   build_vign = function(path) {
-    on.exit(unlink(sub('[.]R(md|html)$', '.R', path)))
-    tools::buildVignette(path, latex = FALSE, tangle = FALSE)
+    owd = getwd(); opts = options(knitr.chunk.purl = FALSE)
+    on.exit({ setwd(owd); options(opts) })
+    setwd(d <- dirname(path))
+    o = tools::buildVignette(basename(path), latex = FALSE, tangle = FALSE)
+    paste(d, o, sep = '/')
   }
-  in_dir(dir, {
-    build_fun = build_watcher('[.](R?md|R?html|js|css)$', build_vign)
-  })
+  build_fun = build_watcher('[.](Rmd|Rhtml|js|css)$', build_vign)
   clean = function(path) {
     for (p in path) {
       if (!grepl('[.]html$', p)) next
-      # remove .html only if source document exists
+      # remove .html/.md only if source document exists
       for (ext in c('.Rmd', '.Rhtml')) {
-        if (file.exists(sub('[.]html$', ext, p))) {
-          unlink(p); next
+        if (file.exists(xfun::with_ext(p, ext))) {
+          unlink(c(p, xfun::with_ext(p, '.md')))
         }
       }
     }
   }
   dynamic_site(
-    dir, ..., site.dir = '.',
+    dir, ..., initpath = 'vignettes/',
     build = build_fun,
     pre_process = function(req) {
       path = sub('^/', '', decode_path(req))

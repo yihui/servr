@@ -1,5 +1,6 @@
 # CHANGES IN servr VERSION 0.27
 
+- Fixed an issue with `vign()` that when an error occurs in the vignette, `vign()` wouldn't stop rebuilding the vignette.
 
 # CHANGES IN servr VERSION 0.26
 

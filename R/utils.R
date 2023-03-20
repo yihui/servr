@@ -127,8 +127,8 @@ build_watcher = function(pattern, build, dir = getwd()) {
     info2 = source_info()
     m1 = info[rownames(info2), 'mtime']
     yes = anyNA(m1) || any(info2[, 'mtime'] > m1)
+    on.exit(info <<- source_info(), add = TRUE)
     if (yes) build(path)
-    info <<- source_info()
     yes
   }
 }

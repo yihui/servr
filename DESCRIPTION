@@ -8,6 +8,7 @@ Authors@R: c(
   person("Jesse", "Anderson", role = "ctb"),
   person("Ramnath", "Vaidyanathan", role = "ctb"),
   person("Romain", "Lesur", role = "ctb"),
+  person(given = "Posit Software, PBC", role = c("cph", "fnd")),
   person()
   )
 Description: Start an HTTP server in R to serve static files, or dynamic

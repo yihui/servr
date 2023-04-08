@@ -181,7 +181,10 @@ dynamic_site = function(
         return(res)
       # post-process HTML content: inject the websocket code
       body = res$body
-      if (is.raw(body)) body = rawToChar(body)
+      if (is.raw(body)) {
+        body = rawToChar(body)
+        Encoding(body) = 'UTF-8'
+      }
       if (length(grep('<!-- DISABLE-SERVR-WEBSOCKET -->', body, fixed = TRUE)))
         return(res)
       body = if (length(grep('</head>', body))) sub(

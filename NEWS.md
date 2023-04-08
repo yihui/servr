@@ -2,6 +2,8 @@
 
 - Fixed an issue with `vign()` that when an error occurs in the vignette, `vign()` wouldn't stop rebuilding the vignette.
 
+- Fixed a character encoding issue #62 (thanks, @eternal-flame-AD).
+
 # CHANGES IN servr VERSION 0.26
 
 - `vign()` also watches for changes in js/css files now.

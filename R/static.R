@@ -141,15 +141,25 @@ watch_dir = function(
 #'   string to be used in the URL, e.g., \code{function(host) { if (host ==
 #'   '127.0.0.1') 'localhost' else host}} to convert \code{127.0.0.1} to
 #'   \code{localhost} in the URL.
+#' @param auth A list of the form \code{list(scheme, creds)} containing the
+#'   authentication scheme and credentials. See
+#'   \url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication} for
+#'   more info. Please note that this argument is \emph{by no means} intended
+#'   for serious HTTP applications and there is \emph{no warranty} on security.
+#'   You should use other dedicated software packages or services if security is
+#'   important. You have been warned.
 #' @param verbose Whether to print messages when launching the server.
 #' @inheritParams httpuv::startServer
 #' @export
 #' @return A list of configuration information of the form \code{list(host,
 #'   port, start_server = function(app) {}, ...)}.
+#' @examplesIf interactive()
+#' # an example of authentication
+#' servr::httd(auth = list(scheme = 'Basic', creds = servr::auth_basic('john', 'pa$s!')))
 server_config = function(
   dir = '.', host = getOption('servr.host', '127.0.0.1'), port, browser, daemon,
-  interval = getOption('servr.interval', 1), baseurl = '',
-  initpath = '', hosturl = identity, verbose = TRUE
+  interval = getOption('servr.interval', 1), baseurl = '', initpath = '',
+  hosturl = identity, auth = getOption('servr.auth'), verbose = TRUE
 ) {
   cargs = commandArgs(TRUE)
   if (missing(browser)) browser = interactive() || '-b' %in% cargs || is_rstudio()
@@ -175,11 +185,18 @@ server_config = function(
     if (verbose && !reopen) message('Serving the directory ', dir, ' at ', url)
   }
   server = NULL
+  # realm is required for Basic auth (append one in case it was not provided)
+  if (identical(tolower(auth$scheme), 'basic'))
+    auth$scheme = 'Basic realm="Access restricted"'
   list(
     host = host, port = port, interval = interval, url = url, daemon = daemon,
     start_server = function(app) {
       if (is.function(app_call <- app$call)) {
         app$call = function(req) {
+          # authentication
+          if (!auth_verify(req, auth)) return(list(
+            status = 401L, body = '', headers = list(`WWW-Authenticate` = auth$scheme)
+          ))
           req = modify_path(req, baseurl)
           app_call(req)
         }

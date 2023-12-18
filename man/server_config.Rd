@@ -14,6 +14,7 @@ server_config(
   baseurl = "",
   initpath = "",
   hosturl = identity,
+  auth = getOption("servr.auth"),
   verbose = TRUE
 )
 }
@@ -61,6 +62,14 @@ string to be used in the URL, e.g., \code{function(host) { if (host ==
 '127.0.0.1') 'localhost' else host}} to convert \code{127.0.0.1} to
 \code{localhost} in the URL.}
 
+\item{auth}{A list of the form \code{list(scheme, creds)} containing the
+authentication scheme and credentials. See
+\url{https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication} for
+more info. Please note that this argument is \emph{by no means} intended
+for serious HTTP applications and there is \emph{no warranty} on security.
+You should use other dedicated software packages or services if security is
+important. You have been warned.}
+
 \item{verbose}{Whether to print messages when launching the server.}
 }
 \value{
@@ -69,4 +78,9 @@ A list of configuration information of the form \code{list(host,
 }
 \description{
 The server functions in this package are configured through this function.
+}
+\examples{\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# an example of authentication
+servr::httd(auth = list(scheme = "Basic", creds = servr::auth_basic("john", "pa$s!")))
+\dontshow{\}) # examplesIf}
 }

@@ -1,5 +1,6 @@
 # CHANGES IN servr VERSION 0.28
 
+- Added support for HTTP authentication (thanks, @statquant, #63). For all server functions in this package, you can use the `auth` argument to provide the authentication scheme and credentials. See the help page `?servr::server_config` for more info.
 
 # CHANGES IN servr VERSION 0.27
 

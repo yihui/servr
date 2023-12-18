@@ -229,3 +229,25 @@ servrEnv$browse = function(reopen = TRUE) {
 #' @export
 #' @examples servr::browse_last()
 browse_last = function(open = TRUE) servrEnv$browse(open)
+
+#' Generate Basic authentication strings
+#'
+#' Combine usernames with passwords with colons, and generate base64-encoded
+#' strings to be used for user authentication.
+#' @param user A vector of usernames.
+#' @param password A vector of passwords.
+#' @export
+#' @return A character vector of encoded credentials.
+#' @examples
+#' servr::auth_basic('foo', 'B@R')
+auth_basic = function(user, password) {
+  p = paste(user, password, sep = ':')
+  x = vapply(p, function(z) xfun::base64_encode(charToRaw(z)), character(1))
+  paste('Basic', x)
+}
+
+# verify credentials
+auth_verify = function(req, auth) {
+  is.null(auth$scheme) || is.null(auth$creds) ||
+    (is.character(a <- req$HTTP_AUTHORIZATION) && length(a) == 1 && (a %in% auth$creds))
+}

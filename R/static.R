@@ -178,14 +178,9 @@ server_config = function(
   list(
     host = host, port = port, interval = interval, url = url, daemon = daemon,
     start_server = function(app) {
-      # modify PATH_INFO in the request when baseurl is provided (remove baseurl)
-      if (baseurl != '/' && is.function(app_call <- app$call)) {
+      if (is.function(app_call <- app$call)) {
         app$call = function(req) {
-          path = decode_path(req)
-          if (substr(path, 1, nchar(baseurl)) == baseurl) {
-            path = substr(path, nchar(baseurl) + 1, nchar(path))
-            req$PATH_INFO = httpuv::encodeURIComponent(path)
-          }
+          req = modify_path(req, baseurl)
           app_call(req)
         }
       }
@@ -203,6 +198,17 @@ server_config = function(
     },
     browse = browse
   )
+}
+
+# modify PATH_INFO in the request when baseurl is provided (remove baseurl)
+modify_path = function(req, baseurl) {
+  if (baseurl == '/') return(req)
+  path = decode_path(req)
+  if (startsWith(path, baseurl)) {
+    path = substr(path, nchar(baseurl) + 1, nchar(path))
+    req$PATH_INFO = httpuv::encodeURIComponent(path)
+  }
+  req
 }
 
 serve_dir = function(dir = '.') function(req) {

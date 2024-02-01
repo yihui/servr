@@ -1,6 +1,6 @@
 <script>
 // automatically refresh the page when necessary (R will send a message to ws)
-(function() {
+(() => {
   const protocol = `ws${location.protocol === 'https:' ? 's' : ''}:`;
   let path = location.pathname;
   if (!/\/$/.test(path)) path += '/';

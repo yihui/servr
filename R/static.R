@@ -270,7 +270,7 @@ serve_dir = function(dir = '.') function(req) {
     range = req$HTTP_RANGE
 
     if (is.null(range)) {
-      read_raw(path)
+      xfun::read_bin(path)
     } else {
       range = strsplit(range, split = "(=|-)")[[1]]
       b2 = as.numeric(range[2])

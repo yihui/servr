@@ -212,8 +212,6 @@ paste2 = function(...) paste(c(...), collapse = '\n')
 
 file_size = function(path) file.info(path)[, 'size']
 
-read_raw = function(path) readBin(path, 'raw', file_size(path))
-
 # store the last browsing function, so that we can reopen a page after it has
 # been closed in the browser
 servrEnv$browse = function(reopen = TRUE) {

@@ -62,7 +62,7 @@ httr = function(dir = '.', ...) {
   interval = NULL
   db = list()  # cache based on mtime of files
   is_r = function(p) grepl('[.][Rr]$', p)
-  res = httd(dir, ..., response = function(path, res) {
+  ret = httd(dir, ..., response = function(path, res) {
     if (is_r(path)) {
       path = sub('^[.]/', '', path)
       if (is.raw(code <- res$body)) code = sub('\r?\n$', '', rawToChar(code))
@@ -91,8 +91,8 @@ httr = function(dir = '.', ...) {
       }))
     })
   })
-  interval = res$interval
-  invisible(res)
+  interval = ret$interval
+  invisible(ret)
 }
 
 run_r = function(path, code = xfun::read_utf8(path), ...) {

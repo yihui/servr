@@ -1,5 +1,6 @@
 # CHANGES IN servr VERSION 0.29
 
+- Added a new argument `response` to `httd()` to post-process the response.
 
 # CHANGES IN servr VERSION 0.28
 

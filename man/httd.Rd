@@ -5,7 +5,7 @@
 \alias{httw}
 \title{Serve static files under a directory}
 \usage{
-httd(dir = ".", ...)
+httd(dir = ".", ..., response = NULL)
 
 httw(
   dir = ".",
@@ -21,6 +21,10 @@ httw(
 \item{dir}{The root directory to serve.}
 
 \item{...}{server configurations passed to \code{\link{server_config}()}}
+
+\item{response}{A function of the form \code{function(path, res, ...)} that
+takes a file path and server response as input, and return a new response.
+This can be useful for post-processing the response (for experts only).}
 
 \item{watch}{a directory under which \code{httw()} is to watch for changes;
 if it is a relative path, it is relative to the \code{dir} argument}
@@ -45,10 +49,10 @@ run this function, we can go to \samp{http://localhost:port} to browse the
 web pages either created from R or read from HTML files.
 }
 \details{
-\code{httd()} is a pure static server, and \code{httw()} is similar but
-watches for changes under the directory: if an HTML file is being viewed in
-the browser, and any files are modified under the directory, the HTML page
-will be automatically refreshed.
+\code{httd()} is a static file server by default, and \code{httw()} is
+similar but watches for changes under the directory: if an HTML file is being
+viewed in the browser, and any files are modified under the directory, the
+HTML page will be automatically refreshed.
 }
 \examples{\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 servr::httd()

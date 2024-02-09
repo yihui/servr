@@ -50,6 +50,59 @@ httd = function(dir = '.', ..., response = NULL) {
   create_server(dir, ..., handler = serve_dir(dir, response))
 }
 
+#' @details \code{httr()} is based on \code{httr()} with a custom
+#'   \code{response} function that executes R files via \code{xfun::record()},
+#'   so that you will see the output of an R script as an HTML page. The page
+#'   will be automatically updated when the R script is modified and saved.
+#' @rdname httd
+#' @export
+httr = function(dir = '.', ...) {
+  dir = normalizePath(dir, mustWork = TRUE)
+  js = xfun::file_string(pkg_file('ws-update.js'))
+  interval = NULL
+  db = list()  # cache based on mtime of files
+  is_r = function(p) grepl('[.][Rr]$', p)
+  res = httd(dir, ..., response = function(path, res) {
+    if (is_r(path)) {
+      path = sub('^[.]/', '', path)
+      if (is.raw(code <- res$body)) code = sub('\r?\n$', '', rawToChar(code))
+      res$body = run_r(path, code, template = TRUE)
+      db[[path]] <<- file.mtime(path)
+      res$headers[['Content-Type']] = 'text/html'
+      # wait for `interval` to be initialized below
+      while (!is.numeric(interval)) Sys.sleep(.1)
+      res = add_js(res, js, interval, path)
+    }
+    res
+  },
+  ws_open = function(ws) {
+    ws$onMessage(function(binary, message) {
+      owd = setwd(dir); on.exit(setwd(owd), add = TRUE)
+      send = function(x = '') ws$send(x)
+      if (!is.character(p <- message) || !is_r(p)) return(send())
+      t1 = db[[p]]; t2 = file.mtime(p)
+      # skip if the R script has not been updated
+      if (is.null(t1) || t1 >= t2) return(send())
+      db[[p]] <<- t2
+      # send new results onto the HTML page
+      send(tryCatch(run_r(p), error = function(e) {
+        warning(e$message, call. = FALSE, immediate. = TRUE)
+        paste('Error:', e$message)
+      }))
+    })
+  })
+  interval = res$interval
+  invisible(res)
+}
+
+run_r = function(path, code = xfun::read_utf8(path), ...) {
+  res = in_dir(dirname(path), xfun::record(
+    code, dev.path = paste0(xfun::sans_ext(basename(path)), '_files/figure/'),
+    error = TRUE, envir = globalenv()
+  ))
+  paste2(format(res, 'html', ...))
+}
+
 #' @details \code{httw()} is similar to \code{httd()} but watches for changes
 #'   under the directory: if an HTML file is being viewed in the browser, and
 #'   any files are modified under the directory, the HTML page will be

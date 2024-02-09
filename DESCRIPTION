@@ -1,7 +1,7 @@
 Package: servr
 Type: Package
 Title: A Simple HTTP Server to Serve Static Files or Dynamic Documents
-Version: 0.28.1
+Version: 0.28.2
 Authors@R: c(
   person("Yihui", "Xie", role = c("aut", "cre"), email = "xie@yihui.name", comment = c(ORCID = "0000-0003-0645-5666")),
   person("Carson", "Sievert", role = "ctb"),
@@ -19,7 +19,7 @@ Depends:
 Imports:
     mime (>= 0.2),
     httpuv (>= 1.5.2),
-    xfun,
+    xfun (>= 0.42),
     jsonlite
 Suggests:
     tools,

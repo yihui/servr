@@ -165,10 +165,8 @@ dynamic_site = function(
   dir = normalizePath(dir, mustWork = TRUE)
   in_dir(dir, build(NULL))
 
-  js  = readLines(pkg_file('ws-create.html'))
   res = server_config(dir, ...)
-  js = gsub('!!SERVR_HANDLER', paste(' ', readLines(ws_handler), collapse = '\n'), js, fixed = TRUE)
-  js = gsub('!!SERVR_INTERVAL', format(res$interval * 1000), js, fixed = TRUE)
+  js = xfun::file_string(ws_handler)
 
   app = list(
     call = function(req) {
@@ -177,38 +175,47 @@ dynamic_site = function(
       req = pre_process(req)
       res = response(req)
       req = post_process(req)
-      if (res$status != 200L || res$headers[['Content-Type']] != 'text/html')
-        return(res)
-      # post-process HTML content: inject the websocket code
-      body = res$body
-      if (is.raw(body)) {
-        body = rawToChar(body)
-        Encoding(body) = 'UTF-8'
-      }
-      if (length(grep('<!-- DISABLE-SERVR-WEBSOCKET -->', body, fixed = TRUE)))
-        return(res)
-      body = if (length(grep('</head>', body))) sub(
-        '</head>', paste2(js, '</head>'), body, fixed = TRUE
-      ) else if (length(grep('</html>', body)) == 0) {
-        # there is no </head> or </html>, just append js after the document
-        paste2(body, js)
-      } else body
-      res$body = body
-      res
+      add_js(res, js, res$interval, req$PATH_INFO)
     },
     onWSOpen = function(ws) {
-      ws$onMessage(function(binary, message) {
-        owd = setwd(dir); on.exit(setwd(owd), add = TRUE)
+      ws$onMessage(function(binary, message) in_dir(dir, {
         # send the result of build() to the websocket client
         ws$send(tryCatch(
-          toJSON(build(fromJSON(message)), auto_unbox = TRUE, null = 'null'),
+          toJSON(build(message), auto_unbox = TRUE, null = 'null'),
           error = function(e) { print(e); 'null' }
         ))
-      })
+      }))
     }
   )
   res$start_server(app)
   invisible(res)
+}
+
+ws_js = function(js, interval, path) {
+  path = gsub('"', '\\"', path, fixed = TRUE)
+  paste0('<script>', js, '(', interval * 1000, ', "', path, '");</script>')
+}
+
+add_js = function(res, js, ...) {
+  if (res$status != 200L || res$headers[['Content-Type']] != 'text/html')
+    return(res)
+  # post-process HTML content: inject the websocket code
+  body = res$body
+  if (is.raw(body)) {
+    body = rawToChar(body)
+    Encoding(body) = 'UTF-8'
+  }
+  if (length(grep('<!-- DISABLE-SERVR-WEBSOCKET -->', body, fixed = TRUE)))
+    return(res)
+  js = ws_js(js, ...)
+  body = if (length(grep('</head>', body))) sub(
+    '</head>', paste2(js, '</head>'), body, fixed = TRUE
+  ) else if (length(grep('</html>', body)) == 0) {
+    # there is no </head> or </html>, just append js after the document
+    paste2(body, js)
+  } else body
+  res$body = body
+  res
 }
 
 #' Determine if R Markdown files need to be re-built

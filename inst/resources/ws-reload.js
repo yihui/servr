@@ -1,3 +1,6 @@
+// automatically refresh the page when necessary (R will send a message to ws)
+((interval, path) => {
+const ws = new WebSocket(location.href.replace(/^http/, 'ws').replace(/\/?$/, '/websocket/'));
 let flag;
 ws.onmessage = e => {
   flag = true;
@@ -6,8 +9,9 @@ ws.onmessage = e => {
   Event && document.dispatchEvent(new Event('servr:reload'));
   location.reload();
 };
-setInterval(function() {
+setInterval(() => {
   if (flag === false || ws.readyState !== ws.OPEN) return;
   flag = false;  // prevent ws message if R hasn't responded yet
-  ws.send(JSON.stringify({ "pathname": location.pathname }));
-}, !!SERVR_INTERVAL);
+  ws.send(path);
+}, interval);
+})

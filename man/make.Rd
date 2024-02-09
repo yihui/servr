@@ -9,7 +9,7 @@ make(dir = ".", ...)
 \arguments{
 \item{dir}{The root directory to serve.}
 
-\item{...}{server configurations passed to \code{\link{server_config}()}}
+\item{...}{Server configurations passed to \code{\link{server_config}()}.}
 }
 \description{
 You can define how and when to rebuild files (such as R Markdown files) using

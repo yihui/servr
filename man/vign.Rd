@@ -9,7 +9,7 @@ vign(dir = ".", ...)
 \arguments{
 \item{dir}{The root directory to serve.}
 
-\item{...}{server configurations passed to \code{\link{server_config}()}}
+\item{...}{Server configurations passed to \code{\link{server_config}()}.}
 }
 \description{
 Serve package vignettes under the \file{vignettes/} directory. Because the

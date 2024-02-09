@@ -32,12 +32,9 @@ create_server = function(..., handler, ws_open = function(ws) NULL) {
 #' web pages either created from R or read from HTML files.
 #'
 #' \code{httd()} is a static file server by default (its \code{response}
-#' argument can turn it into a dynamic file server), and \code{httw()} is
-#' similar but watches for changes under the directory: if an HTML file is being
-#' viewed in the browser, and any files are modified under the directory, the
-#' HTML page will be automatically refreshed.
+#' argument can turn it into a dynamic file server).
 #' @inheritParams server_config
-#' @param ... server configurations passed to \code{\link{server_config}()}
+#' @param ... Server configurations passed to \code{\link{server_config}()}.
 #' @param response A function of the form \code{function(path, res, ...)} that
 #'   takes a file path and server response as input, and return a new response.
 #'   This can be useful for post-processing the response (for experts only).
@@ -53,17 +50,21 @@ httd = function(dir = '.', ..., response = NULL) {
   create_server(dir, ..., handler = serve_dir(dir, response))
 }
 
-#' @param watch a directory under which \code{httw()} is to watch for changes;
-#'   if it is a relative path, it is relative to the \code{dir} argument
-#' @param pattern a regular expression passed to \code{\link{list.files}()} to
-#'   determine the files to watch
-#' @param all_files whether to watch all files including the hidden files
-#' @param filter a function to filter the file paths returned from
+#' @details \code{httw()} is similar to \code{httd()} but watches for changes
+#'   under the directory: if an HTML file is being viewed in the browser, and
+#'   any files are modified under the directory, the HTML page will be
+#'   automatically refreshed.
+#' @param watch A directory under which \code{httw()} is to watch for changes.
+#'   If it is a relative path, it is relative to the \code{dir} argument.
+#' @param pattern A regular expression passed to \code{\link{list.files}()} to
+#'   determine the files to watch.
+#' @param all_files Whether to watch all files including the hidden files.
+#' @param filter A function to filter the file paths returned from
 #'   \code{list.files()} (e.g., you can exclude certain files from the watch
-#'   list)
-#' @param handler a function to be called every time any files are changed or
+#'   list).
+#' @param handler A function to be called every time any files are changed or
 #'   added under the directory; its argument is a character vector of the
-#'   filenames of the files modified or added
+#'   filenames of the files modified or added.
 #' @rdname httd
 #' @export
 httw = function(

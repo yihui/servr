@@ -51,7 +51,7 @@ documents and the website will be compiled but not served}
 \command{jekyll build}, and you can use alternative commands, such as
 \command{bundle exec jekyll build}}
 
-\item{...}{server configurations passed to \code{\link{server_config}()}}
+\item{...}{Server configurations passed to \code{\link{server_config}()}.}
 
 \item{in_session}{whether to render the R Markdown documents in the current R
 session (\code{TRUE}) or in a separate new R session (\code{FALSE}); if the

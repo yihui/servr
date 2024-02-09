@@ -173,9 +173,9 @@ dynamic_site = function(
       owd = setwd(dir); on.exit(setwd(owd))
       setwd(site.dir)
       req = pre_process(req)
-      res = response(req)
+      ret = response(req)
       req = post_process(req)
-      add_js(res, js, res$interval, req$PATH_INFO)
+      add_js(ret, js, res$interval, req$PATH_INFO)
     },
     onWSOpen = function(ws) {
       ws$onMessage(function(binary, message) in_dir(dir, {

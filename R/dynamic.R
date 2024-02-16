@@ -191,9 +191,10 @@ dynamic_site = function(
   invisible(res)
 }
 
+ws = "new WebSocket(location.href.replace(/^http/, 'ws').replace(/[?#].*/g, '').replace(/\\/?$/, '/websocket/'))"
 ws_js = function(js, interval, path) {
   path = gsub('"', '\\"', path, fixed = TRUE)
-  paste0('<script>', js, '(', interval * 1000, ', "', path, '");</script>')
+  paste0('<script>', js, '(', interval * 1000, ', "', path, '", ', ws, ');</script>')
 }
 
 add_js = function(res, js, ...) {

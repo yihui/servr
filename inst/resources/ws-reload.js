@@ -1,6 +1,5 @@
 // automatically refresh the page when necessary (R will send a message to ws)
-((interval, path) => {
-const ws = new WebSocket(location.href.replace(/^http/, 'ws').replace(/\/?$/, '/websocket/'));
+((interval, path, ws) => {
 let flag;
 ws.onmessage = e => {
   flag = true;

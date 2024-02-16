@@ -1,5 +1,6 @@
 # CHANGES IN servr VERSION 0.30
 
+- Fixed a bug that caused WebSockets to fail when the URL contains a hash.
 
 # CHANGES IN servr VERSION 0.29
 

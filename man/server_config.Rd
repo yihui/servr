@@ -46,7 +46,15 @@ global option \code{getOption('servr.daemon')} (e.g., you can set
 \code{options(servr.daemon = TRUE)}); if this option was not set,
 \code{daemon = TRUE} if a command line argument \code{-d} was passed to R
 (through \command{Rscript}), or the server is running in an interactive R
-session.}
+session. Note, however, that even though the server does not block the
+current R session, it is running in the same single-threaded process.
+Therefore, if a request is made from this same session, the client and
+server \emph{will} block each other. If this is your use case, a better
+solution is to use a package such as \code{callr} to run a \code{servr}
+in a separate process, e.g, \code{rx <- callr::r_bg(function()
+servr::httd(daemon = FALSE)); do_stuff(); rx$kill()} (the
+\code{do_stuff()} function may want to wait a couple of seconds before
+making requests, to allow the server time to start).}
 
 \item{interval}{The time interval used to check if an HTML page needs to be
 rebuilt (by default, it is checked every second).}

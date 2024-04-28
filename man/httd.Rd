@@ -55,7 +55,7 @@ web pages either created from R or read from HTML files.
 \code{httd()} is a static file server by default (its \code{response}
 argument can turn it into a dynamic file server).
 
-\code{httr()} is based on \code{httr()} with a custom
+\code{httr()} is based on \code{httd()} with a custom
   \code{response} function that executes R files via \code{xfun::record()},
   so that you will see the output of an R script as an HTML page. The page
   will be automatically updated when the R script is modified and saved.

@@ -50,7 +50,7 @@ httd = function(dir = '.', ..., response = NULL) {
   create_server(dir, ..., handler = serve_dir(dir, response))
 }
 
-#' @details \code{httr()} is based on \code{httr()} with a custom
+#' @details \code{httr()} is based on \code{httd()} with a custom
 #'   \code{response} function that executes R files via \code{xfun::record()},
 #'   so that you will see the output of an R script as an HTML page. The page
 #'   will be automatically updated when the R script is modified and saved.

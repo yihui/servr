@@ -9,7 +9,7 @@ fileinfo_table = function(info) {
   d = info$isdir; i = !is.na(d)
   # files/dirs
   x1 = paste(basename(rownames(info)), ifelse(d & i, '/', ''), sep = '')
-  x1 = escape_html(x1)
+  x1 = xfun:::escape_html(x1)
   x1[i] = sprintf('<a href="%s">%s</a>', x1[i], x1[i])
   # size
   x2 = paste(format(info$size, scientific = FALSE, big.mark = ','), 'B')
@@ -35,15 +35,6 @@ html_doc = function(body, title = NULL) {
   c('<!DOCTYPE html>', '<html>',
     '<head>', sprintf('<title>%s</title>', title), '</head>',
     '<body>', body, '</body>', '</html>')
-}
-
-# escape special HTML chars (copied from highr)
-escape_html = function(x) {
-  x = gsub('&', '&amp;', x)
-  x = gsub('<', '&lt;', x)
-  x = gsub('>', '&gt;', x)
-  x = gsub('"', '&quot;', x)
-  x
 }
 
 is_rstudio = function() {

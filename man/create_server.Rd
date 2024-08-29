@@ -12,7 +12,7 @@ create_server(..., handler, ws_open = function(ws) NULL)
 \item{handler}{A function that takes the HTTP request and returns a response.}
 
 \item{ws_open}{A function to be called back when a WebSocket connection is
-established (see \code{httpuv::\link{startServer}()}).}
+established (see \code{httpuv::\link[httpuv]{startServer}()}).}
 }
 \description{
 Create a server with a custom handler to handle the HTTP request.

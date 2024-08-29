@@ -1,5 +1,6 @@
 # CHANGES IN servr VERSION 0.31
 
+- A fallback `favicon.ico` will be provided if it does not exist when serving files (thanks, @MMJansen, rstudio/pagedown#329).
 
 # CHANGES IN servr VERSION 0.30
 

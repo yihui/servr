@@ -325,7 +325,10 @@ serve_dir = function(dir = '.', response = NULL) function(req) {
     # because it will be treated as /foo/bar/404.html; if 404.html contains
     # paths like ./css/style.css, I don't know how to let the browser know that
     # it means /css/style.css instead of /foo/bar/css/style.css
-    if (!file.exists(path)) return(if (try_404(path)) list(
+    if (!file.exists(path)) return(if (path == './favicon.ico') list(
+      status = 200L, body = xfun::read_bin(file.path(R.home('doc'), 'html', 'favicon.ico')),
+      headers = list('Content-Type' = 'image/x-icon')
+    ) else if (try_404(path)) list(
       status = 302L, body = '', headers = list('Location' = '/404.html')
     ) else list(
       status = 404L, headers = list('Content-Type' = 'text/plain'),

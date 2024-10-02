@@ -9,7 +9,7 @@ fileinfo_table = function(info) {
   d = info$isdir; i = !is.na(d)
   # files/dirs
   x1 = paste(basename(rownames(info)), ifelse(d & i, '/', ''), sep = '')
-  x1 = xfun:::escape_html(x1)
+  x1 = xfun::html_escape(x1)
   x1[i] = sprintf('<a href="%s">%s</a>', x1[i], x1[i])
   # size
   x2 = paste(format(info$size, scientific = FALSE, big.mark = ','), 'B')

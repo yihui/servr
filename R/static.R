@@ -311,7 +311,7 @@ serve_dir = function(dir = '.', response = NULL) function(req) {
       readLines(idx, warn = FALSE)
     } else {
       d = file.info(list.files(path, all.files = TRUE, full.names = TRUE))
-      title = xfun:::escape_html(path)
+      title = xfun::html_escape(path)
       html_doc(c(sprintf('<h1>Index of %s</h1>', title), fileinfo_table(d)),
                title = title)
     }

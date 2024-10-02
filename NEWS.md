@@ -1,5 +1,7 @@
 # CHANGES IN servr VERSION 0.32
 
+- Requires **xfun** >= 0.48.
+
 # CHANGES IN servr VERSION 0.31
 
 - A fallback `favicon.ico` will be provided if it does not exist when serving files (thanks, @MMJansen, rstudio/pagedown#329).

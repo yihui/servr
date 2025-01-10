@@ -1,5 +1,7 @@
 # CHANGES IN servr VERSION 0.33
 
+- The package has a documentation site now: https://git.yihui.org/servr/
+
 # CHANGES IN servr VERSION 0.32
 
 - Requires **xfun** >= 0.48.

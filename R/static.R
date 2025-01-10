@@ -10,7 +10,7 @@
 #' # always return "Success:" followed by the requested path
 #' s = servr::create_server(handler = function(req) {
 #'   list(status = 200L, body = paste('Success:', req$PATH_INFO))
-#' })
+#' }, daemon = TRUE)
 #' s$url
 #' \dontrun{
 #' browseURL(paste0(s$url, '/hello'))
@@ -40,8 +40,8 @@ create_server = function(..., handler, ws_open = function(ws) NULL) {
 #'   This can be useful for post-processing the response (for experts only).
 #' @export
 #' @references \url{https://github.com/yihui/servr}
-#' @examplesIf interactive()
-#' servr::httd()
+#' @examples
+#' servr::httd(daemon = TRUE)
 httd = function(dir = '.', ..., response = NULL) {
   dir = normalizePath(dir, mustWork = TRUE)
   if (dir != '.') {
@@ -219,9 +219,9 @@ watch_dir = function(
 #' @export
 #' @return A list of configuration information of the form \code{list(host,
 #'   port, start_server = function(app) {}, ...)}.
-#' @examplesIf interactive()
+#' @examples
 #' # an example of authentication
-#' servr::httd(auth = list(scheme = 'Basic', creds = servr::auth_basic('john', 'pa$s!')))
+#' servr::httd(auth = list(scheme = 'Basic', creds = servr::auth_basic('john', 'pa$s!')), daemon = TRUE)
 server_config = function(
   dir = '.', host = getOption('servr.host', '127.0.0.1'), port, browser, daemon,
   interval = getOption('servr.interval', 1), baseurl = '', initpath = '',

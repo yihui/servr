@@ -65,9 +65,8 @@ argument can turn it into a dynamic file server).
   any files are modified under the directory, the HTML page will be
   automatically refreshed.
 }
-\examples{\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-servr::httd()
-\dontshow{\}) # examplesIf}
+\examples{
+servr::httd(daemon = TRUE)
 }
 \references{
 \url{https://github.com/yihui/servr}

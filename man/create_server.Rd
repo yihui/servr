@@ -21,7 +21,7 @@ Create a server with a custom handler to handle the HTTP request.
 # always return 'Success:' followed by the requested path
 s = servr::create_server(handler = function(req) {
     list(status = 200L, body = paste("Success:", req$PATH_INFO))
-})
+}, daemon = TRUE)
 s$url
 \dontrun{
 browseURL(paste0(s$url, "/hello"))

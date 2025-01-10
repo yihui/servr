@@ -87,8 +87,8 @@ A list of configuration information of the form \code{list(host,
 \description{
 The server functions in this package are configured through this function.
 }
-\examples{\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\examples{
 # an example of authentication
-servr::httd(auth = list(scheme = "Basic", creds = servr::auth_basic("john", "pa$s!")))
-\dontshow{\}) # examplesIf}
+servr::httd(auth = list(scheme = "Basic", creds = servr::auth_basic("john", "pa$s!")),
+    daemon = TRUE)
 }

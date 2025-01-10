@@ -6,16 +6,16 @@
 #' @param ws_open A function to be called back when a WebSocket connection is
 #'   established (see \code{httpuv::\link[httpuv]{startServer}()}).
 #' @export
-#' @examplesIf interactive()
+#' @examples
 #' # always return "Success:" followed by the requested path
 #' s = servr::create_server(handler = function(req) {
 #'   list(status = 200L, body = paste('Success:', req$PATH_INFO))
 #' })
 #' s$url
-#'
+#' \dontrun{
 #' browseURL(paste0(s$url, '/hello'))
 #' browseURL(paste0(s$url, '/world'))
-#'
+#' }
 #' s$stop_server()
 create_server = function(..., handler, ws_open = function(ws) NULL) {
   res = server_config(...)

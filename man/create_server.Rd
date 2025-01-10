@@ -17,16 +17,15 @@ established (see \code{httpuv::\link[httpuv]{startServer}()}).}
 \description{
 Create a server with a custom handler to handle the HTTP request.
 }
-\examples{\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\examples{
 # always return 'Success:' followed by the requested path
 s = servr::create_server(handler = function(req) {
     list(status = 200L, body = paste("Success:", req$PATH_INFO))
 })
 s$url
-
+\dontrun{
 browseURL(paste0(s$url, "/hello"))
 browseURL(paste0(s$url, "/world"))
-
+}
 s$stop_server()
-\dontshow{\}) # examplesIf}
 }

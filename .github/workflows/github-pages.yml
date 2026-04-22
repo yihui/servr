@@ -20,10 +20,6 @@ jobs:
       - uses: actions/configure-pages@v5
         with:
           enablement: true
-      - uses: r-lib/actions/setup-r@HEAD
-        with:
-          use-public-rspm: true
-      - uses: r-lib/actions/setup-r-dependencies@HEAD
       - uses: yihui/litedown/site@HEAD
         with:
           site-dir: 'site'

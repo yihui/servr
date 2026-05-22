@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="generator" content="litedown 0.9.9">
+<title>Help pages</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/article.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/copy-button.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/heading-anchor.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/pages.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/site.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/prism-xcode.min.css">
+</head>
+<body>
+<nav><p><a href="index.html">Home</a>
+<a href="manual.html">Manual</a>
+<a href="news.html">News</a>
+<a href="playground/">Playground</a></p></nav>
+<div class="frontmatter">
+<div class="title"><h1>Help pages</h1></div>
+</div>
+<div class="body">
+<div id="TOC">
+<ul class="numbered">
+<li><a href="#sec:man-auth_basic"><span class="section-number main-number">1</span> Generate Basic authentication strings</a></li>
+<li><a href="#sec:man-browse_last"><span class="section-number main-number">2</span> Reopen the last browsed page</a></li>
+<li><a href="#sec:man-create_server"><span class="section-number main-number">3</span> Create a server</a></li>
+<li><a href="#sec:man-daemon_stop"><span class="section-number main-number">4</span> Utilities for daemonized servers</a></li>
+<li><a href="#sec:man-dynamic_site"><span class="section-number main-number">5</span> Serve R Markdown based websites</a></li>
+<li><a href="#sec:man-httd"><span class="section-number main-number">6</span> Serve static files under a directory</a></li>
+<li><a href="#sec:man-make"><span class="section-number main-number">7</span> Serve files under a directory based on GNU Make</a></li>
+<li><a href="#sec:man-random_port"><span class="section-number main-number">8</span> Find a random available TCP port</a></li>
+<li><a href="#sec:man-redirect"><span class="section-number main-number">9</span> Create a redirect response</a></li>
+<li><a href="#sec:man-serve_example"><span class="section-number main-number">10</span> A convenience function to serve examples in this package</a></li>
+<li><a href="#sec:man-server_config"><span class="section-number main-number">11</span> Server configurations</a></li>
+<li><a href="#sec:man-vign"><span class="section-number main-number">12</span> Serve R Markdown/HTML package vignettes</a></li>
+</ul>
+</div>
+<style type="text/css">
+h2 {
+  text-align: center;
+  margin-top: 2em;
+}
+</style>
+<p>
+<b>-- <kbd>A</kbd> --</b>
+<a href="#sec:man-auth_basic"><code>auth_basic()</code></a>
+</p>
+<p>
+<b>-- <kbd>B</kbd> --</b>
+<a href="#sec:man-browse_last"><code>browse_last()</code></a>
+</p>
+<p>
+<b>-- <kbd>C</kbd> --</b>
+<a href="#sec:man-create_server"><code>create_server()</code></a>
+</p>
+<p>
+<b>-- <kbd>D</kbd> --</b>
+<a href="#sec:man-daemon_stop"><code>daemon_stop()</code></a>
+<a href="#sec:man-daemon_stop"><code>daemon_list()</code></a>
+</p>
+<p>
+<b>-- <kbd>H</kbd> --</b>
+<a href="#sec:man-httd"><code>httd()</code></a>
+<a href="#sec:man-httd"><code>httr()</code></a>
+<a href="#sec:man-httd"><code>httw()</code></a>
+</p>
+<p>
+<b>-- <kbd>J</kbd> --</b>
+<a href="#sec:man-dynamic_site"><code>jekyll()</code></a>
+</p>
+<p>
+<b>-- <kbd>M</kbd> --</b>
+<a href="#sec:man-make"><code>make()</code></a>
+</p>
+<p>
+<b>-- <kbd>R</kbd> --</b>
+<a href="#sec:man-dynamic_site"><code>rmdv2()</code></a>
+<a href="#sec:man-dynamic_site"><code>rmdv1()</code></a>
+<a href="#sec:man-random_port"><code>random_port()</code></a>
+<a href="#sec:man-redirect"><code>redirect()</code></a>
+</p>
+<p>
+<b>-- <kbd>S</kbd> --</b>
+<a href="#sec:man-serve_example"><code>serve_example()</code></a>
+<a href="#sec:man-server_config"><code>server_config()</code></a>
+</p>
+<p>
+<b>-- <kbd>V</kbd> --</b>
+<a href="#sec:man-vign"><code>vign()</code></a>
+</p>
+<h2 id="sec:man-auth_basic"><span class="section-number main-number">1</span> Generate Basic authentication strings</h2>
+<h3 id="sec:description_1" class="unnumbered unlisted">Description</h3>
+<p>Combine usernames with passwords with colons, and generate base64-encoded
+strings to be used for user authentication.
+</p>
+<h3 id="sec:usage_1" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">auth_basic(user, password)</code></pre>
+<h3 id="sec:arguments_1" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>user</code></td>
+<td>
+<p>A vector of usernames.</p>
+</td></tr>
+<tr><td><code>password</code></td>
+<td>
+<p>A vector of passwords.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_1" class="unnumbered unlisted">Value</h3>
+<p>A character vector of encoded credentials.
+</p>
+<h3 id="sec:examples_1" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">servr::auth_basic(&quot;foo&quot;, &quot;B@R&quot;)
+</code></pre>
+<pre><code>#&gt; [1] &quot;Basic Zm9vOkJAUg==&quot;
+</code></pre>
+<h2 id="sec:man-browse_last"><span class="section-number main-number">2</span> Reopen the last browsed page</h2>
+<h3 id="sec:description_2" class="unnumbered unlisted">Description</h3>
+<p>If you have launched a page in the browser via <span class="pkg">servr</span> but closed it
+later, you may call this function to reopen it.
+</p>
+<h3 id="sec:usage_2" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">browse_last(open = TRUE)</code></pre>
+<h3 id="sec:arguments_2" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>open</code></td>
+<td>
+<p>Whether to reopen the lastly browsed page. If <code>FALSE</code>, the
+URL of the previously browsed page will be returned.</p>
+</td></tr>
+</table>
+<h3 id="sec:examples_2" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">servr::browse_last()
+</code></pre>
+<pre><code class="language-plain message">#&gt; It seems you have not served any content with servr yet.
+</code></pre>
+<h2 id="sec:man-create_server"><span class="section-number main-number">3</span> Create a server</h2>
+<h3 id="sec:description_3" class="unnumbered unlisted">Description</h3>
+<p>Create a server with a custom handler to handle the HTTP request.
+</p>
+<h3 id="sec:usage_3" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">create_server(..., handler, ws_open = function(ws) NULL)</code></pre>
+<h3 id="sec:arguments_3" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>...</code></td>
+<td>
+<p>Arguments to be passed to <code><a href="#sec:man-server-config">server_config</a>()</code>.</p>
+</td></tr>
+<tr><td><code>handler</code></td>
+<td>
+<p>A function that takes the HTTP request and returns a response.</p>
+</td></tr>
+<tr><td><code>ws_open</code></td>
+<td>
+<p>A function to be called back when a WebSocket connection is
+established (see <code>httpuv::<a href="https://rdrr.io/cran/httpuv/man/startServer.html">startServer</a>()</code>).</p>
+</td></tr>
+</table>
+<h3 id="sec:examples_3" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r"># always return 'Success:' followed by the requested path
+s = servr::create_server(handler = function(req) {
+    list(status = 200L, body = paste(&quot;Success:&quot;, req$PATH_INFO))
+}, daemon = TRUE)
+</code></pre>
+<pre><code class="language-plain message">#&gt; Serving the directory . at http://127.0.0.1:4321
+</code></pre>
+<pre><code class="language-r">s$url
+</code></pre>
+<pre><code>#&gt; [1] &quot;http://127.0.0.1:4321&quot;
+</code></pre>
+<pre><code class="language-r fade">browseURL(paste0(s$url, &quot;/hello&quot;))
+browseURL(paste0(s$url, &quot;/world&quot;))
+</code></pre>
+<pre><code class="language-r">s$stop_server()
+</code></pre>
+<h2 id="sec:man-daemon_stop"><span class="section-number main-number">4</span> Utilities for daemonized servers</h2>
+<h3 id="sec:description_4" class="unnumbered unlisted">Description</h3>
+<p><code>daemon_list()</code> returns IDs of servers, which can be used to stop the
+daemonized servers.
+</p>
+<h3 id="sec:usage_4" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">daemon_stop(which = daemon_list())
+
+daemon_list()</code></pre>
+<h3 id="sec:arguments_4" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>which</code></td>
+<td>
+<p>A integer vector of the server IDs; by default, IDs of all
+existing servers in the current R session obtained from
+<code>daemon_list()</code>, i.e., all daemon servers will be stopped by default.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_2" class="unnumbered unlisted">Value</h3>
+<p>The function <code>daemon_list()</code> returns a list of existing server
+IDs, and <code>daemon_stop()</code> returns an invisible <code>NULL</code>.
+</p>
+<h2 id="sec:man-dynamic_site"><span class="section-number main-number">5</span> Serve R Markdown based websites</h2>
+<h3 id="sec:description_5" class="unnumbered unlisted">Description</h3>
+<p>R Markdown documents (with the filename extension &lsquo;<span class="file">.Rmd</span>&rsquo;) are
+re-compiled using <span class="pkg">knitr</span> or <span class="pkg">rmarkdown</span> when necessary (source files
+are newer than output files), and the HTML pages will be automatically
+refreshed in the web browser accordingly.
+</p>
+<h3 id="sec:usage_5" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">jekyll(
+  dir = ".",
+  input = c(".", "_source", "_posts"),
+  output = c(".", "_posts", "_posts"),
+  script = c("Makefile", "build.R"),
+  serve = TRUE,
+  command = "jekyll build",
+  ...
+)
+
+rmdv2(dir = ".", script = c("Makefile", "build.R"), in_session = FALSE, ...)
+
+rmdv1(dir = ".", script = c("Makefile", "build.R"), in_session = FALSE, ...)</code></pre>
+<h3 id="sec:arguments_5" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>dir</code></td>
+<td>
+<p>the root directory of the website</p>
+</td></tr>
+<tr><td><code>input</code></td>
+<td>
+<p>the input directories that contain R Markdown documents (the
+directories must be relative instead of absolute; same for <code>output</code>
+directories)</p>
+</td></tr>
+<tr><td><code>output</code></td>
+<td>
+<p>the output directories corresponding to <code>input</code>; for an
+input document &lsquo;<span class="file">foo.Rmd</span>&rsquo; under the directory <code>input[i]</code>, its
+output document &lsquo;<span class="file">foo.md</span>&rsquo; (or &lsquo;<span class="file">foo.html</span>&rsquo;) is generated under
+<code>output[i]</code> if the output document is older than the input document</p>
+</td></tr>
+<tr><td><code>script</code></td>
+<td>
+<p>a Makefile (see <code><a href="#sec:man-make">make</a></code>), or (if Makefile not found)
+the name of an R script to re-build R Markdown documents, which will be
+executed via command line of the form <code>Rscript build.R arg1 arg2</code>
+where <code>build.R</code> is the script specified by this argument, <code>arg1</code>
+is the input filename, and <code>arg2</code> is the output filename; inside the R
+script, you can use <code><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a>(TRUE)</code> to capture
+<code>c(arg1, arg2)</code>, e.g. <code>knitr::knit(commandArgs(TRUE)[1],
+commandArgs(TRUE)[2])</code>; if this R script is not found, either, internal
+compiling methods will be used, which are basically
+<code><a href="https://rdrr.io/cran/knitr/man/knit.html">knit</a>()</code>, <code><a href="https://rdrr.io/cran/knitr/man/knit2html.html">knit2html</a>()</code>, or
+<code><a href="https://rdrr.io/cran/rmarkdown/man/render.html">render</a>()</code></p>
+</td></tr>
+<tr><td><code>serve</code></td>
+<td>
+<p>whether to serve the website; if <code>FALSE</code>, the R Markdown
+documents and the website will be compiled but not served</p>
+</td></tr>
+<tr><td><code>command</code></td>
+<td>
+<p>a command to build the Jekyll website; by default, it is
+<code>jekyll build</code>, and you can use alternative commands, such as
+<code>bundle exec jekyll build</code></p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Server configurations passed to <code><a href="#sec:man-server-config">server_config</a>()</code>.</p>
+</td></tr>
+<tr><td><code>in_session</code></td>
+<td>
+<p>whether to render the R Markdown documents in the current R
+session (<code>TRUE</code>) or in a separate new R session (<code>FALSE</code>); if the
+former, the argument <code>script</code> can be a function with two arguments,
+the filenames of the source document and the output document, respectively;
+an internal function (basically <code>rmarkdown::render()</code> or
+<code>knitr::knit2html()</code>) will be used if the <code>script</code> argument is
+not a function and <code>in_session = TRUE</code></p>
+</td></tr>
+</table>
+<h3 id="sec:details_1" class="unnumbered unlisted">Details</h3>
+<p>The function <code>jekyll()</code> sets up a web server to serve a Jekyll-based
+website. A connection is established between R and the HTML pages through
+WebSockets so that R can notify the HTML pages to refresh themselves if any R
+Markdown documents have been re-compiled.
+</p>
+<p>The functions <code>rmdv1()</code> and <code>rmdv2()</code> are similar to
+<code>jekyll()</code>, and the only difference is the way to compile R Markdown
+documents: <code>rmdv1()</code> uses the <span class="pkg">markdown</span> package (a.k.a R Markdown
+v1) via <code><a href="https://rdrr.io/cran/knitr/man/knit2html.html">knit2html</a>()</code>, and <code>rmdv2()</code> calls
+<code><a href="https://rdrr.io/cran/rmarkdown/man/render.html">render</a>()</code> in the <span class="pkg">rmarkdown</span> package (a.k.a R
+Markdown v2).
+</p>
+<h3 id="sec:note_1" class="unnumbered unlisted">Note</h3>
+<p>Apparently <code>jekyll()</code> and <code>rmdv1()</code> require the <span class="pkg">knitr</span>
+package, and <code>rmdv2()</code> requires <span class="pkg">rmarkdown</span>. You have to install
+them before calling the server functions here.
+</p>
+<p>All R Markdown documents are compiled in separate R sessions by default. If
+you have any R Markdown documents that should not be compiled as standalone
+documents (e.g. child documents), you can use different filename
+extensions, such as &lsquo;<span class="file">.Rmarkdown</span>&rsquo;.
+</p>
+<p>The <code>baseurl</code> argument does not work in <code>jekyll()</code>, and the base
+URL setting will be read from &lsquo;<span class="file">_config.yml</span>&rsquo; (the &lsquo;<span class="samp">baseurl</span>&rsquo; field)
+of the website if present. You should not pass <code>baseurl</code> to the
+function <code>jekyll()</code> directly.
+</p>
+<p>For the sake of reproducibility, you are recommended to compile each
+source document in a separate R session (i.e., use the default
+<code>in_session = FALSE</code>) to make sure they can compile on their own,
+otherwise the current workspace may affect the evaluation of the code
+chunks in these source documents. Sometimes it might be useful to compile a
+document in the current R session. For example, if reading data is
+time-consuming and it is not convenient to cache it (using the <span class="pkg">knitr</span>
+chunk option <code>cache = TRUE</code>), you may read the data once, temporarily
+turn off the evaluation of that code chunk, and keep on working on the rest
+of code chunks so that data will not be read over and over again.
+</p>
+<h3 id="sec:references_1" class="unnumbered unlisted">References</h3>
+<p>R Markdown v1: <a href="https://cran.r-project.org/package=markdown">https://cran.r-project.org/package=markdown</a>. R
+Markdown v2: <a href="https://rmarkdown.rstudio.com">https://rmarkdown.rstudio.com</a>. For Jekyll, see
+<a href="https://jekyllrb.com">https://jekyllrb.com</a>. The GitHub repository
+<a href="https://github.com/yihui/blogdown-jekyll">https://github.com/yihui/blogdown-jekyll</a> is an example of serving Jekyll
+websites with <code>servr::jekyll()</code>.
+</p>
+<h3 id="sec:see-also" class="unnumbered unlisted">See Also</h3>
+<p>The <span class="pkg">blogdown</span> package (based on Hugo and R Markdown v2) is a
+better alternative to Jekyll: <a href="https://github.com/rstudio/blogdown/">https://github.com/rstudio/blogdown/</a>. I
+strongly recommend you to try it.
+</p>
+<h3 id="sec:examples_4" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">if (interactive()) servr::rmdv1()  # serve the current dir with R Markdown v1
+if (interactive()) servr::rmdv2()  # or R Markdown v2
+
+# built-in examples
+servr::serve_example(&quot;rmd&quot;, servr::rmdv1)
+servr::serve_example(&quot;rmd&quot;, servr::rmdv2)
+</code></pre>
+<h2 id="sec:man-httd"><span class="section-number main-number">6</span> Serve static files under a directory</h2>
+<h3 id="sec:description_6" class="unnumbered unlisted">Description</h3>
+<p>If there is an &lsquo;<span class="file">index.html</span>&rsquo; under this directory, it will be displayed;
+otherwise the list of files is displayed, with links on their names. After we
+run this function, we can go to &lsquo;<span class="samp">http://localhost:port</span>&rsquo; to browse the
+web pages either created from R or read from HTML files.
+</p>
+<h3 id="sec:usage_6" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">httd(dir = ".", ..., response = NULL)
+
+httr(dir = ".", ...)
+
+httw(
+  dir = ".",
+  watch = ".",
+  pattern = NULL,
+  all_files = FALSE,
+  filter = NULL,
+  handler = NULL,
+  ...
+)</code></pre>
+<h3 id="sec:arguments_6" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>dir</code></td>
+<td>
+<p>The root directory to serve.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Server configurations passed to <code><a href="#sec:man-server-config">server_config</a>()</code>.</p>
+</td></tr>
+<tr><td><code>response</code></td>
+<td>
+<p>A function of the form <code>function(path, res, ...)</code> that
+takes a file path and server response as input, and return a new response.
+This can be useful for post-processing the response (for experts only).</p>
+</td></tr>
+<tr><td><code>watch</code></td>
+<td>
+<p>A directory under which <code>httw()</code> is to watch for changes.
+If it is a relative path, it is relative to the <code>dir</code> argument.</p>
+</td></tr>
+<tr><td><code>pattern</code></td>
+<td>
+<p>A regular expression passed to <code><a href="https://rdrr.io/r/base/list.files.html">list.files</a>()</code> to
+determine the files to watch.</p>
+</td></tr>
+<tr><td><code>all_files</code></td>
+<td>
+<p>Whether to watch all files including the hidden files.</p>
+</td></tr>
+<tr><td><code>filter</code></td>
+<td>
+<p>A function to filter the file paths returned from
+<code>list.files()</code> (e.g., you can exclude certain files from the watch
+list).</p>
+</td></tr>
+<tr><td><code>handler</code></td>
+<td>
+<p>A function to be called every time any files are changed or
+added under the directory; its argument is a character vector of the
+filenames of the files modified or added.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_2" class="unnumbered unlisted">Details</h3>
+<p><code>httd()</code> is a static file server by default (its <code>response</code>
+argument can turn it into a dynamic file server).
+</p>
+<p><code>httr()</code> is based on <code>httd()</code> with a custom
+<code>response</code> function that executes R files via <code>xfun::record()</code>,
+so that you will see the output of an R script as an HTML page. The page
+will be automatically updated when the R script is modified and saved.
+</p>
+<p><code>httw()</code> is similar to <code>httd()</code> but watches for changes
+under the directory: if an HTML file is being viewed in the browser, and
+any files are modified under the directory, the HTML page will be
+automatically refreshed.
+</p>
+<h3 id="sec:references_2" class="unnumbered unlisted">References</h3>
+<p><a href="https://github.com/yihui/servr">https://github.com/yihui/servr</a>
+</p>
+<h3 id="sec:examples_5" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">servr::httd(daemon = TRUE)
+</code></pre>
+<pre><code class="language-plain message">#&gt; Serving the directory /home/runner/work/servr/servr/site at http://127.0.0.1:4321
+</code></pre>
+<h2 id="sec:man-make"><span class="section-number main-number">7</span> Serve files under a directory based on GNU Make</h2>
+<h3 id="sec:description_7" class="unnumbered unlisted">Description</h3>
+<p>You can define how and when to rebuild files (such as R Markdown files) using
+Make rules, e.g. a rule <code>_posts/%.md: _source/%.Rmd</code> with a command
+to build &lsquo;<span class="file">.Rmd</span>&rsquo; to &lsquo;<span class="file">.md</span>&rsquo; will be executed if and only if
+&lsquo;<span class="file">foo.Rmd</span>&rsquo; is newer than &lsquo;<span class="file">foo.md</span>&rsquo;. The exit status of the command
+<code>make -q</code> will decide whether to rebuild files: rebuilding occurs
+only when the exit code is not <code>0</code>. When an HTML file has been rebuilt,
+it will be automatically refreshed in the web browser.
+</p>
+<h3 id="sec:usage_7" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">make(dir = ".", ...)</code></pre>
+<h3 id="sec:arguments_7" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>dir</code></td>
+<td>
+<p>The root directory to serve.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Server configurations passed to <code><a href="#sec:man-server-config">server_config</a>()</code>.</p>
+</td></tr>
+</table>
+<h3 id="sec:note_2" class="unnumbered unlisted">Note</h3>
+<p>You must have installed GNU Make to use this function. This is normally
+not a problem for Linux and OS X users (it should be available by default).
+For Windows users, you can either install GNU Make, or just install
+<a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, which also
+contains GNU Make.
+</p>
+<h3 id="sec:examples_6" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r"># some built-in examples (if you are not familiar with make, you can take a
+# look at the Makefile of each example)
+servr::serve_example(&quot;make1&quot;, servr::make)
+servr::serve_example(&quot;make2&quot;, servr::make)
+</code></pre>
+<h2 id="sec:man-random_port"><span class="section-number main-number">8</span> Find a random available TCP port</h2>
+<h3 id="sec:description_8" class="unnumbered unlisted">Description</h3>
+<p>Test a series of random TCP ports from 3000 to 8000 (excluding a few that are
+considered unsafe by Chrome) and return the first available one. A web server
+can be later started on this port.
+</p>
+<h3 id="sec:usage_8" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">random_port(
+  port = 4321L,
+  host = getOption("servr.host", "127.0.0.1"),
+  n = 20,
+  exclude = NULL
+)</code></pre>
+<h3 id="sec:arguments_8" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>port</code></td>
+<td>
+<p>The preferred port(s).</p>
+</td></tr>
+<tr><td><code>host</code></td>
+<td>
+<p>A string that is a valid IPv4 address that is owned by this
+server, or <code>"0.0.0.0"</code> to listen on all IP addresses.</p>
+</td></tr>
+<tr><td><code>n</code></td>
+<td>
+<p>The maximum number of random ports to be tested.</p>
+</td></tr>
+<tr><td><code>exclude</code></td>
+<td>
+<p>A vector of port numbers not to be considered.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_3" class="unnumbered unlisted">Value</h3>
+<p>A port number, or an error if no ports are available.
+</p>
+<h2 id="sec:man-redirect"><span class="section-number main-number">9</span> Create a redirect response</h2>
+<h3 id="sec:description_9" class="unnumbered unlisted">Description</h3>
+<p>Create a response to redirect to a destination.
+</p>
+<h3 id="sec:usage_9" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">redirect(dest, status = 301L)</code></pre>
+<h3 id="sec:arguments_9" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>dest</code></td>
+<td>
+<p>A destination path.</p>
+</td></tr>
+<tr><td><code>status</code></td>
+<td>
+<p>The status code (usually <code>301</code> or <code>302</code>).</p>
+</td></tr>
+</table>
+<h3 id="sec:examples_7" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">servr::redirect(&quot;https://www.r-project.org&quot;)
+</code></pre>
+<pre><code>#&gt; $status
+#&gt; [1] 301
+#&gt; 
+#&gt; $body
+#&gt; [1] &quot;&quot;
+#&gt; 
+#&gt; $headers
+#&gt; $headers$Location
+#&gt; [1] &quot;https://www.r-project.org&quot;
+</code></pre>
+<h2 id="sec:man-serve_example"><span class="section-number main-number">10</span> A convenience function to serve examples in this package</h2>
+<h3 id="sec:description_10" class="unnumbered unlisted">Description</h3>
+<p>Use server functions to serve built-in examples of this package.
+</p>
+<h3 id="sec:usage_10" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">serve_example(name, FUN, ..., run = interactive())</code></pre>
+<h3 id="sec:arguments_10" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>name</code></td>
+<td>
+<p>the directory name of the example under the directory
+<code>system.file('examples', package = 'servr')</code></p>
+</td></tr>
+<tr><td><code>FUN</code></td>
+<td>
+<p>a server function that takes the example path as its first
+argument, e.g. <code><a href="#sec:man-httd">httd</a></code>, or <code><a href="#sec:man-dynamic-site">rmdv1</a></code></p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>other arguments passed to <code>FUN</code></p>
+</td></tr>
+<tr><td><code>run</code></td>
+<td>
+<p>whether to run the example (this is mainly for <code>R CMD
+check</code> purposes: the examples will not be really served when the R session
+is not interactive, so they will not block <code>R CMD check</code>)</p>
+</td></tr>
+</table>
+<h3 id="sec:value_4" class="unnumbered unlisted">Value</h3>
+<p><code>NULL</code> if <code>run = FALSE</code>, otherwise the value returned from
+<code>FUN()</code>.
+</p>
+<h3 id="sec:examples_8" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r"># R Markdown v1 or v2
+servr::serve_example(&quot;rmd&quot;, servr::rmdv1)
+servr::serve_example(&quot;rmd&quot;, servr::rmdv2)
+
+# GNU Make
+servr::serve_example(&quot;make1&quot;, servr::make)
+servr::serve_example(&quot;make2&quot;, servr::make)
+</code></pre>
+<h2 id="sec:man-server_config"><span class="section-number main-number">11</span> Server configurations</h2>
+<h3 id="sec:description_11" class="unnumbered unlisted">Description</h3>
+<p>The server functions in this package are configured through this function.
+</p>
+<h3 id="sec:usage_11" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">server_config(
+  dir = ".",
+  host = getOption("servr.host", "127.0.0.1"),
+  port,
+  browser,
+  daemon,
+  interval = getOption("servr.interval", 1),
+  baseurl = "",
+  initpath = "",
+  hosturl = identity,
+  auth = getOption("servr.auth"),
+  verbose = TRUE
+)</code></pre>
+<h3 id="sec:arguments_11" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>dir</code></td>
+<td>
+<p>The root directory to serve.</p>
+</td></tr>
+<tr><td><code>host</code></td>
+<td>
+<p>A string that is a valid IPv4 address that is owned by this
+server, or <code>"0.0.0.0"</code> to listen on all IP addresses.</p>
+</td></tr>
+<tr><td><code>port</code></td>
+<td>
+<p>The TCP port number. If it is not explicitly set, the default
+value will be looked up in this order: First, the command line argument of
+the form <code>-pNNNN</code> (N is a digit from 0 to 9). If it was passed to R
+when R was started, <code>NNNN</code> will be used as the port number. Second,
+the environment variable <code>R_SERVR_PORT</code>. Third, the global option
+<code>servr.port</code> (e.g., <code>options(servr.port = 4322)</code>). If none of
+these command-line arguments, variables, or options were set, the default
+port will be <code>4321</code>. If this port is not available, a random available
+port will be used.</p>
+</td></tr>
+<tr><td><code>browser</code></td>
+<td>
+<p>Whether to launch the default web browser. By default, it is
+<code>TRUE</code> if the R session is <code><a href="https://rdrr.io/r/base/interactive.html">interactive</a>()</code>, or when a
+command line argument <code>-b</code> was passed to R (see
+<code><a href="https://rdrr.io/r/base/commandArgs.html">commandArgs</a>()</code>). N.B. the RStudio viewer is used as the web
+browser if available.</p>
+</td></tr>
+<tr><td><code>daemon</code></td>
+<td>
+<p>Whether to launch a daemonized server (the server does not
+block the current R session) or a blocking server. By default, it is the
+global option <code>getOption('servr.daemon')</code> (e.g., you can set
+<code>options(servr.daemon = TRUE)</code>); if this option was not set,
+<code>daemon = TRUE</code> if a command line argument <code>-d</code> was passed to R
+(through <code>Rscript</code>), or the server is running in an interactive R
+session. Note, however, that even though the server does not block the
+current R session, it is running in the same single-threaded process.
+Therefore, if a request is made from this same session, the client and
+server <em>will</em> block each other. If this is your use case, a better
+solution is to use a package such as <code>callr</code> to run a <code>servr</code>
+in a separate process, e.g, <code>rx &lt;- callr::r_bg(function()
+servr::httd(daemon = FALSE)); do_stuff(); rx$kill()</code> (the
+<code>do_stuff()</code> function may want to wait a couple of seconds before
+making requests, to allow the server time to start).</p>
+</td></tr>
+<tr><td><code>interval</code></td>
+<td>
+<p>The time interval used to check if an HTML page needs to be
+rebuilt (by default, it is checked every second).</p>
+</td></tr>
+<tr><td><code>baseurl</code></td>
+<td>
+<p>The base URL (the full URL will be
+<code>http://host:port/baseurl</code>).</p>
+</td></tr>
+<tr><td><code>initpath</code></td>
+<td>
+<p>The initial path in the URL (e.g. you can open a specific
+HTML file initially).</p>
+</td></tr>
+<tr><td><code>hosturl</code></td>
+<td>
+<p>A function that takes the host address and returns a character
+string to be used in the URL, e.g., <code>function(host) { if (host ==
+'127.0.0.1') 'localhost' else host}</code> to convert <code>127.0.0.1</code> to
+<code>localhost</code> in the URL.</p>
+</td></tr>
+<tr><td><code>auth</code></td>
+<td>
+<p>A list of the form <code>list(scheme, creds)</code> containing the
+authentication scheme and credentials. See
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication">https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication</a> for
+more info. Please note that this argument is <em>by no means</em> intended
+for serious HTTP applications and there is <em>no warranty</em> on security.
+You should use other dedicated software packages or services if security is
+important. You have been warned.</p>
+</td></tr>
+<tr><td><code>verbose</code></td>
+<td>
+<p>Whether to print messages when launching the server.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_5" class="unnumbered unlisted">Value</h3>
+<p>A list of configuration information of the form <code>list(host,
+  port, start_server = function(app) {}, ...)</code>.
+</p>
+<h3 id="sec:examples_9" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r"># an example of authentication
+servr::httd(auth = list(scheme = &quot;Basic&quot;, creds = servr::auth_basic(&quot;john&quot;, &quot;pa$s!&quot;)),
+    daemon = TRUE)
+</code></pre>
+<pre><code class="language-plain message">#&gt; Serving the directory /home/runner/work/servr/servr/site at http://127.0.0.1:5216
+</code></pre>
+<h2 id="sec:man-vign"><span class="section-number main-number">12</span> Serve R Markdown/HTML package vignettes</h2>
+<h3 id="sec:description_12" class="unnumbered unlisted">Description</h3>
+<p>Serve package vignettes under the &lsquo;<span class="file">vignettes/</span>&rsquo; directory. Because the
+HTML output files should not be included in the source package, this function
+renders R Markdown/HTML vignettes, displays them in the web browser, and
+deletes the HTML output files. You will see the HTML output when you click
+the links on the &lsquo;<span class="file">.Rmd</span>&rsquo; or &lsquo;<span class="file">.Rhtml</span>&rsquo; files (unlike the static HTTP
+server, the compiled output instead of the source document is displayed).
+</p>
+<h3 id="sec:usage_12" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">vign(dir = ".", ...)</code></pre>
+<h3 id="sec:arguments_12" class="unnumbered unlisted">Arguments</h3>
+<table role = "presentation">
+<tr><td><code>dir</code></td>
+<td>
+<p>The root directory to serve.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Server configurations passed to <code><a href="#sec:man-server-config">server_config</a>()</code>.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_3" class="unnumbered unlisted">Details</h3>
+<p>When developing R packages, you may want to preview your vignettes once in a
+while. You can certainly click the button in RStudio to do it, but that
+requires you to install the package and rebuild the vignettes. With this
+function, your vignette will be rebuilt automatically when you update the
+source document. Moreover, because the compilation takes place in the current
+R session, you can take advantage of <code>devtools::load_all()</code> (which has a
+keyboard shortcut in the RStudio IDE) to reload your package and see the
+updated vignette in the web browser.
+</p>
+<h3 id="sec:note_3" class="unnumbered unlisted">Note</h3>
+<p>You are supposed to call this function from the root directory of your
+package. If that is not the case, you should provide the correct path to
+the &lsquo;<span class="file">vignettes/</span>&rsquo; directory of your package to the <code>dir</code> argument.
+</p>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/manual.min.css">
+</div>
+<footer><div class="flex-col">
+<p>Developed by <a href="https://yihui.org">Yihui Xie</a></p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.9.9</p>
+</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/sidenotes.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/appendix.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/toc-highlight.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/copy-button.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/heading-anchor.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/pages.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

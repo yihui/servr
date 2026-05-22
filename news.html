@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="generator" content="litedown 0.9.9">
+<title>News</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/article.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/copy-button.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/heading-anchor.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/pages.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/css/site.min.css">
+</head>
+<body>
+<nav><p><a href="index.html">Home</a>
+<a href="manual.html">Manual</a>
+<a href="news.html">News</a>
+<a href="playground/">Playground</a></p></nav>
+<div class="frontmatter">
+<div class="title"><h1>News</h1></div>
+</div>
+<div class="body">
+<div id="TOC">
+<ul>
+<li><a href="#sec:servr-0-33">servr 0.33</a></li>
+<li><a href="#sec:servr-0-32">servr 0.32</a></li>
+<li><a href="#sec:servr-0-31">servr 0.31</a></li>
+<li><a href="#sec:servr-0-30">servr 0.30</a></li>
+<li><a href="#sec:servr-0-29">servr 0.29</a></li>
+<li><a href="#sec:servr-0-28">servr 0.28</a></li>
+<li><a href="#sec:servr-0-27">servr 0.27</a></li>
+<li><a href="#sec:servr-0-26">servr 0.26</a></li>
+<li><a href="#sec:servr-0-25">servr 0.25</a></li>
+<li><a href="#sec:servr-0-24">servr 0.24</a></li>
+<li><a href="#sec:servr-0-23">servr 0.23</a></li>
+<li><a href="#sec:servr-0-22">servr 0.22</a></li>
+<li><a href="#sec:servr-0-21">servr 0.21</a></li>
+<li><a href="#sec:servr-0-20">servr 0.20</a></li>
+<li><a href="#sec:servr-0-19">servr 0.19</a></li>
+<li><a href="#sec:servr-0-18">servr 0.18</a></li>
+<li><a href="#sec:servr-0-17">servr 0.17</a></li>
+<li><a href="#sec:servr-0-16">servr 0.16</a></li>
+<li><a href="#sec:servr-0-15">servr 0.15</a></li>
+<li><a href="#sec:servr-0-14">servr 0.14</a></li>
+<li><a href="#sec:servr-0-13">servr 0.13</a></li>
+<li><a href="#sec:servr-0-12">servr 0.12</a></li>
+<li><a href="#sec:servr-0-11">servr 0.11</a></li>
+<li><a href="#sec:servr-0-10">servr 0.10</a></li>
+<li><a href="#sec:servr-0-9">servr 0.9</a></li>
+<li><a href="#sec:servr-0-8">servr 0.8</a></li>
+<li><a href="#sec:servr-0-7">servr 0.7</a></li>
+<li><a href="#sec:servr-0-6">servr 0.6</a></li>
+<li><a href="#sec:servr-0-5">servr 0.5</a></li>
+<li><a href="#sec:servr-0-4-1">servr 0.4.1</a></li>
+<li><a href="#sec:servr-0-4">servr 0.4</a></li>
+<li><a href="#sec:servr-0-3">servr 0.3</a></li>
+<li><a href="#sec:servr-0-2">servr 0.2</a></li>
+<li><a href="#sec:servr-0-1">servr 0.1</a></li>
+</ul>
+</div>
+<h2 id="sec:servr-0-33" class="unnumbered">servr 0.33</h2>
+<ul>
+<li>The package has a documentation site now: <a href="https://git.yihui.org/servr/">https://git.yihui.org/servr/</a></li>
+</ul>
+<h2 id="sec:servr-0-32" class="unnumbered">servr 0.32</h2>
+<ul>
+<li>Requires <strong>xfun</strong> &gt;= 0.48.</li>
+</ul>
+<h2 id="sec:servr-0-31" class="unnumbered">servr 0.31</h2>
+<ul>
+<li>A fallback <code>favicon.ico</code> will be provided if it does not exist when serving files (thanks, <a href="https://github.com/MMJansen">@MMJansen</a>, <a href="https://github.com/rstudio/pagedown/issues/329">rstudio/pagedown#329</a>).</li>
+</ul>
+<h2 id="sec:servr-0-30" class="unnumbered">servr 0.30</h2>
+<ul>
+<li>Fixed a bug that caused WebSockets to fail when the URL contains a hash.</li>
+</ul>
+<h2 id="sec:servr-0-29" class="unnumbered">servr 0.29</h2>
+<ul>
+<li>
+<p>Added a function <code>httr()</code> to run R scripts and show output as HTML pages when serving a directory.</p>
+</li>
+<li>
+<p>Added a new argument <code>response</code> to <code>httd()</code> to post-process the response.</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-28" class="unnumbered">servr 0.28</h2>
+<ul>
+<li>Added support for HTTP authentication (thanks, <a href="https://github.com/statquant">@statquant</a>, <a href="https://github.com/yihui/servr/issues/63">#63</a>). For all server functions in this package, you can use the <code>auth</code> argument to provide the authentication scheme and credentials. See the help page <code>?servr::server_config</code> for more info.</li>
+</ul>
+<h2 id="sec:servr-0-27" class="unnumbered">servr 0.27</h2>
+<ul>
+<li>
+<p>Fixed an issue with <code>vign()</code> that when an error occurs in the vignette, <code>vign()</code> wouldn’t stop rebuilding the vignette.</p>
+</li>
+<li>
+<p>Fixed a character encoding issue <a href="https://github.com/yihui/servr/issues/62">#62</a> (thanks, <a href="https://github.com/eternal-flame-AD">@eternal-flame-AD</a>).</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-26" class="unnumbered">servr 0.26</h2>
+<ul>
+<li>
+<p><code>vign()</code> also watches for changes in js/css files now.</p>
+</li>
+<li>
+<p>Stop using the <code>encoding</code> argument of <code>knitr::knit()</code> and <code>rmarkdown::render()</code>.</p>
+</li>
+<li>
+<p>Removed the experimental function <code>notebook()</code> from several years ago.</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-25" class="unnumbered">servr 0.25</h2>
+<ul>
+<li>
+<p>Added a function <code>create_server()</code> to create a server with a custom HTTP request handler and optionally a WebSocket handler.</p>
+</li>
+<li>
+<p>Added a function <code>redirect()</code> to return a redirect response.</p>
+</li>
+<li>
+<p>Added a new argument <code>exclude</code> to <code>random_port()</code> to exclude certain port numbers when generating a random available port.</p>
+</li>
+<li>
+<p>The <code>baseurl</code> argument works for all server functions now, such as <code>httd()</code>.</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-24" class="unnumbered">servr 0.24</h2>
+<ul>
+<li>When searching for an available random port via <code>servr::random_port()</code> on the host <code>127.0.0.1</code>, the availability of the port is also tested on <code>0.0.0.0</code> by default. This is to avoid the situation where a port has been used on <code>0.0.0.0</code> but <strong>httpuv</strong> still thinks it is available on <code>127.0.0.1</code>. If you want to skip this additional testing, you may set <code>options(servr.test.0.0.0.0 = FALSE)</code>.</li>
+</ul>
+<h2 id="sec:servr-0-23" class="unnumbered">servr 0.23</h2>
+<ul>
+<li>Updated the list of ports considered unsafe by Chrome (thanks, <a href="https://github.com/RLesur">@RLesur</a>, <a href="https://github.com/yihui/servr/issues/56">#56</a>).</li>
+</ul>
+<h2 id="sec:servr-0-22" class="unnumbered">servr 0.22</h2>
+<ul>
+<li>When the global option <code>options(servr.test.0.0.0.0 = TRUE)</code>, <code>random_port()</code> tests the availability of a port at the host address <code>0.0.0.0</code> when the requested host address is <code>127.0.0.1</code>.</li>
+</ul>
+<h2 id="sec:servr-0-21" class="unnumbered">servr 0.21</h2>
+<ul>
+<li>
+<p>Added a new argument <code>hosturl</code> to <code>server_config()</code>.</p>
+</li>
+<li>
+<p>Added a new argument <code>filter</code> to <code>httw()</code> to allow users to filter file paths on the watch list (thanks, <a href="https://github.com/ARawles">@ARawles</a>, <a href="https://github.com/yihui/servr/issues/51">#51</a>).</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-20" class="unnumbered">servr 0.20</h2>
+<ul>
+<li><code>server_config()</code> will add a leading <code>/</code> to <code>baseurl</code> if it has not already been included.</li>
+</ul>
+<h2 id="sec:servr-0-19" class="unnumbered">servr 0.19</h2>
+<ul>
+<li><code>server_config()</code> also returns the <code>daemon</code> value in the list.</li>
+</ul>
+<h2 id="sec:servr-0-18" class="unnumbered">servr 0.18</h2>
+<ul>
+<li>
+<p>Fixed the malformed Accept-Ranges header (thanks, <a href="https://github.com/JasonPunyon">@JasonPunyon</a>, <a href="https://github.com/yihui/servr/issues/47">#47</a>).</p>
+</li>
+<li>
+<p><code>servr::random_port()</code> looks for an available port quietly via <code>httpuv::startServer(quiet = TRUE)</code>. This requires <strong>httpuv</strong> &gt;= v1.5.2.</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-17" class="unnumbered">servr 0.17</h2>
+<ul>
+<li>Added an argument <code>open</code> to <code>servr::browse_last()</code> so users can decide whether to reopen the lastly browsed page.</li>
+</ul>
+<h2 id="sec:servr-0-16" class="unnumbered">servr 0.16</h2>
+<ul>
+<li>Refinements to HTTP range request responses. Open-ended range requests (including “Range: bytes=0-”) should now be correctly handled (thanks, <a href="https://github.com/raymondben">@raymondben</a>, <a href="https://github.com/yihui/servr/issues/41">#41</a>).</li>
+</ul>
+<h2 id="sec:servr-0-15" class="unnumbered">servr 0.15</h2>
+<ul>
+<li>When the environment variable <code>R_SERVR_PORT</code> is set, <code>server_config()</code> may issue a superfluous warning “createTcpServer: address already in use” due to an unnecessary call to <code>random_port()</code> (thanks, <a href="https://github.com/itcarroll">@itcarroll</a>, <a href="https://github.com/yihui/servr/issues/39">#39</a>).</li>
+</ul>
+<h2 id="sec:servr-0-14" class="unnumbered">servr 0.14</h2>
+<ul>
+<li>The argument <code>host</code> in <code>server_config()</code> can be configured through the global option <code>servr.host</code> now, e.g., <code>options(servr.host = '0.0.0.0')</code>.</li>
+</ul>
+<h2 id="sec:servr-0-13" class="unnumbered">servr 0.13</h2>
+<ul>
+<li>
+<p>Added a <code>verbose</code> argument to <code>server_config()</code>.</p>
+</li>
+<li>
+<p>The <code>interval</code> argument of <code>server_config()</code> can be set via the global option <code>servr.interval</code> now. For example, <code>options(servr.interval = 0.5)</code>.</p>
+</li>
+<li>
+<p>Server functions such as <code>httd()</code> now return the config object created by <code>server_config()</code> instead of the server handle returned by <code>httpuv::startServer()</code>. The config object contains various information about the server and methods to start/stop the server.</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-12" class="unnumbered">servr 0.12</h2>
+<ul>
+<li>
+<p>Exported the function <code>random_port()</code> to return an available random TCP port.</p>
+</li>
+<li>
+<p><code>daemon_list()</code> returns server IDs instead of handles, so that it will work with httpuv &gt;= v1.4.5.1 (rstudio/blogdown#365).</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-11" class="unnumbered">servr 0.11</h2>
+<ul>
+<li>The default value of the <code>port</code> argument of <code>server_config()</code> can be set via the environment variable <code>R_SERVR_PORT</code>. If the environment variable does not exist, the global option <code>servr.port</code> will be used if set, e.g., <code>options(servr.port = 4322)</code>. See <code>?servr::server_config</code> for details.</li>
+</ul>
+<h2 id="sec:servr-0-10" class="unnumbered">servr 0.10</h2>
+<ul>
+<li>
+<p>Added a function <code>browse_last()</code> to reopen the last browsed page.</p>
+</li>
+<li>
+<p>The <code>daemon</code> argument in <code>server_config()</code> now defaults to <code>interactive()</code>, i.e., <strong>servr</strong> starts a daemonized server that does not block your interactive R session by default.</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-9" class="unnumbered">servr 0.9</h2>
+<ul>
+<li>The web browser may be opened too early (before the server is ready) (originally reported at <a href="https://github.com/rstudio/rstudio/issues/2475">rstudio/rstudio#2475</a>).</li>
+</ul>
+<h2 id="sec:servr-0-8" class="unnumbered">servr 0.8</h2>
+<ul>
+<li>added another implementation of the daemonized server based on the later package, since the previous implmentation based on <code>httpuv::startDaemonizedServer()</code> could crash the R session on Windows</li>
+</ul>
+<h2 id="sec:servr-0-7" class="unnumbered">servr 0.7</h2>
+<ul>
+<li>
+<p>added a new argument <code>watch</code> to <code>servr::httw()</code></p>
+</li>
+<li>
+<p>exported the function <code>server_config()</code></p>
+</li>
+<li>
+<p>files/directories that contain multibyte characters in path names cannot be served correctly (thanks, Hao Peng)</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-6" class="unnumbered">servr 0.6</h2>
+<ul>
+<li>
+<p>on 404 (page not found), 404.html will be displayed if it exists under the root directory</p>
+</li>
+<li>
+<p>improved the support for HTTP Range requests, e.g. servr can correctly serve MP4 videos now in major browsers including Safari</p>
+</li>
+<li>
+<p>servr should decode requested paths before reading them (<a href="https://github.com/rstudio/blogdown/issues/85">https://github.com/rstudio/blogdown/issues/85</a>)</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-5" class="unnumbered">servr 0.5</h2>
+<ul>
+<li>
+<p>added an argument <code>initpath</code> to <code>server_config()</code> so you can open a specific path initially in the web browser</p>
+</li>
+<li>
+<p>the <code>daemon</code> argument of <code>server_config()</code> takes the default value from the global option <code>getOption('servr.daemon')</code> now, e.g., you can set <code>options(servr.daemon = TRUE)</code> so that the daemonized server is always used</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-4-1" class="unnumbered">servr 0.4.1</h2>
+<ul>
+<li>
+<p>excluded ports considered unsafe by Chrome <a href="http://superuser.com/a/188070">http://superuser.com/a/188070</a> when selecting a random port automatically</p>
+</li>
+<li>
+<p>fixed a bug in 301 redirection when serving a directory without the trailing slash</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-4" class="unnumbered">servr 0.4</h2>
+<ul>
+<li>
+<p>you can disable websocket listening on an HTML page using a special HTML comment <code>&lt;!-- DISABLE-SERVR-WEBSOCKET --&gt;</code> when servr is serving and watching a directory, so that this page will not communicate with R (e.g. when it is updated, R will not send signals to refresh it) (thanks <a href="https://github.com/hafen">@hafen</a>, <a href="https://github.com/yihui/servr/issues/25">#25</a>)</p>
+</li>
+<li>
+<p>a random TCP port will be used if the port 4321 is not available</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-3" class="unnumbered">servr 0.3</h2>
+<ul>
+<li>
+<p>added a function <code>httw()</code> to watch for changes under a directory and refresh an HTML page automatically (if it is being viewed in the browser) when any files are modified</p>
+</li>
+<li>
+<p>servr accepts HTTP Range requests now (thanks, <a href="https://github.com/rekado">@rekado</a>, <a href="https://github.com/yihui/servr/issues/21">#21</a>)</p>
+</li>
+<li>
+<p>servr did not work with RStudio Server (#20)</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-2" class="unnumbered">servr 0.2</h2>
+<ul>
+<li>
+<p>when running inside RStudio, the RStudio web browser will be used if available (requires RStudio &gt;= 0.98.439)</p>
+</li>
+<li>
+<p>added three server functions jekyll(), rmdv1(), and rmdv2() to serve Jekyll websites, R Markdown v1, and R Markdown v2 documents, respectively</p>
+</li>
+<li>
+<p>added a server function vign() to serve R Markdown/HTML package vignettes</p>
+</li>
+<li>
+<p>added a server function make() to serve a directory and update files automatically via Makefile (#2)</p>
+</li>
+<li>
+<p>the URL pathname foo will be redirected to foo/ automatically if foo is a directory (#5)</p>
+</li>
+<li>
+<p>in case of errors when serving dynamic documents, the server functions will double the delay to check for updates and wait for the next build until the error is cleared (like Gmail)</p>
+</li>
+</ul>
+<h2 id="sec:servr-0-1" class="unnumbered">servr 0.1</h2>
+<ul>
+<li>the main function httd() to start an HTTP server for a local directory</li>
+</ul>
+</div>
+<footer><div class="flex-col">
+<p>Developed by <a href="https://yihui.org">Yihui Xie</a></p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.9.9</p>
+</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/sidenotes.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/appendix.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/toc-highlight.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/copy-button.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/heading-anchor.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.44/js/pages.min.js" defer></script>
+</body>
+</html>

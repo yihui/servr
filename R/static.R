@@ -298,82 +298,46 @@ modify_path = function(req, baseurl) {
 serve_dir = function(dir = '.', response = NULL) function(req) {
   owd = setwd(dir); on.exit(setwd(owd), add = TRUE)
   path = decode_path(req)
-  status = 200L
+  if (grepl('^/', path)) path = paste0('.', path)
 
-  if (grepl('^/', path)) {
-    path = paste('.', path, sep = '')  # the requested file
-  } else if (path == '') path = '.'
-  body = if (file_test('-d', path)) {
-    # ensure a trailing slash if the requested dir does not have one
-    if (path != '.' && !grepl('/$', path)) return(redirect(sprintf('%s/', req$PATH_INFO)))
-    type = 'text/html'
-    if (file.exists(idx <- file.path(path, 'index.html'))) {
-      readLines(idx, warn = FALSE)
-    } else {
-      d = file.info(list.files(path, all.files = TRUE, full.names = TRUE))
-      title = xfun::html_escape(path)
-      html_doc(c(sprintf('<h1>Index of %s</h1>', title), fileinfo_table(d)),
-               title = title)
-    }
-  } else {
-    # use the custom 404.html only if the path looks like a directory or .html
-    try_404 = function(path) {
-      file.exists('404.html') && grepl('(/|[.]html)$', path, ignore.case = TRUE)
-    }
-    # FIXME: using 302 here because 404.html may contain relative paths, e.g. if
-    # /foo/bar/hi.html gives 404, I cannot just read 404.html and display it,
-    # because it will be treated as /foo/bar/404.html; if 404.html contains
-    # paths like ./css/style.css, I don't know how to let the browser know that
-    # it means /css/style.css instead of /foo/bar/css/style.css
-    if (!file.exists(path)) return(if (path == './favicon.ico') list(
-      status = 200L, body = xfun::read_bin(file.path(R.home('doc'), 'html', 'favicon.ico')),
-      headers = list('Content-Type' = 'image/x-icon')
-    ) else if (try_404(path)) list(
-      status = 302L, body = '', headers = list('Location' = '/404.html')
-    ) else list(
-      status = 404L, headers = list('Content-Type' = 'text/plain'),
-      body = paste2('Not found:', path)
-    ))
-
-    type = guess_type(path)
-    range = req$HTTP_RANGE
-
-    if (is.null(range)) {
-      xfun::read_bin(path)
-    } else {
-      range = strsplit(range, split = "(=|-)")[[1]]
-      b2 = as.numeric(range[2])
-      if (length(range) == 2 && range[1] == "bytes") {
-        # open-ended range request
-        # e.g. Chrome sends the range request 'bytes=0-'
-        # http://stackoverflow.com/a/18745164/559676
-        range[3] = file_size(path) - 1
-      }
-      b3 = as.numeric(range[3])
-      if (length(range) < 3 || (range[1] != "bytes") || (b2 >= b3))
-        return(list(
-          status = 416L, headers = list('Content-Type' = 'text/plain'),
-          body = 'Requested range not satisfiable\r\n'
-        ))
-
-      status = 206L  # partial content
-      # type may also need to be changed
-      # e.g. to "multipart/byteranges" if multipart range support is added at a later date
-      # or possibly to "application/octet-stream" for binary files
-
-      con = file(path, open = "rb", raw = TRUE)
-      on.exit(close(con))
-      seek(con, where = b2, origin = "start")
-      readBin(con, 'raw', b3 - b2 + 1)
-    }
-  }
-  if (is.character(body) && length(body) > 1) body = paste2(body)
-  res = list(
-    status = status, body = body,
-    headers = c(list('Content-Type' = type), if (status == 206L) list(
-      'Content-Range' = paste0("bytes ", range[2], "-", range[3], "/", file_size(path))
-      ),
-      'Accept-Ranges' = 'bytes') # indicates that the server supports range requests
+  r = xfun:::resolve_path(path)
+  res = switch(
+    r$action,
+    `add-slash` = redirect(sprintf('%s/', req$PATH_INFO), 301L),
+    `404-redirect` = redirect('/404.html', 302L),
+    payload = list(
+      status = r$status, body = r$body,
+      headers = list('Content-Type' = r$mime, 'Accept-Ranges' = 'bytes')
+    ),
+    file = serve_file(r$path, r$mime, req$HTTP_RANGE)
   )
+  if (is.character(res$body) && length(res$body) > 1) res$body = paste2(res$body)
   if (is.function(response)) response(path, res) else res
+}
+
+# Read a file body for an httpuv response, honoring an optional Range header.
+serve_file = function(path, type, range) {
+  if (is.null(range)) return(list(
+    status = 200L, body = xfun::read_bin(path),
+    headers = list('Content-Type' = type, 'Accept-Ranges' = 'bytes')
+  ))
+  range = strsplit(range, split = '(=|-)')[[1]]
+  b2 = as.numeric(range[2])
+  # open-ended range request, e.g. Chrome sends 'bytes=0-'
+  # http://stackoverflow.com/a/18745164/559676
+  if (length(range) == 2 && range[1] == 'bytes') range[3] = file_size(path) - 1
+  b3 = as.numeric(range[3])
+  if (length(range) < 3 || range[1] != 'bytes' || b2 >= b3) return(list(
+    status = 416L, headers = list('Content-Type' = 'text/plain'),
+    body = 'Requested range not satisfiable\r\n'
+  ))
+  con = file(path, open = 'rb', raw = TRUE); on.exit(close(con))
+  seek(con, where = b2, origin = 'start')
+  list(
+    status = 206L, body = readBin(con, 'raw', b3 - b2 + 1),
+    headers = list(
+      'Content-Type' = type, 'Accept-Ranges' = 'bytes',
+      'Content-Range' = paste0('bytes ', range[2], '-', range[3], '/', file_size(path))
+    )
+  )
 }

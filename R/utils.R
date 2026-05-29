@@ -3,40 +3,6 @@
 
 servrEnv = new.env(parent = emptyenv())
 
-# turn file.info() to an HTML table
-fileinfo_table = function(info) {
-  info = info[order(info$isdir, decreasing = TRUE), ]
-  d = info$isdir; i = !is.na(d)
-  # files/dirs
-  x1 = paste(basename(rownames(info)), ifelse(d & i, '/', ''), sep = '')
-  x1 = xfun::html_escape(x1)
-  x1[i] = sprintf('<a href="%s">%s</a>', x1[i], x1[i])
-  # size
-  x2 = paste(format(info$size, scientific = FALSE, big.mark = ','), 'B')
-  x2[is.na(info$size) | d] = ''
-  # date modified
-  x3 = as.character(info$mtime)
-  x3[is.na(x3)] = ''
-  c('<table>',
-    '<thead><tr>',
-    sprintf('<th>%s</th>', c('Name', 'Size', 'Date Modified')),
-    '</tr></thead>',
-    apply(cbind(
-      '<tr>',
-      sprintf('<td>%s</td>', x1),
-      sprintf('<td align="right">%s</td>', x2),
-      sprintf('<td>%s</td>', x3),
-      '</tr>'), 1, paste, collapse = ''),
-    '</table>')
-}
-
-# make an HTML document from body and title
-html_doc = function(body, title = NULL) {
-  c('<!DOCTYPE html>', '<html>',
-    '<head>', sprintf('<title>%s</title>', title), '</head>',
-    '<body>', body, '</body>', '</html>')
-}
-
 is_rstudio = function() {
   requireNamespace('rstudioapi', quietly = TRUE) && rstudioapi::isAvailable()
 }

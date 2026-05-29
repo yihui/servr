@@ -2,6 +2,8 @@
 
 - The package has a documentation site now: https://git.yihui.org/servr/
 
+- Requires **xfun** >= 0.58. The internal helpers `fileinfo_table()` and `html_doc()` for rendering directory listings have been moved into **xfun** and are now shared between **servr** and `xfun::serve_dir()`.
+
 # CHANGES IN servr VERSION 0.32
 
 - Requires **xfun** >= 0.48.

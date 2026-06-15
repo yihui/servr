@@ -19,7 +19,7 @@ Depends:
 Imports:
     mime (>= 0.2),
     httpuv (>= 1.5.2),
-    xfun (>= 0.57.11),
+    xfun (>= 0.58),
     jsonlite
 Suggests:
     tools,
@@ -31,5 +31,4 @@ License: GPL
 URL: https://github.com/yihui/servr
 BugReports: https://github.com/yihui/servr/issues
 Encoding: UTF-8
-Remotes: yihui/xfun
 Config/roxygen2/version: 8.0.0

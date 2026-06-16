@@ -1,3 +1,6 @@
+# CHANGES IN servr VERSION 0.34
+
+
 # CHANGES IN servr VERSION 0.33
 
 - The package has a documentation site now: https://git.yihui.org/servr/

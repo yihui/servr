@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/yihui/servr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/yihui/servr/actions/workflows/R-CMD-check.yaml)
 [![CRAN release](https://www.r-pkg.org/badges/version/servr)](https://cran.r-project.org/package=servr)
+[![Build site](https://github.com/yihui/servr/actions/workflows/litedown-site.yml/badge.svg)](https://github.com/yihui/servr/actions/workflows/litedown-site.yml)
 <!-- badges: end -->
 
 
